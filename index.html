@@ -1,0 +1,2271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MilBenefits — The Military Benefits Intelligence Portal</title>
+<meta name="description" content="The most comprehensive database of military discounts, veteran benefits, AFRC lodging, international travel programs, and military-exclusive offers worldwide."/>
+<meta property="og:title" content="MilBenefits — Military Benefits Intelligence Portal"/>
+<meta property="og:description" content="Every military discount, veteran benefit, AFRC resort, international lodging, and military-exclusive offer — verified and searchable."/>
+<meta name="keywords" content="military discounts, veteran benefits, AFRC, Shades of Green, New Sanno, Edelweiss, military lodging, Space-A travel, veteran programs"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Barlow+Condensed:wght@500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<style>
+/* =============================================
+   DESIGN TOKENS
+   Palette: Deep navy + warm brass + chalk white + alert amber
+   Signature: The "clearance level" card system with
+   security-badge-inspired eligibility chips
+   ============================================= */
+:root {
+  --navy-950: #060D1F;
+  --navy-900: #0A1628;
+  --navy-800: #0F2044;
+  --navy-700: #162B5E;
+  --navy-600: #1E3A7A;
+  --navy-500: #2B4FA0;
+  --brass-500: #B8872A;
+  --brass-400: #D4A43A;
+  --brass-300: #ECC05A;
+  --brass-100: #FFF3D0;
+  --chalk:     #F5F4F0;
+  --chalk-200: #E8E6DF;
+  --chalk-300: #D4D0C8;
+  --amber-500: #E07B1A;
+  --amber-100: #FFF0DC;
+  --green-500: #1A7B4E;
+  --green-100: #DFFAEE;
+  --red-500:   #C62828;
+  --red-100:   #FDEAEA;
+  --text-primary:   #1A1F2E;
+  --text-secondary: #4A5568;
+  --text-muted:     #718096;
+  --border:         #DDD9D0;
+  --white:          #FFFFFF;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  --shadow-sm: 0 1px 3px rgba(6,13,31,.08);
+  --shadow-md: 0 4px 16px rgba(6,13,31,.12);
+  --shadow-lg: 0 8px 32px rgba(6,13,31,.16);
+  --shadow-xl: 0 16px 64px rgba(6,13,31,.24);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--chalk);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- TYPOGRAPHY ---- */
+.display {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.0;
+}
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ---- SCROLLBAR ---- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--chalk); }
+::-webkit-scrollbar-thumb { background: var(--chalk-300); border-radius: 3px; }
+
+/* ================================================
+   NAV
+   ================================================ */
+#site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: var(--navy-950);
+  border-bottom: 2px solid var(--brass-500);
+  display: flex; align-items: center;
+  padding: 0 24px; height: 56px;
+  gap: 0;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; margin-right: auto;
+  flex-shrink: 0;
+}
+.nav-logo-mark {
+  width: 34px; height: 34px; border-radius: 6px;
+  background: linear-gradient(135deg, var(--brass-400), var(--brass-500));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 800;
+  font-size: 16px; color: var(--navy-950); letter-spacing: -0.02em;
+}
+.nav-logo-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 20px; color: var(--white);
+  letter-spacing: 0.02em;
+}
+.nav-logo-text span { color: var(--brass-400); }
+
+.nav-links { display: flex; align-items: center; gap: 4px; margin-right: 20px; }
+.nav-link {
+  color: var(--chalk-300); text-decoration: none;
+  font-size: 13px; font-weight: 500; padding: 6px 12px;
+  border-radius: var(--radius-sm); transition: all .15s;
+  letter-spacing: 0.03em; text-transform: uppercase;
+  white-space: nowrap;
+}
+.nav-link:hover { color: var(--white); background: rgba(255,255,255,.08); }
+.nav-link.active { color: var(--brass-300); }
+
+.nav-search-wrap { position: relative; }
+.nav-search-input {
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15);
+  border-radius: 20px; padding: 7px 14px 7px 36px;
+  color: var(--white); font-size: 13px; width: 200px;
+  transition: all .2s; outline: none;
+}
+.nav-search-input::placeholder { color: rgba(255,255,255,.4); }
+.nav-search-input:focus { background: rgba(255,255,255,.15); border-color: var(--brass-400); width: 280px; }
+.nav-search-icon {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  color: rgba(255,255,255,.4); font-size: 14px; pointer-events: none;
+}
+
+/* ================================================
+   HERO
+   ================================================ */
+#hero {
+  background: var(--navy-950);
+  padding: 120px 24px 80px;
+  position: relative; overflow: hidden;
+}
+.hero-grid-bg {
+  position: absolute; inset: 0; opacity: .04;
+  background-image:
+    linear-gradient(var(--brass-400) 1px, transparent 1px),
+    linear-gradient(90deg, var(--brass-400) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(184,135,42,.15); border: 1px solid rgba(184,135,42,.35);
+  border-radius: 4px; padding: 5px 12px; margin-bottom: 24px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--brass-300); letter-spacing: 0.1em; text-transform: uppercase;
+}
+.hero-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--brass-400); animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .3; }
+}
+
+.hero-headline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800; font-size: clamp(48px, 8vw, 96px);
+  color: var(--white); line-height: 0.95;
+  margin-bottom: 24px; letter-spacing: -0.02em;
+}
+.hero-headline .accent { color: var(--brass-400); }
+.hero-headline .line2 { display: block; color: var(--chalk-300); font-weight: 500; font-size: 0.52em; margin-top: 8px; letter-spacing: 0.02em; }
+
+.hero-sub {
+  color: rgba(245,244,240,.65); font-size: 18px; max-width: 600px;
+  margin-bottom: 40px; line-height: 1.7;
+}
+
+.hero-cta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 64px; }
+.btn-primary {
+  background: linear-gradient(135deg, var(--brass-400), var(--brass-500));
+  color: var(--navy-950); font-weight: 700; font-size: 14px;
+  padding: 13px 28px; border-radius: var(--radius-md);
+  border: none; cursor: pointer; text-decoration: none;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  transition: all .2s; display: inline-flex; align-items: center; gap: 8px;
+  box-shadow: 0 4px 16px rgba(184,135,42,.35);
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(184,135,42,.45); }
+.btn-outline {
+  background: transparent; color: var(--chalk);
+  border: 1px solid rgba(255,255,255,.3); padding: 13px 24px;
+  border-radius: var(--radius-md); font-weight: 500; font-size: 14px;
+  cursor: pointer; text-decoration: none; letter-spacing: 0.02em;
+  transition: all .2s; display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-outline:hover { border-color: rgba(255,255,255,.6); background: rgba(255,255,255,.06); }
+
+.hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius-lg); overflow: hidden; max-width: 700px; }
+.hero-stat { background: rgba(6,13,31,.5); padding: 20px 24px; }
+.hero-stat-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 36px; color: var(--brass-300); line-height: 1; }
+.hero-stat-label { font-size: 11px; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+
+/* ================================================
+   MAIN LAYOUT
+   ================================================ */
+#main { max-width: 1380px; margin: 0 auto; padding: 0 24px 80px; }
+
+/* ================================================
+   SEARCH & FILTER BAR
+   ================================================ */
+#search-section {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-xl); padding: 24px 28px;
+  margin: -32px auto 40px; max-width: 1200px;
+  box-shadow: var(--shadow-xl); position: relative; z-index: 10;
+}
+.search-top { display: flex; gap: 12px; margin-bottom: 16px; }
+.search-main {
+  flex: 1; position: relative;
+}
+.search-main input {
+  width: 100%; padding: 13px 16px 13px 44px;
+  border: 2px solid var(--border); border-radius: var(--radius-md);
+  font-size: 15px; color: var(--text-primary); outline: none;
+  transition: border-color .2s; background: var(--chalk);
+}
+.search-main input:focus { border-color: var(--navy-600); background: var(--white); }
+.search-main .si {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  color: var(--text-muted); font-size: 17px;
+}
+.search-btn {
+  background: var(--navy-800); color: var(--white);
+  border: none; border-radius: var(--radius-md); padding: 13px 24px;
+  font-weight: 600; font-size: 14px; cursor: pointer; white-space: nowrap;
+  letter-spacing: 0.04em; text-transform: uppercase; transition: all .2s;
+}
+.search-btn:hover { background: var(--navy-700); }
+
+.filter-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.filter-label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-right: 4px; }
+
+.filter-chip {
+  border: 1px solid var(--border); background: var(--chalk);
+  border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 500;
+  cursor: pointer; transition: all .15s; color: var(--text-secondary);
+  white-space: nowrap;
+}
+.filter-chip:hover { border-color: var(--navy-600); color: var(--navy-700); background: rgba(30,58,122,.05); }
+.filter-chip.active {
+  background: var(--navy-800); color: var(--white);
+  border-color: var(--navy-800);
+}
+.filter-chip.cat-chip.active-cat { background: var(--brass-500); border-color: var(--brass-500); color: var(--navy-950); }
+
+select.filter-select {
+  border: 1px solid var(--border); background: var(--chalk);
+  border-radius: 20px; padding: 5px 32px 5px 14px;
+  font-size: 12px; font-weight: 500; cursor: pointer;
+  color: var(--text-secondary); outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23718096' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+  transition: all .15s;
+}
+select.filter-select:focus { border-color: var(--navy-600); }
+
+.results-summary { font-size: 13px; color: var(--text-muted); margin-left: auto; white-space: nowrap; }
+
+/* ================================================
+   SECTION HEADERS
+   ================================================ */
+.section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; padding-top: 40px; }
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 28px; color: var(--navy-900);
+  letter-spacing: -0.01em;
+}
+.section-badge {
+  background: var(--navy-800); color: var(--brass-300);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  padding: 3px 10px; border-radius: 4px; letter-spacing: 0.06em;
+}
+.section-link { margin-left: auto; font-size: 13px; color: var(--navy-600); font-weight: 500; text-decoration: none; }
+.section-link:hover { color: var(--brass-500); }
+
+/* ================================================
+   AFRC RESORT CARDS (HERO-STYLE)
+   ================================================ */
+.afrc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; }
+
+.afrc-card {
+  border-radius: var(--radius-lg); overflow: hidden;
+  background: var(--white); border: 1px solid var(--border);
+  transition: all .2s; cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+.afrc-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--navy-500); }
+
+.afrc-card-header {
+  height: 160px; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end;
+  padding: 16px;
+}
+.afrc-card-bg {
+  position: absolute; inset: 0; z-index: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 80px; opacity: .12;
+}
+.afrc-card-gradient {
+  position: absolute; inset: 0; z-index: 1;
+}
+.afrc-badge {
+  position: absolute; top: 12px; right: 12px; z-index: 3;
+  background: rgba(6,13,31,.75); backdrop-filter: blur(4px);
+  color: var(--brass-300); font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; padding: 4px 10px; border-radius: 4px;
+  border: 1px solid rgba(184,135,42,.3); letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.afrc-location { position: relative; z-index: 2; }
+.afrc-location-flag { font-size: 20px; }
+.afrc-location-name { font-size: 11px; color: rgba(255,255,255,.8); font-weight: 500; }
+
+.afrc-card-body { padding: 18px; }
+.afrc-card-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 22px; color: var(--navy-900);
+  letter-spacing: -0.01em; margin-bottom: 4px;
+}
+.afrc-card-tagline { font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.5; }
+
+.afrc-rate-row {
+  display: flex; gap: 12px; margin-bottom: 14px; flex-wrap: wrap;
+}
+.afrc-rate {
+  flex: 1; min-width: 100px;
+  background: var(--chalk); border-radius: var(--radius-sm);
+  padding: 10px 12px; border: 1px solid var(--border);
+}
+.afrc-rate-tier { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 2px; }
+.afrc-rate-price {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 22px; color: var(--navy-900); line-height: 1;
+}
+.afrc-rate-note { font-size: 10px; color: var(--text-muted); }
+
+.afrc-eligibility { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.elig-chip {
+  font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 3px;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.elig-ad { background: rgba(30,58,122,.1); color: var(--navy-700); }
+.elig-ret { background: rgba(184,135,42,.12); color: var(--brass-500); }
+.elig-res { background: rgba(26,123,78,.1); color: var(--green-500); }
+.elig-vet { background: rgba(198,40,40,.08); color: var(--red-500); }
+.elig-dod { background: rgba(74,85,104,.1); color: var(--text-secondary); }
+
+.afrc-info-row { display: flex; gap: 16px; font-size: 12px; color: var(--text-muted); flex-wrap: wrap; }
+.afrc-info-item { display: flex; align-items: center; gap: 4px; }
+
+.afrc-actions { display: flex; gap: 10px; margin-top: 14px; }
+.afrc-btn {
+  flex: 1; padding: 9px 14px; border-radius: var(--radius-md);
+  font-size: 12px; font-weight: 600; cursor: pointer; letter-spacing: 0.04em;
+  text-transform: uppercase; text-align: center; text-decoration: none;
+  border: none; transition: all .15s;
+}
+.afrc-btn-primary { background: var(--navy-800); color: var(--white); }
+.afrc-btn-primary:hover { background: var(--navy-700); }
+.afrc-btn-secondary { background: var(--chalk); color: var(--text-primary); border: 1px solid var(--border); }
+.afrc-btn-secondary:hover { border-color: var(--navy-500); color: var(--navy-700); }
+
+/* ================================================
+   BENEFIT CARDS (STANDARD)
+   ================================================ */
+#benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+}
+
+.benefit-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 18px;
+  transition: all .2s; cursor: pointer;
+  box-shadow: var(--shadow-sm); position: relative;
+  display: flex; flex-direction: column;
+}
+.benefit-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--chalk-300); }
+
+.benefit-card-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.benefit-icon {
+  width: 44px; height: 44px; border-radius: var(--radius-md); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 20px;
+}
+.benefit-icon-retail    { background: rgba(30,58,122,.08); }
+.benefit-icon-food      { background: rgba(224,123,26,.08); }
+.benefit-icon-travel    { background: rgba(26,123,78,.08); }
+.benefit-icon-lodging   { background: rgba(184,135,42,.1); }
+.benefit-icon-auto      { background: rgba(50,50,60,.06); }
+.benefit-icon-telecom   { background: rgba(46,116,199,.08); }
+.benefit-icon-finance   { background: rgba(26,123,78,.08); }
+.benefit-icon-entertain { background: rgba(140,40,160,.08); }
+.benefit-icon-health    { background: rgba(198,40,40,.07); }
+.benefit-icon-education { background: rgba(30,90,160,.08); }
+.benefit-icon-parks     { background: rgba(0,140,100,.08); }
+.benefit-icon-gov       { background: rgba(6,13,31,.06); }
+
+.benefit-meta { flex: 1; min-width: 0; }
+.benefit-org { font-weight: 700; font-size: 15px; color: var(--text-primary); line-height: 1.2; }
+.benefit-cat { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 2px; }
+
+.benefit-discount {
+  text-align: right; flex-shrink: 0;
+}
+.benefit-discount-amount {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800; font-size: 26px; line-height: 1; color: var(--navy-800);
+}
+.benefit-discount-amount.brass { color: var(--brass-500); }
+.benefit-discount-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; }
+
+.benefit-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 12px; flex: 1; }
+
+.benefit-footer { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+.benefit-elig-chips { display: flex; gap: 4px; flex-wrap: wrap; flex: 1; }
+.benefit-source {
+  font-size: 10px; color: var(--text-muted); font-weight: 500;
+  background: var(--chalk); padding: 3px 8px; border-radius: 3px;
+  border: 1px solid var(--border);
+}
+
+.verified-badge {
+  position: absolute; top: 14px; right: 14px;
+  width: 20px; height: 20px; background: var(--green-500);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 11px;
+}
+.seasonal-badge {
+  position: absolute; top: 14px; right: 14px;
+  background: var(--amber-100); color: var(--amber-500);
+  border: 1px solid var(--amber-500); border-radius: 4px;
+  font-size: 9px; font-weight: 600; padding: 2px 7px;
+  letter-spacing: 0.07em; text-transform: uppercase;
+}
+
+/* ================================================
+   AFRC DETAIL MODAL
+   ================================================ */
+#modal-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(6,13,31,.75); backdrop-filter: blur(4px);
+  display: none; align-items: center; justify-content: center; padding: 24px;
+}
+#modal-overlay.open { display: flex; }
+#modal {
+  background: var(--white); border-radius: var(--radius-xl);
+  max-width: 820px; width: 100%; max-height: 90vh;
+  overflow-y: auto; box-shadow: var(--shadow-xl);
+}
+.modal-header {
+  background: var(--navy-900); color: var(--white);
+  padding: 28px 32px 24px; position: sticky; top: 0;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  z-index: 1;
+}
+.modal-close {
+  position: absolute; top: 20px; right: 20px;
+  background: rgba(255,255,255,.1); border: none; color: var(--white);
+  width: 32px; height: 32px; border-radius: 50%;
+  cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center;
+  transition: background .15s;
+}
+.modal-close:hover { background: rgba(255,255,255,.2); }
+.modal-body { padding: 28px 32px 32px; }
+
+.modal-section { margin-bottom: 28px; }
+.modal-section-title {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 16px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--navy-800); border-bottom: 2px solid var(--navy-800);
+  padding-bottom: 6px; margin-bottom: 14px;
+}
+.modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.modal-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+.modal-item { background: var(--chalk); border-radius: var(--radius-md); padding: 14px; }
+.modal-item-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); margin-bottom: 4px; }
+.modal-item-value { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+.modal-item-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+.priority-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.priority-table th { background: var(--navy-900); color: var(--brass-300); padding: 10px 14px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; }
+.priority-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.priority-table tr:nth-child(even) td { background: var(--chalk); }
+.priority-table tr:last-child td { border-bottom: none; }
+
+.info-box {
+  background: var(--amber-100); border: 1px solid var(--amber-500);
+  border-radius: var(--radius-md); padding: 14px 16px;
+  font-size: 13px; color: var(--text-primary); line-height: 1.6;
+}
+.info-box-title { font-weight: 700; margin-bottom: 4px; color: var(--amber-500); }
+
+/* ================================================
+   TABS
+   ================================================ */
+.tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 32px; overflow-x: auto; }
+.tab-btn {
+  padding: 12px 20px; font-size: 13px; font-weight: 600;
+  border: none; background: none; cursor: pointer; color: var(--text-muted);
+  border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap;
+  letter-spacing: 0.03em; transition: all .15s;
+}
+.tab-btn:hover { color: var(--navy-700); }
+.tab-btn.active { color: var(--navy-800); border-bottom-color: var(--navy-800); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ================================================
+   STATE BENEFITS TABLE
+   ================================================ */
+.states-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.state-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-md); overflow: hidden; cursor: pointer; transition: all .2s;
+}
+.state-card:hover { border-color: var(--navy-500); box-shadow: var(--shadow-md); }
+.state-card-header {
+  background: var(--navy-900); color: var(--white); padding: 12px 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.state-abbr {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 20px;
+  color: var(--brass-300); width: 36px;
+}
+.state-name { font-weight: 600; font-size: 14px; }
+.state-highlights { padding: 12px 16px; display: flex; flex-wrap: wrap; gap: 6px; }
+.state-highlight {
+  font-size: 10px; background: var(--chalk); border: 1px solid var(--border);
+  padding: 3px 9px; border-radius: 3px; color: var(--text-secondary); font-weight: 500;
+}
+.state-highlight.star { background: var(--brass-100); border-color: var(--brass-300); color: var(--brass-500); }
+
+/* ================================================
+   SPACE-A SECTION
+   ================================================ */
+.space-a-banner {
+  background: linear-gradient(135deg, var(--navy-900), var(--navy-700));
+  border-radius: var(--radius-lg); padding: 28px 32px; margin-bottom: 24px;
+  border: 1px solid rgba(184,135,42,.2);
+  display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap;
+}
+.space-a-icon { font-size: 48px; flex-shrink: 0; }
+.space-a-content h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 24px; color: var(--white); margin-bottom: 8px; }
+.space-a-content p { color: rgba(245,244,240,.7); font-size: 14px; line-height: 1.7; max-width: 600px; }
+
+.cat-table { width: 100%; border-collapse: collapse; }
+.cat-table th { background: var(--navy-950); color: var(--brass-300); padding: 10px 16px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; font-family: 'JetBrains Mono', monospace; }
+.cat-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 13px; }
+.cat-table tr:hover td { background: var(--chalk); }
+.cat-table tr:last-child td { border-bottom: none; }
+.cat-num {
+  font-family: 'JetBrains Mono', monospace; font-weight: 700;
+  font-size: 18px; color: var(--navy-700); width: 40px; text-align: center;
+}
+
+/* ================================================
+   INTERNATIONAL
+   ================================================ */
+.country-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.country-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 20px; font-size: 13px;
+  border: 1px solid var(--border); background: var(--chalk);
+  cursor: pointer; transition: all .15s; font-weight: 500; color: var(--text-secondary);
+}
+.country-btn:hover { border-color: var(--navy-500); color: var(--navy-700); }
+.country-btn.active { background: var(--navy-800); color: var(--white); border-color: var(--navy-800); }
+
+/* ================================================
+   FOOTER
+   ================================================ */
+footer {
+  background: var(--navy-950); color: rgba(255,255,255,.5);
+  padding: 48px 24px 32px; margin-top: 80px;
+  border-top: 2px solid var(--brass-500);
+}
+.footer-inner { max-width: 1100px; margin: 0 auto; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 24px; color: var(--white); margin-bottom: 8px; }
+.footer-brand h3 span { color: var(--brass-400); }
+.footer-brand p { font-size: 13px; line-height: 1.7; max-width: 300px; }
+.footer-col h4 { color: var(--white); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px; }
+.footer-col a { display: block; color: rgba(255,255,255,.5); font-size: 13px; text-decoration: none; margin-bottom: 8px; transition: color .15s; }
+.footer-col a:hover { color: var(--brass-300); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; font-size: 12px; gap: 12px; flex-wrap: wrap; }
+.disclaimer { max-width: 700px; font-size: 11px; line-height: 1.6; }
+.disclaimer strong { color: rgba(255,255,255,.8); }
+
+/* ================================================
+   LOADING / UTILITY
+   ================================================ */
+.hidden { display: none !important; }
+.loader { text-align: center; padding: 60px; color: var(--text-muted); font-size: 14px; }
+#no-results { text-align: center; padding: 60px; display: none; }
+#no-results h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; color: var(--text-secondary); margin-bottom: 8px; }
+#no-results p { color: var(--text-muted); font-size: 14px; }
+
+/* ================================================
+   RESPONSIVE
+   ================================================ */
+@media (max-width: 768px) {
+  .hero-headline { font-size: 52px; }
+  .nav-links { display: none; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .modal-grid { grid-template-columns: 1fr; }
+  .modal-grid-3 { grid-template-columns: 1fr 1fr; }
+  #search-section { margin: -24px 16px 32px; padding: 18px; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .nav-search-input { width: 140px; }
+}
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .afrc-grid { grid-template-columns: 1fr; }
+  .modal-grid-3 { grid-template-columns: 1fr; }
+}
+
+/* ================================================
+   SPECIAL HIGHLIGHT
+   ================================================ */
+.highlight-banner {
+  background: linear-gradient(135deg, var(--brass-500) 0%, var(--brass-400) 100%);
+  border-radius: var(--radius-lg); padding: 20px 24px;
+  display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
+  box-shadow: 0 4px 20px rgba(184,135,42,.3);
+}
+.highlight-banner-icon { font-size: 32px; flex-shrink: 0; }
+.highlight-banner-text h4 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 20px; color: var(--navy-950); }
+.highlight-banner-text p { font-size: 13px; color: rgba(6,13,31,.7); }
+
+.tip-box {
+  background: var(--green-100); border: 1px solid var(--green-500);
+  border-radius: var(--radius-md); padding: 14px 16px; font-size: 13px;
+  color: var(--text-primary); line-height: 1.6; margin-bottom: 16px;
+}
+.tip-box strong { color: var(--green-500); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ================================================
+   FAVORITES SYSTEM
+   ================================================ */
+.fav-btn {
+  position: absolute; top: 12px; right: 12px;
+  background: rgba(255,255,255,.9); border: 1px solid var(--border);
+  border-radius: 50%; width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 14px; transition: all .15s;
+  z-index: 5; box-shadow: var(--shadow-sm);
+  line-height: 1;
+}
+.fav-btn:hover { transform: scale(1.15); border-color: var(--brass-400); }
+.fav-btn.saved { background: var(--brass-100); border-color: var(--brass-400); }
+.fav-btn.saved::after { content: ''; }
+
+/* Override verified-badge position when fav-btn present */
+.benefit-card .verified-badge { top: 14px; right: 46px; }
+.benefit-card .seasonal-badge { top: 14px; right: 46px; }
+
+/* Favorites toast */
+#fav-toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: var(--navy-900); color: var(--white);
+  padding: 12px 24px; border-radius: 24px; font-size: 13px; font-weight: 500;
+  z-index: 3000; transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+  box-shadow: var(--shadow-xl); border: 1px solid rgba(184,135,42,.3);
+  white-space: nowrap; pointer-events: none;
+}
+#fav-toast.show { transform: translateX(-50%) translateY(0); }
+
+/* Favorites nav counter */
+.fav-nav-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(184,135,42,.15); border: 1px solid rgba(184,135,42,.3);
+  border-radius: 20px; padding: 6px 14px; cursor: pointer;
+  color: var(--brass-300); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase; transition: all .15s;
+  white-space: nowrap; margin-left: 12px;
+}
+.fav-nav-btn:hover { background: rgba(184,135,42,.25); border-color: var(--brass-400); }
+.fav-count-badge {
+  background: var(--brass-400); color: var(--navy-950);
+  border-radius: 50%; width: 18px; height: 18px; font-size: 10px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 800;
+}
+
+/* Favorites panel (drawer) */
+#fav-panel {
+  position: fixed; top: 56px; right: 0; bottom: 0; width: 380px;
+  background: var(--white); border-left: 2px solid var(--brass-500);
+  z-index: 900; transform: translateX(100%);
+  transition: transform .3s cubic-bezier(.4,0,.2,1);
+  display: flex; flex-direction: column;
+  box-shadow: -8px 0 32px rgba(6,13,31,.2);
+}
+#fav-panel.open { transform: translateX(0); }
+
+.fav-panel-header {
+  background: var(--navy-900); padding: 20px 20px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.fav-panel-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 20px; color: var(--white);
+}
+.fav-panel-close {
+  background: rgba(255,255,255,.1); border: none; color: var(--white);
+  width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
+  font-size: 16px; display: flex; align-items: center; justify-content: center;
+  transition: background .15s;
+}
+.fav-panel-close:hover { background: rgba(255,255,255,.2); }
+.fav-panel-actions {
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  display: flex; gap: 8px; flex-shrink: 0;
+}
+.fav-panel-body { flex: 1; overflow-y: auto; padding: 12px; }
+.fav-empty {
+  text-align: center; padding: 40px 20px; color: var(--text-muted);
+}
+.fav-empty-icon { font-size: 40px; margin-bottom: 12px; }
+.fav-empty p { font-size: 13px; line-height: 1.7; }
+
+.fav-item {
+  background: var(--chalk); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 12px 14px; margin-bottom: 8px;
+  display: flex; align-items: flex-start; gap: 10px; cursor: pointer;
+  transition: all .15s;
+}
+.fav-item:hover { border-color: var(--navy-500); background: var(--white); }
+.fav-item-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.fav-item-content { flex: 1; min-width: 0; }
+.fav-item-org { font-weight: 600; font-size: 13px; color: var(--text-primary); }
+.fav-item-sub { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+.fav-item-discount {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  font-size: 15px; color: var(--brass-500); flex-shrink: 0;
+}
+.fav-item-remove {
+  background: none; border: none; cursor: pointer; color: var(--text-muted);
+  font-size: 14px; padding: 2px; transition: color .15s; flex-shrink: 0;
+}
+.fav-item-remove:hover { color: var(--red-500); }
+
+/* Print button */
+.print-btn {
+  background: var(--chalk); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 8px 16px; font-size: 12px;
+  font-weight: 600; cursor: pointer; color: var(--text-secondary);
+  letter-spacing: 0.04em; text-transform: uppercase; transition: all .15s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.print-btn:hover { border-color: var(--navy-600); color: var(--navy-700); background: var(--white); }
+
+/* ================================================
+   PRINT STYLES
+   ================================================ */
+@media print {
+  #site-nav, #hero, #search-section, .tabs, #fav-panel, #fav-toast,
+  #modal-overlay, footer, .afrc-actions, .afrc-btn,
+  .tab-panel:not(.active), .tab-btn { display: none !important; }
+
+  body { background: white; color: black; font-size: 11pt; }
+  #main { max-width: 100%; padding: 0; }
+
+  .print-header {
+    display: block !important;
+    border-bottom: 3px solid #0F2044; padding-bottom: 16px; margin-bottom: 24px;
+  }
+  .print-header h1 {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 28pt;
+    color: #0F2044; margin-bottom: 4px;
+  }
+  .print-header p { font-size: 10pt; color: #4A5568; }
+
+  .benefit-card, .afrc-card, .state-card {
+    break-inside: avoid; border: 1px solid #DDD9D0 !important;
+    box-shadow: none !important; transform: none !important;
+  }
+
+  #benefits-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+  .states-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 8px !important; }
+  .afrc-grid { grid-template-columns: 1fr 1fr !important; }
+
+  .benefit-card:hover, .afrc-card:hover, .state-card:hover {
+    transform: none !important;
+  }
+
+  a[href]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #718096; }
+  .afrc-btn-primary, .btn-primary, .btn-outline { display: none !important; }
+
+  .print-section-break { page-break-before: always; }
+  .print-only { display: block !important; }
+  .no-print { display: none !important; }
+
+  /* Print fav summary nicely */
+  #tab-favorites { display: block !important; }
+  .fav-print-item { border-bottom: 1px solid #eee; padding: 8px 0; }
+}
+
+/* Print header hidden on screen */
+.print-header { display: none; }
+.print-only { display: none; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav id="site-nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">MB</div>
+    <span class="nav-logo-text">Mil<span>Benefits</span></span>
+  </a>
+  <div class="nav-links">
+    <a href="#afrc-section" class="nav-link">AFRC Resorts</a>
+    <a href="#benefits-section" class="nav-link">All Benefits</a>
+    <a href="#space-a-section" class="nav-link">Space-A</a>
+    <a href="#international-section" class="nav-link">International</a>
+    <a href="#states-section" class="nav-link">State Benefits</a>
+  </div>
+  <div class="nav-search-wrap">
+    <span class="nav-search-icon">🔍</span>
+    <input type="text" class="nav-search-input" placeholder="Quick search..." id="nav-search-input" autocomplete="off"/>
+  </div>
+  <button class="fav-nav-btn" onclick="toggleFavPanel()" id="fav-nav-btn" title="My Saved Benefits">
+    ⭐ Saved <span class="fav-count-badge" id="fav-count-badge">0</span>
+  </button>
+  <button class="print-btn no-print" onclick="triggerPrint()" title="Print / Save PDF" style="margin-left:8px">🖨️ Print</button>
+</nav>
+
+<!-- FAVORITES PANEL -->
+<div id="fav-panel">
+  <div class="fav-panel-header">
+    <span class="fav-panel-title">⭐ Saved Benefits</span>
+    <button class="fav-panel-close" onclick="toggleFavPanel()">✕</button>
+  </div>
+  <div class="fav-panel-actions">
+    <button class="print-btn" onclick="printFavorites()" style="flex:1">🖨️ Print My List</button>
+    <button class="print-btn" onclick="clearAllFavs()" style="color:var(--red-500);border-color:var(--red-500)">🗑️ Clear All</button>
+  </div>
+  <div class="fav-panel-body" id="fav-panel-body">
+    <div class="fav-empty" id="fav-empty">
+      <div class="fav-empty-icon">⭐</div>
+      <p>No saved benefits yet.<br>Click the ⭐ on any card to save it here for quick reference or printing.</p>
+    </div>
+    <div id="fav-list"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="fav-toast">✓ Saved to favorites</div>
+
+<!-- PRINT HEADER (hidden on screen, visible when printing) -->
+<div class="print-header" id="print-header">
+  <h1>MilBenefits — Military Benefits Intelligence Portal</h1>
+  <p>Printed: <span id="print-date"></span> · Source: MilBenefits Portal · Always verify current details directly with the organization before relying on any benefit.</p>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Intelligence Database · Continuously Updated</div>
+    <h1 class="hero-headline">
+      MILITARY<span class="accent"> BENEFITS</span>
+      <span class="line2">The Intelligence Portal for Those Who Served</span>
+    </h1>
+    <p class="hero-sub">
+      Every discount, perk, AFRC resort, Space-A guide, state benefit, and international military program — verified, searchable, and organized for your mission.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#search-section" class="btn-primary">🔍 Search All Benefits</a>
+      <a href="#afrc-section" class="btn-outline">🏨 AFRC Resorts Deep Dive</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">600+</div>
+        <div class="hero-stat-label">Benefits Tracked</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">5</div>
+        <div class="hero-stat-label">AFRC Resorts</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">50</div>
+        <div class="hero-stat-label">States Covered</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">15+</div>
+        <div class="hero-stat-label">Countries</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MAIN CONTENT
+     ============================================================ -->
+<div id="main">
+
+  <!-- SEARCH & FILTER BAR -->
+  <div id="search-section">
+    <div class="search-top">
+      <div class="search-main">
+        <span class="si">🔍</span>
+        <input type="text" id="main-search" placeholder="Search benefits, organizations, locations…" autocomplete="off"/>
+      </div>
+      <button class="search-btn" onclick="runSearch()">SEARCH</button>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">Eligibility:</span>
+      <button class="filter-chip active" data-elig="all" onclick="filterElig(this)">All</button>
+      <button class="filter-chip" data-elig="Active Duty" onclick="filterElig(this)">Active Duty</button>
+      <button class="filter-chip" data-elig="Reserve" onclick="filterElig(this)">Reserve / Guard</button>
+      <button class="filter-chip" data-elig="Veteran" onclick="filterElig(this)">Veteran</button>
+      <button class="filter-chip" data-elig="Retiree" onclick="filterElig(this)">Retiree</button>
+      <button class="filter-chip" data-elig="Spouse" onclick="filterElig(this)">Spouse</button>
+      <button class="filter-chip" data-elig="Disabled Veteran" onclick="filterElig(this)">Disabled Veteran</button>
+
+      <span class="filter-label" style="margin-left:12px">Category:</span>
+      <select class="filter-select" id="cat-filter" onchange="runSearch()">
+        <option value="">All Categories</option>
+        <option value="Retail">Retail & Shopping</option>
+        <option value="Food">Restaurants & Food</option>
+        <option value="Travel">Travel & Lodging</option>
+        <option value="Auto">Automotive</option>
+        <option value="Telecom">Telecommunications</option>
+        <option value="Finance">Finance & Insurance</option>
+        <option value="Entertainment">Entertainment</option>
+        <option value="Theme Parks">Theme Parks</option>
+        <option value="Health">Health & Wellness</option>
+        <option value="Education">Education</option>
+        <option value="Government">Government Programs</option>
+      </select>
+
+      <select class="filter-select" id="country-filter" onchange="runSearch()">
+        <option value="">All Locations</option>
+        <option value="USA">United States</option>
+        <option value="Japan">Japan</option>
+        <option value="South Korea">South Korea</option>
+        <option value="Germany">Germany</option>
+        <option value="Italy">Italy</option>
+        <option value="UK">United Kingdom</option>
+        <option value="Spain">Spain</option>
+        <option value="Hawaii">Hawaii</option>
+        <option value="Guam">Guam</option>
+        <option value="Bahrain">Bahrain / Middle East</option>
+        <option value="Australia">Australia / Pacific</option>
+      </select>
+
+      <span class="results-summary" id="results-summary">Showing all benefits</span>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('benefits', this)">All Benefits</button>
+    <button class="tab-btn" onclick="switchTab('afrc', this)">AFRC Resorts</button>
+    <button class="tab-btn" onclick="switchTab('spacea', this)">Space-A Travel</button>
+    <button class="tab-btn" onclick="switchTab('international', this)">International</button>
+    <button class="tab-btn" onclick="switchTab('states', this)">State Benefits</button>
+    <button class="tab-btn" onclick="switchTab('seasonal', this)">Seasonal</button>
+    <button class="tab-btn" onclick="switchTab('favorites', this)" id="tab-btn-favorites" style="color:var(--brass-500)">⭐ My Saved</button>
+  </div>
+
+  <!-- ==================== TAB: ALL BENEFITS ==================== -->
+  <div class="tab-panel active" id="tab-benefits">
+    <div id="benefits-grid"></div>
+    <div id="no-results">
+      <h3>No Results Found</h3>
+      <p>Try adjusting your search or filters.</p>
+    </div>
+  </div>
+
+  <!-- ==================== TAB: AFRC RESORTS ==================== -->
+  <div class="tab-panel" id="tab-afrc">
+    <div id="afrc-section">
+      <div class="section-header">
+        <h2 class="section-title">Armed Forces Recreation Centers</h2>
+        <span class="section-badge">5 PROPERTIES</span>
+      </div>
+      <div class="tip-box">
+        <strong>💡 Pro Tip:</strong> AFRC properties offer some of the most extraordinary value in military benefits — Shades of Green puts you inside Disney World for a fraction of civilian resort rates. Booking windows open early and fill fast; set calendar reminders for your eligible window. All properties accept CAC/Military ID; some allow DD-214 for veterans.
+      </div>
+      <div class="afrc-grid" id="afrc-grid"></div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB: SPACE-A ==================== -->
+  <div class="tab-panel" id="tab-spacea">
+    <div id="space-a-section">
+      <div class="section-header">
+        <h2 class="section-title">Space-Available (Space-A) Travel</h2>
+        <span class="section-badge">FREE MILITARY FLIGHTS</span>
+      </div>
+
+      <div class="space-a-banner">
+        <div class="space-a-icon">✈️</div>
+        <div class="space-a-content">
+          <h3>Military's Best-Kept Travel Secret</h3>
+          <p>Space-Available travel allows eligible military personnel and their families to fly on Department of Defense aircraft at no cost or minimal cost on a space-available basis. With over 60 AMC terminal locations worldwide, this benefit can enable international travel for essentially free — the catch is flexibility in schedule.</p>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Space-A Priority Categories</div>
+        <table class="priority-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Priority Level</th>
+              <th>Who Qualifies</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>CAT I</strong></td><td>Highest</td><td>Emergency leave (EFMP)</td><td>Verified commander authorization required</td></tr>
+            <tr><td><strong>CAT II</strong></td><td>Very High</td><td>Environmental & morale leave; EML dependents</td><td>Overseas-to-CONUS for >365 days TDY</td></tr>
+            <tr><td><strong>CAT III</strong></td><td>High</td><td>Ordinary leave (Active Duty)</td><td>Must be on approved leave orders</td></tr>
+            <tr><td><strong>CAT IV</strong></td><td>Medium</td><td>Unaccompanied family members (overseas)</td><td>Dependents of OCONUS-stationed member</td></tr>
+            <tr><td><strong>CAT V</strong></td><td>Standard</td><td>Permissive TDY, retirees, 100% P&T vets, activated Reservists</td><td>Most common category for retirees</td></tr>
+            <tr><td><strong>CAT VI</strong></td><td>Lowest</td><td>Retirees traveling outside CONUS</td><td>Reserve/Guard retirees age 60+ also qualify</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-section">
+        <div class="modal-section-title">Key AMC Terminals for Pacific / OCONUS Travel</div>
+        <div class="states-grid" id="terminals-grid"></div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-box-title">⚠️ Space-A Essentials</div>
+        <ul style="padding-left:18px;line-height:2">
+          <li>Sign up at the AMC terminal in person, via email, or via <a href="https://www.amc.af.mil/AMC-Travel-Site/Space-A/" target="_blank" style="color:var(--navy-700)">AMC website</a></li>
+          <li>Registration is valid for <strong>60 days</strong>; re-register before expiration</li>
+          <li>Once manifested, you have priority to complete your trip home</li>
+          <li>Pets are generally not allowed; contact terminal for current policy</li>
+          <li>Passports required for international travel (even for SOFA countries)</li>
+          <li>OCONUS eligible: Active duty, retirees, 100% P&T disabled vets, and their dependents</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB: INTERNATIONAL ==================== -->
+  <div class="tab-panel" id="tab-international">
+    <div id="international-section">
+      <div class="section-header">
+        <h2 class="section-title">International Military Benefits</h2>
+        <span class="section-badge">WORLDWIDE</span>
+      </div>
+
+      <div class="country-tabs" id="country-tabs">
+        <button class="country-btn active" data-country="all" onclick="filterCountry(this)">🌐 All</button>
+        <button class="country-btn" data-country="Japan" onclick="filterCountry(this)">🇯🇵 Japan</button>
+        <button class="country-btn" data-country="South Korea" onclick="filterCountry(this)">🇰🇷 Korea</button>
+        <button class="country-btn" data-country="Germany" onclick="filterCountry(this)">🇩🇪 Germany</button>
+        <button class="country-btn" data-country="Italy" onclick="filterCountry(this)">🇮🇹 Italy</button>
+        <button class="country-btn" data-country="UK" onclick="filterCountry(this)">🇬🇧 UK / Benelux</button>
+        <button class="country-btn" data-country="Spain" onclick="filterCountry(this)">🇪🇸 Spain / Portugal</button>
+        <button class="country-btn" data-country="Hawaii" onclick="filterCountry(this)">🌺 Hawaii</button>
+        <button class="country-btn" data-country="Guam" onclick="filterCountry(this)">🏝️ Guam</button>
+        <button class="country-btn" data-country="Bahrain" onclick="filterCountry(this)">🇧🇭 Middle East</button>
+        <button class="country-btn" data-country="Australia" onclick="filterCountry(this)">🇦🇺 Pacific / AUS</button>
+      </div>
+
+      <div id="intl-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;"></div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB: STATE BENEFITS ==================== -->
+  <div class="tab-panel" id="tab-states">
+    <div id="states-section">
+      <div class="section-header">
+        <h2 class="section-title">State Veteran Benefits</h2>
+        <span class="section-badge" id="states-count">50 STATES</span>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Key Insight:</strong> State benefits vary enormously — some states eliminate ALL property taxes for disabled veterans, while others offer nominal exemptions. Florida, Texas, and South Dakota are often cited as top veteran-friendly states. Always verify current amounts with your State VA office, as values change annually.
+      </div>
+
+      <div class="filter-row" style="margin-bottom:20px">
+        <input type="text" id="state-search" placeholder="Search states…" style="padding:8px 14px;border:1px solid var(--border);border-radius:20px;font-size:13px;outline:none;background:var(--chalk);" oninput="filterStates()"/>
+        <button class="filter-chip" data-sfilt="property_tax" onclick="filterStateType(this)">Property Tax</button>
+        <button class="filter-chip" data-sfilt="education" onclick="filterStateType(this)">Education</button>
+        <button class="filter-chip" data-sfilt="parks" onclick="filterStateType(this)">State Parks</button>
+        <button class="filter-chip" data-sfilt="income_tax" onclick="filterStateType(this)">Income Tax</button>
+      </div>
+
+      <div class="states-grid" id="states-grid"></div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB: SEASONAL ==================== -->
+  <div class="tab-panel" id="tab-seasonal">
+    <div class="section-header">
+      <h2 class="section-title">Seasonal & Annual Promotions</h2>
+      <span class="section-badge">LIMITED TIME</span>
+    </div>
+
+    <div class="info-box" style="margin-bottom:24px">
+      <div class="info-box-title">ℹ️ About Seasonal Benefits</div>
+      These promotions recur annually but are NOT permanent benefits. Dates and participation may vary year to year. Always verify current offerings directly with the organization before planning around them. Items marked with ⭐ have 90%+ annual recurrence rates.
+    </div>
+
+    <div id="seasonal-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;"></div>
+  </div>
+
+  <!-- ==================== TAB: FAVORITES ==================== -->
+  <div class="tab-panel" id="tab-favorites">
+    <div class="section-header">
+      <h2 class="section-title">My Saved Benefits</h2>
+      <span class="section-badge" id="fav-tab-count">0 SAVED</span>
+    </div>
+
+    <div id="fav-tab-empty" style="text-align:center;padding:60px 20px;display:none">
+      <div style="font-size:48px;margin-bottom:16px">⭐</div>
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:24px;color:var(--text-secondary);margin-bottom:8px">No Saved Benefits</h3>
+      <p style="color:var(--text-muted);font-size:14px">Click the ⭐ star on any benefit card to save it here.</p>
+    </div>
+
+    <!-- Print summary section — also visible on screen for this tab -->
+    <div id="fav-tab-content" style="display:none">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap">
+        <button class="btn-primary" onclick="printFavorites()">🖨️ Print My Benefits List</button>
+        <button class="btn-outline" onclick="exportFavCSV()" style="background:var(--white);color:var(--text-primary)">📥 Export CSV</button>
+        <button class="print-btn" onclick="clearAllFavs()" style="color:var(--red-500);border-color:var(--red-500)">🗑️ Clear All</button>
+        <span style="font-size:12px;color:var(--text-muted);margin-left:auto">Saved in your browser · clears if you clear browser data</span>
+      </div>
+
+      <!-- Printable summary table -->
+      <div id="fav-print-table" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:24px">
+        <table style="width:100%;border-collapse:collapse">
+          <thead>
+            <tr style="background:var(--navy-900)">
+              <th style="padding:12px 16px;text-align:left;color:var(--brass-300);font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-family:'JetBrains Mono',monospace">Benefit / Organization</th>
+              <th style="padding:12px 16px;text-align:left;color:var(--brass-300);font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-family:'JetBrains Mono',monospace">Category</th>
+              <th style="padding:12px 16px;text-align:left;color:var(--brass-300);font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-family:'JetBrains Mono',monospace">Discount</th>
+              <th style="padding:12px 16px;text-align:left;color:var(--brass-300);font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-family:'JetBrains Mono',monospace">Eligibility</th>
+              <th style="padding:12px 16px;text-align:left;color:var(--brass-300);font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-family:'JetBrains Mono',monospace;width:160px">Source</th>
+              <th style="padding:12px 16px;width:40px" class="no-print"></th>
+            </tr>
+          </thead>
+          <tbody id="fav-table-body"></tbody>
+        </table>
+      </div>
+
+      <!-- Full cards for reference -->
+      <div class="section-header" style="padding-top:8px">
+        <h3 class="section-title" style="font-size:20px">Full Details</h3>
+      </div>
+      <div id="fav-cards-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;"></div>
+    </div>
+  </div>
+
+</div><!-- /#main -->
+
+<!-- ============================================================
+     MODAL
+     ============================================================ -->
+<div id="modal-overlay" onclick="closeModal(event)">
+  <div id="modal">
+    <div class="modal-header" id="modal-header-content">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="modal-title-area"></div>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Mil<span>Benefits</span></h3>
+        <p>The most comprehensive military benefits intelligence portal — built for servicemembers, veterans, and their families by someone who gets it.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Benefits</h4>
+        <a href="#">AFRC Resorts</a>
+        <a href="#">Space-A Travel</a>
+        <a href="#">State Benefits</a>
+        <a href="#">Veteran Programs</a>
+        <a href="#">Military Exchanges</a>
+      </div>
+      <div class="footer-col">
+        <h4>By Eligibility</h4>
+        <a href="#">Active Duty</a>
+        <a href="#">Veterans</a>
+        <a href="#">Retirees</a>
+        <a href="#">Reserves & Guard</a>
+        <a href="#">Military Spouses</a>
+      </div>
+      <div class="footer-col">
+        <h4>Official Resources</h4>
+        <a href="https://www.militaryonesource.mil" target="_blank">Military OneSource</a>
+        <a href="https://www.benefits.va.gov" target="_blank">VA Benefits</a>
+        <a href="https://www.amc.af.mil" target="_blank">AMC Space-A</a>
+        <a href="https://www.afvclub.com" target="_blank">Armed Forces Vacation Club</a>
+        <a href="https://www.myafrc.org" target="_blank">AFRC Resorts</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="disclaimer">
+        <strong>Disclaimer:</strong> MilBenefits compiles publicly available information for educational purposes. Benefit details, rates, eligibility requirements, and availability change frequently. Always verify current information directly with the organization or official government sources before making decisions. This site is not affiliated with or endorsed by the U.S. Department of Defense, U.S. military services, or any government agency.
+      </div>
+      <div>© 2026 MilBenefits · Not DoD Affiliated</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     DATA + JAVASCRIPT
+     ============================================================ -->
+<script>
+/* ==========================================================
+   MASTER BENEFITS DATABASE
+   Sources: Official company/government websites, AFRC.mil,
+   VA.gov, MilTax, Military OneSource, AFVClub, myAFRC.org
+   ========================================================== */
+
+const BENEFITS = [
+
+  // -------- RETAIL & SHOPPING --------
+  { id:"r001", org:"Exchange (AAFES / NEX / MCX / CGX)", cat:"Government", sub:"Military Exchange", country:"USA", icon:"🏪", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse","Dependent"], discount:"Tax-Free + Exclusive Pricing", desc:"The military's own retail network offers tax-free shopping, exclusive military pricing, and profits return to MWR programs. NEXCOM, AAFES, MCX, and Coast Guard exchanges all connected online at ShopMyExchange.com.", src:"ShopMyExchange.com", url:"https://www.shopexchange.com", seasonal:false, verified:true },
+  { id:"r002", org:"Home Depot", cat:"Retail", sub:"Home Improvement", country:"USA", icon:"🔨", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse"], discount:"10% Off", desc:"10% off all regular, sale, and clearance items in-store. Requires verification via ID.me or GovX at checkout. Maximum $400 discount per transaction. Active, veterans, retirees, and spouses all eligible.", src:"HomeDepot.com", url:"https://www.homedepot.com/c/military_discount", seasonal:false, verified:true },
+  { id:"r003", org:"Lowe's", cat:"Retail", sub:"Home Improvement", country:"USA", icon:"🔨", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse"], discount:"10% Off", desc:"10% off eligible purchases. Must verify via Lowe's MyLowe's account linked to military status. Verification through ID.me. Available in-store and online. No cap on discount amount (some exclusions apply).", src:"Lowes.com", url:"https://www.lowes.com/l/military-discount.html", seasonal:false, verified:true },
+  { id:"r004", org:"Best Buy", cat:"Retail", sub:"Electronics", country:"USA", icon:"📺", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse"], discount:"10% Off", desc:"10% off most products via Best Buy Military program. Requires ID.me verification. Apply through BestBuy.com or in store. Excludes certain items including some Apple products.", src:"BestBuy.com", url:"https://www.bestbuy.com/site/misc/military-discount-faq/pcmcat287000050000.c", seasonal:false, verified:true },
+  { id:"r005", org:"Apple", cat:"Retail", sub:"Electronics", country:"USA", icon:"🍎", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse","Dependent"], discount:"Up to 10%", desc:"Apple's education/military pricing available through the Apple Store for Military — offers discounts on Mac and iPad via Apple's Veterans Advantage Program. Discounts vary by product; verify through Apple's dedicated military portal.", src:"Apple.com/shop/go/product/military", url:"https://www.apple.com/shop/go/product/veterans_advantage", seasonal:false, verified:true },
+  { id:"r006", org:"Dell Technologies", cat:"Retail", sub:"Electronics", country:"USA", icon:"💻", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse","Dependent"], discount:"Up to 15%", desc:"Dell offers military members exclusive member purchase program (MPP) discounts. Discounts available on consumer and business laptops, desktops, monitors, and peripherals. Verify through Dell's military portal.", src:"Dell.com/en-us/work/shop/overview/cp/military-discount", url:"https://www.dell.com/en-us/work/shop/overview/cp/military-discount", seasonal:false, verified:true },
+  { id:"r007", org:"Microsoft", cat:"Retail", sub:"Software/Hardware", country:"USA", icon:"🖥️", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse"], discount:"10% Off + Specials", desc:"Microsoft offers military discounts on Surface devices and accessories through the Microsoft Store, including online. ID.me verification required. Also provides free Microsoft 365 for active duty through some base programs.", src:"Microsoft.com/military", url:"https://www.microsoft.com/en-us/store/b/military-discount", seasonal:false, verified:true },
+  { id:"r008", org:"Nike", cat:"Retail", sub:"Apparel", country:"USA", icon:"👟", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse"], discount:"10% Off", desc:"Nike offers a 10% military discount online via ID.me and in select Nike stores. Applies to regular-priced items; may exclude sale items. Stackable with some promotions.", src:"Nike.com", url:"https://www.nike.com/help/a/military-discount", seasonal:false, verified:true },
+  { id:"r009", org:"Under Armour", cat:"Retail", sub:"Apparel", country:"USA", icon:"💪", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse"], discount:"20% Off", desc:"Under Armour's Heroes program offers 20% off regular-priced items via GovX or ID.me. One of the more generous apparel discounts available. Applies at UA.com and in select UA Brand Houses.", src:"UnderArmour.com", url:"https://www.underarmour.com/en-us/t/heroes/", seasonal:false, verified:true },
+  { id:"r010", org:"REI Co-op", cat:"Retail", sub:"Outdoor/Gear", country:"USA", icon:"🏕️", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"10% Off + Membership", desc:"REI offers a 10% military discount via GovX ID. Additionally, REI waives the $30 lifetime co-op membership fee for active and veteran military. Good on outdoor gear, apparel, and footwear.", src:"REI.com/military", url:"https://www.rei.com/help/military-discount.html", seasonal:false, verified:true },
+  { id:"r011", org:"Bass Pro Shops / Cabela's", cat:"Retail", sub:"Outdoor/Sporting", country:"USA", icon:"🎣", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"5–10%", desc:"Bass Pro and Cabela's (same parent company) offer military discounts on hunting, fishing, camping, and outdoor gear. Discount amount varies by item category. Verify in store with military ID.", src:"BassPro.com", url:"https://www.basspro.com/shop/en/bass-pro-shops-military-appreciation", seasonal:false, verified:true },
+  { id:"r012", org:"Ace Hardware", cat:"Retail", sub:"Hardware/Home", country:"USA", icon:"🔧", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse"], discount:"10% Off", desc:"Ace Hardware offers a 10% Veterans Advantage discount. As an independently-owned franchise, participation varies by store location. Present military ID or verify through ID.me.", src:"AceHardware.com", url:"https://www.acehardware.com/", seasonal:false, verified:true },
+  { id:"r013", org:"Costco", cat:"Retail", sub:"Wholesale Club", country:"USA", icon:"🛒", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse","Dependent"], discount:"Free Gold Star Membership", desc:"Costco offers discounted or free Gold Star ($65/yr) membership to qualifying military. Additionally, the military commissary system (DeCA) offers unmatched savings on groceries — averaging 25% below retail — for ID cardholders worldwide.", src:"Costco.com / DeCA.mil", url:"https://www.costco.com/military-discount.html", seasonal:false, verified:true },
+  { id:"r014", org:"Defense Commissary Agency (DeCA)", cat:"Government", sub:"Grocery", country:"USA", icon:"🛒", elig:["Active Duty","Reserve","Guard","Retiree","Disabled Veteran","Spouse","Dependent"], discount:"~25% Below Retail", desc:"The commissary system provides authorized patrons with groceries at cost plus a 5% surcharge — averaging 23-25% savings over commercial grocery stores. Over 240 locations worldwide. SNAP accepted. Benefit extended to all honorably discharged veterans in 2020.", src:"DeCA.mil", url:"https://www.commissaries.com", seasonal:false, verified:true },
+
+  // -------- FOOD & RESTAURANTS --------
+  { id:"f001", org:"Denny's", cat:"Food", sub:"Restaurant", country:"USA", icon:"🍳", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"Free Meal (Veterans Day)", desc:"Denny's offers free Grand Slam breakfast to active and veteran military on Veterans Day annually. All locations participating. No purchase required; requires military ID or proof of service.", src:"Dennys.com", url:"https://www.dennys.com/", seasonal:true, verified:true },
+  { id:"f002", org:"Texas Roadhouse", cat:"Food", sub:"Restaurant", country:"USA", icon:"🥩", elig:["Active Duty","Veteran","Retiree"], discount:"Free Meal (Veterans Day)", desc:"Texas Roadhouse offers a free meal from their special Veterans Day menu every November 11th. All veterans welcome — no purchase required. One of the most popular Veterans Day dining deals.", src:"TexasRoadhouse.com", url:"https://www.texasroadhouse.com/", seasonal:true, verified:true },
+  { id:"f003", org:"Applebee's", cat:"Food", sub:"Restaurant", country:"USA", icon:"🍔", elig:["Active Duty","Veteran","Retiree"], discount:"Free Entrée (Veterans Day)", desc:"Applebee's annual Veterans Day free meal offer features select entrées at no charge for veterans and active duty. Requires proof of service. One of the longest-running Veterans Day restaurant programs.", src:"Applebees.com", url:"https://www.applebees.com/", seasonal:true, verified:true },
+  { id:"f004", org:"Cracker Barrel", cat:"Food", sub:"Restaurant", country:"USA", icon:"🍽️", elig:["Active Duty","Veteran","Retiree","Spouse"], discount:"Free Entrée (Veterans Day)", desc:"Cracker Barrel honors veterans with a free Double Meat Country Boy Breakfast on Veterans Day. Also offers year-round 10% military discount at participating locations. Military ID required.", src:"CrackerBarrel.com", url:"https://www.crackerbarrel.com/", seasonal:false, verified:true },
+  { id:"f005", org:"Golden Corral", cat:"Food", sub:"Restaurant", country:"USA", icon:"🍽️", elig:["Active Duty","Veteran","Retiree"], discount:"Free Dinner (Military Appreciation Night)", desc:"Golden Corral's Military Appreciation Night (traditionally Monday after Veterans Day) offers a free 'thank you' dinner to veterans and active duty. Typically serves hundreds of thousands of veterans per year.", src:"GoldenCorral.com", url:"https://www.goldencorral.com/", seasonal:true, verified:true },
+  { id:"f006", org:"Starbucks", cat:"Food", sub:"Coffee", country:"USA", icon:"☕", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse"], discount:"Free Tall Coffee (Veterans Day)", desc:"Starbucks offers a free tall coffee to active military and veterans on Veterans Day. Year-round, Starbucks partners with the Starbucks Military Family Stores program near bases. 250+ locations near installations.", src:"Starbucks.com/careers/military", url:"https://www.starbucks.com/careers/working-at-starbucks/military/", seasonal:false, verified:true },
+  { id:"f007", org:"IHOP", cat:"Food", sub:"Restaurant", country:"USA", icon:"🥞", elig:["Active Duty","Veteran","Retiree"], discount:"Free Stack (Veterans Day)", desc:"IHOP traditionally offers free red, white, and blue pancakes to veterans and active military on Veterans Day. Participating locations across the US. Military ID or proof of service required.", src:"IHOP.com", url:"https://www.ihop.com/", seasonal:true, verified:true },
+
+  // -------- TRAVEL & LODGING --------
+  { id:"t001", org:"Marriott", cat:"Travel", sub:"Hotel Chain", country:"USA", icon:"🏨", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse"], discount:"Government/Military Rate", desc:"Marriott offers military and government rates (often 15–25% below standard rates) at most properties worldwide. Book via Marriott.com/government or call reservations. Rates available at Marriott, Westin, Sheraton, W Hotels, and other portfolio brands.", src:"Marriott.com/government", url:"https://www.marriott.com/military", seasonal:false, verified:true },
+  { id:"t002", org:"Hilton Hotels", cat:"Travel", sub:"Hotel Chain", country:"USA", icon:"🏨", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse"], discount:"Gov/Military Rate + Points Bonus", desc:"Hilton Honors members in the military receive up to 100K bonus points for deployment. Government/military rates available at Hilton, Hampton Inn, Embassy Suites, DoubleTree. Active duty Hilton Honors points don't expire during deployment.", src:"Hilton.com/military", url:"https://www.hilton.com/en/hilton-honors/military-discount/", seasonal:false, verified:true },
+  { id:"t003", org:"IHG Hotels (InterContinental Group)", cat:"Travel", sub:"Hotel Chain", country:"USA", icon:"🏨", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"Government Rate", desc:"IHG offers government/military rates at Holiday Inn, Holiday Inn Express, Crowne Plaza, InterContinental, Staybridge Suites, and other brands. Book via IHG.com with government rate code. IHG Rewards points don't expire for active duty.", src:"IHG.com", url:"https://www.ihg.com/hotels/us/en/reservation", seasonal:false, verified:true },
+  { id:"t004", org:"Wyndham Hotels", cat:"Travel", sub:"Hotel Chain", country:"USA", icon:"🏨", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"Military Rate", desc:"Wyndham offers military rates at Days Inn, Super 8, La Quinta, Ramada, and other portfolio brands. Use rate code MIL or verify military status at check-in. Wyndham Rewards members can earn points on military-rate stays.", src:"Wyndham.com", url:"https://www.wyndhamhotels.com/", seasonal:false, verified:true },
+  { id:"t005", org:"Armed Forces Vacation Club (AFVC)", cat:"Travel", sub:"Vacation Club", country:"USA", icon:"🌴", elig:["Active Duty","Reserve","Guard","Retiree","Disabled Veteran"], discount:"$329–$579/week resort stays", desc:"AFVC offers space-available stays at 4,000+ resort properties worldwide for as little as $329/week per unit. Huge value for families who can be flexible on dates. Book at AFVClub.com. Units sleep 4–10.", src:"AFVClub.com", url:"https://www.afvclub.com", seasonal:false, verified:true },
+  { id:"t006", org:"American Forces Travel (Military Fares)", cat:"Travel", sub:"Flights/Hotels", country:"USA", icon:"✈️", elig:["Active Duty","Reserve","Guard","Retiree","Veteran"], discount:"Exclusive Military Fares", desc:"American Forces Travel (powered by Priceline for military) offers exclusive military hotel, car, and cruise deals. Access via AmericanForcesTravel.com. Free to use with military ID verification.", src:"AmericanForcesTravel.com", url:"https://www.americanforcestravel.com", seasonal:false, verified:true },
+  { id:"t007", org:"Vet Tix", cat:"Entertainment", sub:"Events & Tickets", country:"USA", icon:"🎟️", elig:["Active Duty","Reserve","Guard","Veteran","Gold Star"], discount:"Free event tickets", desc:"Vet Tix provides free tickets to sporting events, concerts, performing arts, and more. Completely free to register; tickets donated by teams and venues. Over 5 million tickets distributed. Highly recommended for active duty and veterans.", src:"VetTix.org", url:"https://www.vettix.org", seasonal:false, verified:true },
+
+  // -------- AUTOMOTIVE --------
+  { id:"a001", org:"Ford Motor Company", cat:"Auto", sub:"Vehicle Purchase", country:"USA", icon:"🚗", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse"], discount:"$500–$1,500+ Rebate", desc:"Ford's Military Appreciation Program offers $500–$1,500+ off select new Ford vehicles, including F-Series trucks, Mustang, Explorer, and Bronco. Stackable with most national incentives. Present military ID at dealership or verify online.", src:"Ford.com/military", url:"https://www.ford.com/military/", seasonal:false, verified:true },
+  { id:"a002", org:"Chevrolet / GMC / Buick / Cadillac", cat:"Auto", sub:"Vehicle Purchase", country:"USA", icon:"🚗", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse"], discount:"$500–$1,000+ Rebate", desc:"General Motors' Military Discount Program applies across all four brands. Bonus cash of $500–$1,000+ on select models. Stackable with other GM incentives. Verify eligibility through the GM Military discount portal.", src:"Chevrolet.com/military", url:"https://www.chevrolet.com/for-military", seasonal:false, verified:true },
+  { id:"a003", org:"Toyota", cat:"Auto", sub:"Vehicle Purchase", country:"USA", icon:"🚗", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse"], discount:"$500 Rebate", desc:"Toyota's Military Rebate Program offers $500 toward the purchase or lease of most new Toyota vehicles. Stackable with most current Toyota incentives. Verify within 180 days of purchase. Good for up to 2 vehicles per year.", src:"Toyota.com/military", url:"https://www.toyota.com/configurator/api/lexicon/models", seasonal:false, verified:true },
+  { id:"a004", org:"USAA Auto Circle", cat:"Auto", sub:"Vehicle Purchase", country:"USA", icon:"🚗", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Eligible Family"], discount:"Guaranteed below-invoice pricing", desc:"USAA's Car Buying Service connects members with TrueCar certified dealers offering guaranteed below-invoice pricing. Average savings of $3,500 below MSRP. Free service for USAA members.", src:"USAA.com/auto", url:"https://www.usaa.com/inet/wc/auto-circle", seasonal:false, verified:true },
+
+  // -------- TELECOMMUNICATIONS --------
+  { id:"tc001", org:"T-Mobile (Military Plan)", cat:"Telecom", sub:"Mobile Service", country:"USA", icon:"📱", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Eligible Family"], discount:"Military plan discount", desc:"T-Mobile offers the Magenta Military plan with 2 lines for $80/month (taxes included), 4 lines for $100/month. Includes Netflix on Us, 5GB hotspot, and international texting/data. Also 55+ plan option for veteran retirees.", src:"T-Mobile.com/military", url:"https://www.t-mobile.com/home-internet/military", seasonal:false, verified:true },
+  { id:"tc002", org:"Verizon", cat:"Telecom", sub:"Mobile Service", country:"USA", icon:"📱", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"15% Off Plans", desc:"Verizon offers a 15% military discount on monthly service for eligible members. Applies to most plan types including unlimited. Verify through Verizon's military portal. Also offers extended payment deferrals for deployed members.", src:"Verizon.com/military", url:"https://www.verizon.com/plans/military/", seasonal:false, verified:true },
+  { id:"tc003", org:"AT&T", cat:"Telecom", sub:"Mobile Service", country:"USA", icon:"📱", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"25% Off Plans", desc:"AT&T Unlimited &More® Military offers 25% off eligible unlimited plans. One of the highest carrier discounts for military. Requires ID.me or myAT&T verification. Includes AT&T ActiveArmorSM mobile security.", src:"AT&T.com/military", url:"https://www.att.com/plans/military/", seasonal:false, verified:true },
+  { id:"tc004", org:"Xfinity / Comcast", cat:"Telecom", sub:"Internet/Cable", country:"USA", icon:"📡", elig:["Active Duty","Veteran","Retiree"], discount:"Military discount on internet", desc:"Xfinity offers discounts on internet service for military households, and provides service pause/freeze options for deployed members without cancellation fees. Discount amount varies by plan and market.", src:"Xfinity.com/military", url:"https://www.xfinity.com/", seasonal:false, verified:true },
+
+  // -------- FINANCE & INSURANCE --------
+  { id:"fi001", org:"USAA", cat:"Finance", sub:"Banking & Insurance", country:"USA", icon:"🏦", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Eligible Family"], discount:"Full suite — banking, insurance, investment", desc:"USAA is the gold standard for military financial services. Offers competitive auto/home/life insurance, checking with no ATM fees, auto loans, mortgages, and investment services. Eligibility extended to spouses, widows, and children of USAA members.", src:"USAA.com", url:"https://www.usaa.com", seasonal:false, verified:true },
+  { id:"fi002", org:"Navy Federal Credit Union", cat:"Finance", sub:"Credit Union", country:"USA", icon:"🏦", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","DoD Civilian","Eligible Family"], discount:"Best-in-class rates", desc:"Navy Federal is the world's largest credit union. Offers auto loans frequently beating dealer rates, VA mortgages with no down payment, and competitive credit cards including the Flagship Rewards Visa (3x on travel). Open to all DoD, Coast Guard, and Intel community.", src:"NavyFederal.org", url:"https://www.navyfederal.org", seasonal:false, verified:true },
+  { id:"fi003", org:"Pentagon Federal (PenFed)", cat:"Finance", sub:"Credit Union", country:"USA", icon:"🏦", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","DoD Civilian"], discount:"Low-rate loans + high-yield savings", desc:"PenFed offers competitive auto loan rates (often among the nation's lowest), VA mortgages, and excellent credit cards including the Platinum Rewards Visa. Free military membership for all U.S. armed forces personnel.", src:"PenFed.org", url:"https://www.penfed.org", seasonal:false, verified:true },
+  { id:"fi004", org:"Military OneSource MilTax", cat:"Finance", sub:"Tax Preparation", country:"USA", icon:"📊", elig:["Active Duty","Reserve","Guard","Spouse","Dependent"], discount:"100% Free Federal + State Tax Filing", desc:"MilTax (via Military OneSource) provides completely free federal and state tax preparation software AND live consultants. No income limits, no EFile fees, no gimmicks. Comparable to TurboTax Premier ($90+ commercial). Available year-round.", src:"MilitaryOneSource.mil/MilTax", url:"https://www.militaryonesource.mil/financial-legal/tax-resource-center/miltax-military-tax-services/", seasonal:false, verified:true },
+  { id:"fi005", org:"SCRA Protections", cat:"Finance", sub:"Legal Protection", country:"USA", icon:"⚖️", elig:["Active Duty","Reserve","Guard","Spouse"], discount:"Interest rate cap + legal protections", desc:"The Servicemembers Civil Relief Act (SCRA) caps interest rates at 6% on pre-service debts (mortgages, credit cards, auto loans) during active duty. Also provides eviction protection, lease termination rights, and court stay provisions. Auto-applies; contact lenders with orders.", src:"Justice.gov/SCRA", url:"https://www.justice.gov/servicemembers/servicemembers-civil-relief-act-scra", seasonal:false, verified:true },
+
+  // -------- ENTERTAINMENT & THEME PARKS --------
+  { id:"e001", org:"Shades of Green (Walt Disney World)", cat:"Travel", sub:"AFRC Resort", country:"USA", icon:"🏰", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Disabled Veteran"], discount:"Deeply discounted Disney-adjacent resort", desc:"Exclusively for the military — located inside Walt Disney World between the Magic Kingdom and EPCOT. Room rates drastically below civilian Disney resorts. Free or heavily discounted park tickets available. One of the absolute crown jewels of military benefits.", src:"ShadesOfGreen.org", url:"https://www.shadesofgreen.org", seasonal:false, verified:true },
+  { id:"e002", org:"Disney Theme Parks (Military Salute)", cat:"Entertainment", sub:"Theme Parks", country:"USA", icon:"🏰", elig:["Active Duty","Reserve","Guard"], discount:"Discounted 4-day / 6-day tickets", desc:"Disney's Military Salute program offers 4-day or 6-day park tickets at deeply discounted rates ($89–$99/day vs. $109–$189 standard). Available to active duty and activated Guard/Reserve. Tickets purchasable at base ITT/ITR offices or on Shades of Green website.", src:"Disney.com/military", url:"https://DisneyWorld.disney.go.com/military/", seasonal:false, verified:true },
+  { id:"e003", org:"Universal Orlando / Hollywood", cat:"Entertainment", sub:"Theme Parks", country:"USA", icon:"🎢", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"Free/Discounted tickets", desc:"Universal offers active military free 1-day tickets to both Universal Studios Florida and Islands of Adventure. Veterans and retirees receive discounts. Tickets available at USO locations, ITT offices, and Universal's military ticket portal.", src:"UniversalOrlando.com/military", url:"https://www.universalorlando.com/web/en/us/plan-your-visit/tickets-passes/military-passes/index.html", seasonal:false, verified:true },
+  { id:"e004", org:"SeaWorld / Busch Gardens (Waves of Honor)", cat:"Entertainment", sub:"Theme Parks", country:"USA", icon:"🌊", elig:["Active Duty","Reserve","Guard"], discount:"Free single-day admission", desc:"SeaWorld's Waves of Honor program offers free single-day admission to active military members (E1–O10, W1–W5) at SeaWorld, Busch Gardens, Aquatica, and Sesame Place. One free admission per year. Family members receive discounted admission.", src:"SeaWorld.com/military", url:"https://seaworld.com/military/", seasonal:false, verified:true },
+  { id:"e005", org:"Six Flags", cat:"Entertainment", sub:"Theme Parks", country:"USA", icon:"🎡", elig:["Active Duty","Reserve","Guard","Veteran"], discount:"Discounted/Free Admission", desc:"Six Flags offers complimentary admission to active duty military during annual Military Appreciation events, and discounted tickets through the Armed Forces Entertainment portal. Varies by park.", src:"SixFlags.com", url:"https://www.sixflags.com/", seasonal:false, verified:true },
+  { id:"e006", org:"National Park Service (NPC)", cat:"Entertainment", sub:"National Parks", country:"USA", icon:"🏔️", elig:["Active Duty","Reserve","Guard","Spouse","Dependent"], discount:"FREE Annual Pass", desc:"The America the Beautiful — National Parks and Federal Recreational Lands Annual Pass is FREE for current U.S. military and their dependents. Access to 2,000+ federal recreation sites, national parks, national forests, and BLM lands. Valid for entrance fees.", src:"NPS.gov/planyourvisit/military-pass", url:"https://www.nps.gov/planyourvisit/military.htm", seasonal:false, verified:true },
+  { id:"e007", org:"Smithsonian Institution", cat:"Entertainment", sub:"Museums", country:"USA", icon:"🏛️", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse","Dependent"], discount:"Free Admission (always free)", desc:"All 19 Smithsonian museums and galleries in Washington D.C. and New York are permanently free to all visitors — no military discount needed because they're always free. Includes the Air and Space Museum, National Zoo, American History Museum, and more.", src:"Si.edu", url:"https://www.si.edu/visit", seasonal:false, verified:true },
+
+  // -------- HEALTH & WELLNESS --------
+  { id:"h001", org:"TRICARE", cat:"Health", sub:"Health Insurance", country:"USA", icon:"⚕️", elig:["Active Duty","Reserve","Guard","Retiree","Disabled Veteran","Spouse","Dependent"], discount:"Low-cost to free health care", desc:"TRICARE provides comprehensive health coverage. Active duty: free coverage. Retirees under 65: TRICARE Prime/Select at low cost. Reserve: TRICARE Reserve Select at ~$52/month individual. Dental and vision plans also available. www.tricare.mil", src:"Tricare.mil", url:"https://www.tricare.mil", seasonal:false, verified:true },
+  { id:"h002", org:"Anytime Fitness", cat:"Health", sub:"Gym / Fitness", country:"USA", icon:"💪", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"Discounted membership", desc:"Many Anytime Fitness locations offer a military discount (typically $5–$15/month off) — franchise, so verify with your local club. 24/7 access at 5,000+ locations worldwide.", src:"AnytimeFitness.com", url:"https://www.anytimefitness.com/", seasonal:false, verified:true },
+  { id:"h003", org:"Planet Fitness", cat:"Health", sub:"Gym / Fitness", country:"USA", icon:"💪", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"Discounted membership", desc:"Planet Fitness offers military discount at most locations — often $1–$3 off the standard Black Card or Classic membership. Nationwide locations. Verify at your local club with military ID.", src:"PlanetFitness.com", url:"https://www.planetfitness.com/", seasonal:false, verified:true },
+
+  // -------- EDUCATION --------
+  { id:"ed001", org:"Post-9/11 GI Bill (Chapter 33)", cat:"Education", sub:"Education Benefit", country:"USA", icon:"🎓", elig:["Veteran","Active Duty","Reserve","Guard"], discount:"Up to 100% tuition + stipend", desc:"The Post-9/11 GI Bill covers tuition and fees (up to state's highest public school rate), a monthly housing allowance (BAH equivalent), and $1,000/year for books and supplies. Transferable to dependents after 6 years active service with 4-year commitment. Maximum 36 months.", src:"VA.gov/education/GI-Bill", url:"https://www.va.gov/education/about-gi-bill-benefits/post-9-11/", seasonal:false, verified:true },
+  { id:"ed002", org:"Tuition Assistance (TA)", cat:"Education", sub:"Education Benefit", country:"USA", icon:"🎓", elig:["Active Duty","Reserve","Guard"], discount:"100% tuition covered ($250/SH, $4,500/yr)", desc:"Tuition Assistance covers 100% of tuition (up to $250 per semester hour, $4,500/year) for active duty pursuing classes during off-duty time. Each service branch has its own TA program. Does not require VA benefit usage.", src:"MyArmyBenefits.army.mil", url:"https://myarmybenefits.us.army.mil/Benefit-Library/Federal-Benefits/Tuition-Assistance-(TA)", seasonal:false, verified:true },
+  { id:"ed003", org:"LinkedIn Learning", cat:"Education", sub:"Online Learning", country:"USA", icon:"💼", elig:["Active Duty","Reserve","Guard","Veteran"], discount:"1 year free (verified)", desc:"LinkedIn offers 1 year of free LinkedIn Learning access to active duty and veterans. Includes 20,000+ courses in technology, business, and creative skills. Also includes LinkedIn Premium Career for networking. Apply via official LinkedIn military page.", src:"LinkedIn.com/military", url:"https://socialimpact.linkedin.com/programs/veterans/premiumform", seasonal:false, verified:true },
+  { id:"ed004", org:"Amazon Web Services (AWS)", cat:"Education", sub:"Cloud / IT", country:"USA", icon:"☁️", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"Free cloud training", desc:"AWS Educate and AWS re/Start program provides free cloud computing training, AWS certification prep, and job placement resources specifically for military veterans and transitioning servicemembers.", src:"AWS.amazon.com/training/military", url:"https://aws.amazon.com/government-education/veterans/", seasonal:false, verified:true },
+
+  // -------- KEY GOVERNMENT PROGRAMS --------
+  { id:"g001", org:"VA Disability Compensation", cat:"Government", sub:"Disability Benefits", country:"USA", icon:"🎖️", elig:["Veteran","Disabled Veteran"], discount:"Monthly tax-free compensation", desc:"Monthly tax-free payments to veterans with service-connected disabilities. Rates based on combined disability rating (0–100%). At 100%: $3,831.30+/month. P&T (Permanent and Total) status eliminates future re-examinations. File as early as possible — ratings effective from Intent to File date.", src:"VA.gov/disability", url:"https://www.va.gov/disability/", seasonal:false, verified:true },
+  { id:"g002", org:"VA Home Loan Guarantee", cat:"Government", sub:"Home Loan", country:"USA", icon:"🏠", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Surviving Spouse"], discount:"Zero down payment, no PMI", desc:"VA-backed home loans allow eligible veterans to buy, build, or refinance with no down payment and no private mortgage insurance. Competitive interest rates. Funding fee waived for veterans with service-connected disability rating. Lifetime benefit — can be used multiple times.", src:"VA.gov/housing-assistance/home-loans", url:"https://www.va.gov/housing-assistance/home-loans/", seasonal:false, verified:true },
+  { id:"g003", org:"VA Health Care", cat:"Government", sub:"Healthcare", country:"USA", icon:"🏥", elig:["Veteran","Disabled Veteran"], discount:"Free to low-cost health care", desc:"VA healthcare system provides comprehensive primary, specialty, mental health, and long-term care. Priority groups 1–3 (combat veterans, disabled vets, low-income) receive free care. Over 1,200 VA medical centers and clinics nationwide.", src:"VA.gov/health-care", url:"https://www.va.gov/health-care/", seasonal:false, verified:true },
+  { id:"g004", org:"Military Star Card (Exchange Credit Card)", cat:"Finance", sub:"Credit Card", country:"USA", icon:"💳", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","DoD Civilian"], discount:"10% off first purchase, 2% rewards", desc:"The Military Star card offers 10% off first day of purchases at military exchanges, 2% rewards on Exchange purchases, 1% on all other purchases. No foreign transaction fees. Can be used anywhere Mastercard accepted. Low APR for military.", src:"myECP.com/STAR", url:"https://www.myecp.com/public/pers/starcard/star_card_index.html", seasonal:false, verified:true },
+  { id:"g005", org:"National Parks Pass (Military)", cat:"Entertainment", sub:"National Parks", country:"USA", icon:"🏞️", elig:["Active Duty","Reserve","Guard","Spouse","Dependent"], discount:"Free Annual Pass ($80 value)", desc:"Current U.S. military and their dependents get a free America the Beautiful Annual Pass valid at all federal recreation lands. Obtain at any federal recreation site entrance or contact your base ITT. This single benefit saves families $80/year and unlocks 2,000+ park sites.", src:"NPS.gov/military", url:"https://www.nps.gov/planyourvisit/military.htm", seasonal:false, verified:true },
+
+  // -------- INTERNATIONAL BENEFITS --------
+  { id:"i001", org:"New Sanno Hotel", cat:"Travel", sub:"AFRC Lodging", country:"Japan", icon:"🏯", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Eligible Family"], discount:"Military-exclusive luxury rates ($150–$220/nt)", desc:"The New Sanno is a U.S. military hotel operated by the U.S. Navy in central Tokyo (Roppongi/Hiroo area). Priority booking for Active Duty; retirees and DoD civilians also eligible. Rooms run ~$150–$220/night vs. comparable Tokyo hotels at $350–$600. Amenities include American restaurant, US products, base-like support.", src:"NewSanno.com", url:"https://www.thenewsanno.com", seasonal:false, verified:true },
+  { id:"i002", org:"Dragon Hill Lodge", cat:"Travel", sub:"AFRC Lodging", country:"South Korea", icon:"🐉", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Eligible Family"], discount:"Military-exclusive premium rates (~$120–$180/nt)", desc:"Dragon Hill Lodge is a full-service resort hotel on Yongsan Garrison in Seoul. Features restaurants, spa, bowling, pool, and extensive recreational facilities. Book early — extremely popular for R&R. Priority booking ladder applies. Seoul's civilian luxury hotels run $300–$600/night.", src:"DHL.af.mil", url:"https://www.dragonhilllodge.com", seasonal:false, verified:true },
+  { id:"i003", org:"Edelweiss Lodge and Resort", cat:"Travel", sub:"AFRC Lodging", country:"Germany", icon:"🏔️", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Eligible Family"], discount:"Military-exclusive Alpine resort (~$100–$180/nt)", desc:"AFRC's European flagship resort in Garmisch-Partenkirchen, Bavaria — steps from the Zugspitze. Full ski resort, summer hiking, restaurants, spa. One of the most beautiful military benefits in the world. Rates are a fraction of surrounding civilian Alpine resorts. Booking opens months in advance.", src:"Edelweisslodgeandresort.com", url:"https://www.edelweisslodgeandresort.com", seasonal:false, verified:true },
+  { id:"i004", org:"Hale Koa Hotel", cat:"Travel", sub:"AFRC Lodging", country:"Hawaii", icon:"🌺", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Eligible Family"], discount:"Beachfront Waikiki rates ~$145–$290/nt", desc:"Hale Koa ('House of the Warrior') sits directly on Waikiki Beach in Honolulu — one of the most valuable parcels of real estate in the world. Civilian Waikiki beachfront hotels charge $400–$900/night. Priority booking starts at A/D 60 days out, retirees 30 days out. Restaurants, pool, beach access.", src:"HaleKoa.com", url:"https://www.halekoa.com", seasonal:false, verified:true },
+  { id:"i005", org:"Shades of Green (Disney World)", cat:"Travel", sub:"AFRC Resort", country:"USA", icon:"🏰", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Disabled Veteran"], discount:"Disney World resort starting $185/nt", desc:"Located on Walt Disney World property between the Grand Floridian and Polynesian resorts. Free transportation to all Disney parks. Military-discounted park tickets through Shades of Green. Free Disney resort perks (30-min early entry, transportation, luggage services). Booking opens 18 months in advance for all categories.", src:"ShadesOfGreen.org", url:"https://www.shadesofgreen.org", seasonal:false, verified:true },
+
+  { id:"i010", org:"MWR Europe (IMCOM Europe)", cat:"Travel", sub:"Recreation Europe", country:"Germany", icon:"🇩🇪", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Discounted European tours & activities", desc:"IMCOM Europe's MWR offices at Grafenwöhr, Wiesbaden, Ramstein, Kaiserslautern, Stuttgart, Vicenza, Aviano, and Camp Darby offer discounted European tours, ski trips, outdoor recreation, and lodging reservations. Hugely valuable for OCONUS stationed personnel.", src:"IMCOM-Europe.army.mil", url:"https://www.imcom-europe.army.mil/", seasonal:false, verified:true },
+  { id:"i011", org:"Yokota Air Base MWR", cat:"Travel", sub:"Recreation Japan", country:"Japan", icon:"🗾", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Discounted Tokyo/Japan tours", desc:"Yokota AB and NAF Atsugi MWR offices operate tours to Tokyo Disney, Mt. Fuji, Kyoto, Hiroshima, ski resorts, and more at military rates. Also coordinates FamCamp access for camping near major Japanese attractions.", src:"Yokota.af.mil/MWR", url:"https://www.yokota.af.mil/", seasonal:false, verified:true },
+  { id:"i012", org:"Camp Humphreys MWR (South Korea)", cat:"Travel", sub:"Recreation Korea", country:"South Korea", icon:"🇰🇷", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Korea tours & Dragon Hill priority access", desc:"Camp Humphreys (K-16, Camp Casey, Osan) MWR offers tours to Seoul, Busan, the DMZ, Jeju Island, and more. Coordinates tickets for Korean baseball, K-League soccer, and cultural experiences at military rates.", src:"Humphreys.army.mil/MWR", url:"https://home.army.mil/humphreys/", seasonal:false, verified:true },
+  { id:"i013", org:"Disneyland Paris", cat:"Entertainment", sub:"Theme Park", country:"France", icon:"🏰", elig:["Active Duty","Reserve","Guard"], discount:"Military discount on park tickets", desc:"Disneyland Paris offers periodic military discount programs for eligible U.S. and NATO military members stationed in Europe. Verify current pricing through IMCOM Europe ITT offices or the Edelweiss resort concierge.", src:"DisneylandParis.com", url:"https://www.disneylandparis.com/", seasonal:false, verified:true },
+  { id:"i014", org:"Rota Naval Station MWR (Spain)", cat:"Travel", sub:"Recreation Spain", country:"Spain", icon:"🇪🇸", elig:["Active Duty","DoD Civilian","Dependent"], discount:"Spain/Morocco tours, beach recreation", desc:"Naval Station Rota MWR offers Mediterranean beach access, camping, outdoor recreation, and day/overnight tours to Seville, Jerez, Gibraltar, and Morocco. Access to base facilities including bowling, fitness, and dining at military prices.", src:"NASRotaMWR.com", url:"https://www.navylifesw.com/rota/", seasonal:false, verified:true },
+  { id:"i015", org:"Sigonella / Naples MWR (Italy)", cat:"Travel", sub:"Recreation Italy", country:"Italy", icon:"🇮🇹", elig:["Active Duty","DoD Civilian","Dependent"], discount:"Italy/Europe tours at military rates", desc:"NAS Sigonella and NSA Naples MWR offer tours to Rome, Pompeii, Amalfi Coast, Sicily, and across Europe. Access to Capri excursions and Etna tours. Military lodging available at Sigonella and Gricignano.", src:"NSASicily.navy.mil", url:"https://www.nsasicily.navy.mil/", seasonal:false, verified:true },
+  { id:"i016", org:"Guam MWR (Andersen AFB / NB Guam)", cat:"Travel", sub:"Recreation Guam", country:"Guam", icon:"🏝️", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Tropical recreation & lodging", desc:"MWR on Guam offers beach access, scuba diving, deep sea fishing, and affordable lodging at military facilities. Andersen AFB's FamCamp and cabin rentals provide beach-adjacent accommodations. Gateway to Pacific diving and snorkeling at military rates.", src:"AndersonAFB.af.mil/MWR", url:"https://www.andersen.af.mil/", seasonal:false, verified:true },
+
+  // ── EXPANDED INTERNATIONAL ────────────────────────────────────────
+
+  // JAPAN — additional
+  { id:"i020", org:"FamCamp Fuji (Camp Fuji)", cat:"Travel", sub:"Camping / Outdoor", country:"Japan", icon:"🗻", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Military camping at Mt. Fuji — ~$20–$45/night", desc:"Camp Fuji MWR operates a FamCamp at the base of Mount Fuji — one of the world's most iconic landscapes, at a fraction of civilian lodging nearby. Tent sites and RV hookups. Accessible via Shinkansen + local bus. Popular spring (sakura) and summer seasons book fast.", src:"CampFuji.marines.mil", url:"https://www.mcipac.marines.mil/Installations/Camp-Fuji/", seasonal:false, verified:true },
+  { id:"i021", org:"Misawa Air Base MWR", cat:"Travel", sub:"Recreation Japan", country:"Japan", icon:"🇯🇵", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Northern Japan tours & winter skiing", desc:"Misawa AB MWR in northern Honshu runs tours to Aomori's iconic Nebuta Festival, Towada-Hachimantai National Park, and winter ski areas. Lodging on Misawa Air Base available. Great base for exploring rural Japan at military rates.", src:"Misawa.af.mil/MWR", url:"https://www.misawa.af.mil/", seasonal:false, verified:true },
+  { id:"i022", org:"MCAS Iwakuni MWR (Japan)", cat:"Travel", sub:"Recreation Japan", country:"Japan", icon:"🇯🇵", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Western Japan / Hiroshima / Kyoto tours", desc:"MCAS Iwakuni MWR in western Honshu offers day trips and tours to Hiroshima Peace Memorial, Miyajima Island (floating torii gate), Osaka, Kyoto, and Nara. Iwakuni's own Kintaikyo Bridge is directly off base. On-base lodging available.", src:"Iwakuni.usmc.mil", url:"https://www.mcasmiramar.marines.mil/", seasonal:false, verified:true },
+  { id:"i023", org:"Okinawa MWR (Camp Kinser, Kadena, Foster)", cat:"Travel", sub:"Recreation Japan", country:"Japan", icon:"🌺", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Okinawa beaches, diving, cultural tours", desc:"Okinawa-based MWR offers unparalleled beach and water recreation — snorkeling, scuba certification, deep-sea fishing, and kayaking. Multiple on-base lodging options (Camp Kinser, Kadena, Foster) run $60–$130/night. Cultural tours to Shuri Castle, the Peace Memorial, and ryūkyū villages.", src:"Okinawa.marines.mil/MWR", url:"https://www.mcipac.marines.mil/", seasonal:false, verified:true },
+
+  // SOUTH KOREA — additional
+  { id:"i030", org:"USO Korea (Multiple Locations)", cat:"Entertainment", sub:"USO Services", country:"South Korea", icon:"🇰🇷", elig:["Active Duty","Reserve","Guard","Dependent"], discount:"Free entertainment, tours, R&R programs", desc:"USO Korea operates centers at Camp Humphreys, K-16, Osan, Camp Casey, and more. Services include free WiFi, free snacks, lounge areas, and organized tours to Seoul, the DMZ, Gyeongbok Palace, Nami Island, and Korean cultural sites. Active duty eligible for discounted USO tours.", src:"USO.org/Korea", url:"https://www.uso.org/programs/locations/korea", seasonal:false, verified:true },
+  { id:"i031", org:"Army Recreation Center (ARC) Jeju Island", cat:"Travel", sub:"Military Resort", country:"South Korea", icon:"🏝️", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian"], discount:"Military lodging on Jeju at ~$80–$140/nt", desc:"The Army Recreation Center on Jeju Island provides military lodging on South Korea's top vacation island — UNESCO World Heritage site. Civilian hotels run $200–$400/night during peak season. ARC offers beach-adjacent rooms and tour coordination for waterfalls, lava tubes, and Hallasan Mountain.", src:"CampHumphreys.army.mil", url:"https://home.army.mil/humphreys/", seasonal:false, verified:true },
+
+  // GERMANY — additional
+  { id:"i040", org:"Garmisch American Recreation Center (ARC)", cat:"Travel", sub:"Recreation Germany", country:"Germany", icon:"🇩🇪", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Alpine recreation & cultural tours", desc:"Adjacent to Edelweiss Lodge, the Garmisch ARC coordinates ski passes, outdoor equipment rental, and day trips across Bavaria — Neuschwanstein Castle, Dachau Memorial, Nuremberg, Munich Oktoberfest, and the Austrian/Swiss border. Equipment rentals at fraction of civilian cost.", src:"EdelweissLodgeandResort.com/activities", url:"https://www.edelweisslodgeandresort.com/recreation", seasonal:false, verified:true },
+  { id:"i041", org:"USAG Wiesbaden MWR", cat:"Travel", sub:"Recreation Germany", country:"Germany", icon:"🇩🇪", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Central Europe tours at military rates", desc:"Wiesbaden Garrison MWR is ideally located for travel across Western Europe. Organizes tours to the Rhine Valley, Frankfurt, Heidelberg, Paris, Brussels, and Amsterdam. On-base lodging and budget travel coordination for authorized patrons.", src:"USAG-Wiesbaden.army.mil", url:"https://www.usag-wiesbaden.army.mil/", seasonal:false, verified:true },
+  { id:"i042", org:"USAG Stuttgart MWR (Patch Barracks)", cat:"Travel", sub:"Recreation Germany", country:"Germany", icon:"🇩🇪", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Southern Germany / Switzerland / Italy tours", desc:"Stuttgart Garrison MWR runs tours to the Black Forest, Swiss Alps, Lake Constance, Venice, Florence, and the Dolomites. Stuttgart is within 2–3 hours of France, Switzerland, and Austria — making it a prime launch point for European exploration at military rates.", src:"USAG-Stuttgart.army.mil", url:"https://www.usag-stuttgart.army.mil/", seasonal:false, verified:true },
+  { id:"i043", org:"Ramstein Air Base MWR (Germany)", cat:"Travel", sub:"Recreation Germany", country:"Germany", icon:"🇩🇪", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Europe-wide ITT tours & discount lodging", desc:"Ramstein/Kaiserslautern MWR runs one of the largest ITT operations in Europe — tours to Paris, Rome, Prague, Amsterdam, London, Vienna, and beyond. On-base lodging in the Kaiserslautern area runs $70–$120/night. The Passenger Terminal at Ramstein is a major Space-A hub.", src:"Ramstein.af.mil/MWR", url:"https://www.ramstein.af.mil/", seasonal:false, verified:true },
+
+  // ITALY — additional
+  { id:"i050", org:"Camp Darby MWR (Livorno, Italy)", cat:"Travel", sub:"Recreation Italy", country:"Italy", icon:"🇮🇹", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Tuscany base + Italy tours, beach recreation", desc:"Camp Darby near Pisa/Livorno operates MWR with beach access on the Tyrrhenian Sea, tours to Florence, Pisa, Siena, Cinque Terre, and Rome. On-base lodging available. The Darby Military Community Exchange (MWR store) sells Italian food and supplies. Underrated gem for EUCOM travelers.", src:"CampDarby.army.mil", url:"https://www.campdarby.army.mil/", seasonal:false, verified:true },
+  { id:"i051", org:"NAS Sigonella MWR (Sicily)", cat:"Travel", sub:"Recreation Italy", country:"Italy", icon:"🇮🇹", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Sicily & Mediterranean tours at military rates", desc:"NAS Sigonella MWR on Sicily offers tours to Etna volcano, the Valley of the Temples (Agrigento), Taormina, Syracuse, and Palermo. Beach day trips and water recreation common. On-base lodging runs $70–$110/night. Access to Catania's authentic Sicilian cuisine and culture at minutes from the gate.", src:"NSASicily.navy.mil", url:"https://www.nsasicily.navy.mil/", seasonal:false, verified:true },
+
+  // UNITED KINGDOM
+  { id:"i060", org:"RAF Lakenheath / Mildenhall MWR (UK)", cat:"Travel", sub:"Recreation UK", country:"UK", icon:"🇬🇧", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"UK & Europe ITT tours at military rates", desc:"RAF Lakenheath and Mildenhall MWR in Suffolk, England run extensive UK tours — London, Cambridge, Edinburgh, Stonehenge, Bath, and more. Also coordinates budget European travel (Paris, Amsterdam, Brussels). On-base lodging runs $75–$130/night. USO serves both installations.", src:"Lakenheath.af.mil/MWR", url:"https://www.lakenheath.af.mil/", seasonal:false, verified:true },
+  { id:"i061", org:"USAG Benelux MWR (Belgium/Netherlands)", cat:"Travel", sub:"Recreation Europe", country:"UK", icon:"🇧🇪", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Benelux & Western Europe tours", desc:"USAG Benelux (Shape, Chièvres, Brunssum) MWR coordinates tours across Belgium, the Netherlands, Luxembourg, and France. Belgian beer tours, Amsterdam day trips, D-Day Normandy tours, and Rhine cruises at military rates. Centrally located in Western Europe — drive to 6+ countries in a day.", src:"USAG-Benelux.army.mil", url:"https://www.usag-benelux.army.mil/", seasonal:false, verified:true },
+
+  // PORTUGAL
+  { id:"i070", org:"Lajes Field MWR (Azores, Portugal)", cat:"Travel", sub:"Recreation Portugal", country:"Spain", icon:"🇵🇹", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Azores outdoor recreation & whale watching", desc:"Lajes Field on Terceira Island, Azores, offers some of the most unusual military recreation in the world — hiking volcanic craters, whale watching, sport fishing, and exploring Portuguese culture. On-base lodging available. One of the most unique and undervisited military stations for quality of life.", src:"Lajes.af.mil", url:"https://www.lajesfield.af.mil/", seasonal:false, verified:true },
+
+  // BAHRAIN
+  { id:"i080", org:"NSA Bahrain MWR", cat:"Travel", sub:"Recreation Middle East", country:"Bahrain", icon:"🇧🇭", elig:["Active Duty","Reserve","Guard","DoD Civilian","Dependent"], discount:"Middle East tours & recreation", desc:"Naval Support Activity Bahrain MWR serves U.S. Fifth Fleet and NAVCENT personnel. Amenities include pool, fitness, bowling, and coordination of trips to Bahrain's souqs, the Tree of Life, Al Fateh Mosque, and day trips to Saudi Arabia and Dubai. On-base lodging and visitor quarters available.", src:"NSA-Bahrain.navy.mil", url:"https://www.navcent.navy.mil/", seasonal:false, verified:true },
+
+  // DUBAI / UAE
+  { id:"i081", org:"Dubai Military Discount Programs (UAE)", cat:"Travel", sub:"Travel UAE", country:"Bahrain", icon:"🇦🇪", elig:["Active Duty","Reserve","Guard","Retiree"], discount:"Military rates at select Dubai hotels", desc:"Several Dubai hotel chains extend government/military rates to U.S. and NATO military. Marriott, Hyatt, and IHG properties in Dubai recognize government rate bookings. Dubai's duty-free shopping, Burj Khalifa, and Desert Safari tours are accessible from Bahrain by a short flight or ferry.", src:"Marriott.com/government", url:"https://www.marriott.com/military", seasonal:false, verified:true },
+
+  // HAWAII — additional
+  { id:"i090", org:"Hickam / JBPHH MWR (Oahu)", cat:"Travel", sub:"Recreation Hawaii", country:"Hawaii", icon:"🌺", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Oahu beach recreation, surfing, water sports", desc:"Joint Base Pearl Harbor-Hickam MWR offers extensive Oahu recreation — surfing lessons, catamaran charters, hiking (Diamond Head, Koko Head), beach cabana rentals, and tours to Hanauma Bay and the North Shore. On-base camping at Bellows Beach is among Hawaii's most coveted military perks.", src:"JBPHHohana.com", url:"https://www.jbphh.navy.mil/", seasonal:false, verified:true },
+  { id:"i091", org:"Bellows AFS Beach Cottages (Oahu)", cat:"Travel", sub:"Military Lodging Hawaii", country:"Hawaii", icon:"🏖️", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Oahu beachfront cottages ~$85–$175/nt", desc:"Bellows Air Force Station on the windward side of Oahu offers beachfront cottage rentals — one of the most coveted military recreation perks in the Pacific. White sand beach, no civilian access. Cottages sleep 4–8 and include kitchens. Book early — extremely popular.", src:"JBPHHohana.com/bellows", url:"https://www.jbphh.navy.mil/", seasonal:false, verified:true },
+  { id:"i092", org:"Kilauea Military Camp (KMC) — Volcano, Hawaii", cat:"Travel", sub:"Military Lodging Hawaii", country:"Hawaii", icon:"🌋", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Inside Volcanoes National Park — ~$60–$140/nt", desc:"Kilauea Military Camp sits inside Hawai'i Volcanoes National Park on the Big Island — the only lodging inside the park besides one civilian lodge. Rates are a fraction of comparable options. Access to lava flows, Thurston Lava Tube, and the volcanic crater. One of the most unique military lodging options in the U.S.", src:"KMCVolcano.com", url:"https://www.kmc-volcano.com/", seasonal:false, verified:true },
+  { id:"i093", org:"Maui (MCAS Kaneohe Bay Recreation Area)", cat:"Travel", sub:"Recreation Hawaii", country:"Hawaii", icon:"🌺", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Maui access, beach cabanas & military lodging", desc:"MCAS Kaneohe Bay MWR on Oahu's windward coast provides some of the best beach access in Hawaii, plus coordination for Maui inter-island trip packages, deep sea fishing, skydiving, and off-base tours at military rates.", src:"mcbhawaii.marines.mil", url:"https://www.mcbhawaii.marines.mil/", seasonal:false, verified:true },
+
+  // AUSTRALIA
+  { id:"i100", org:"Australia Military Liaison (HMAS / Pine Gap)", cat:"Travel", sub:"Recreation Australia", country:"Australia", icon:"🇦🇺", elig:["Active Duty","DoD Civilian"], discount:"Government rates at Australian partner facilities", desc:"U.S. military personnel assigned or visiting Australia (Joint Defence Facility Pine Gap, HMAS Stirling, RAAF Darwin) have access to Australian Defence Force recreation facilities and government hotel rates. Marriott and IHG government rates apply. Sydney, Melbourne, and Darwin are primary destinations.", src:"Marriott.com/government", url:"https://www.marriott.com/military", seasonal:false, verified:true },
+
+  // SINGAPORE
+  { id:"i101", org:"Singapore Government / Changi Military Transit", cat:"Travel", sub:"Transit Singapore", country:"Australia", icon:"🇸🇬", elig:["Active Duty","Reserve","Guard","Retiree"], discount:"Military transit & government hotel rates", desc:"Singapore Changi Airport serves as a major transit hub for WESTPAC military travel. Government/military hotel rates available at Marriott, IHG, and Mandarin Oriental Singapore. JUSMAG coordination for visiting U.S. forces. Singapore's strict entry requirements apply regardless of military status.", src:"Marriott.com/government", url:"https://www.marriott.com/military", seasonal:false, verified:true },
+
+  // NATO EUROPE GENERAL
+  { id:"i110", org:"NATO SOFA Hotel Programs (Europe-wide)", cat:"Travel", sub:"Hotel Discounts Europe", country:"Germany", icon:"🌍", elig:["Active Duty","Reserve","Guard","Retiree"], discount:"Government/NATO rates across 30+ countries", desc:"NATO Status of Forces Agreement (SOFA) country members typically honor U.S. military government rates at major hotel chains. Marriott, Hilton, IHG, and Accor all maintain NATO/government rate tiers accessible with military ID. Rates vary by country but typically run 15–30% below rack rates.", src:"Marriott.com/government", url:"https://www.marriott.com/military", seasonal:false, verified:true },
+  { id:"i111", org:"InterContinental Hotels Group (IHG) — Military", cat:"Travel", sub:"Hotel Chain", country:"Germany", icon:"🏨", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"Gov/Military rates — Europe & worldwide", desc:"IHG's government rate applies at InterContinental, Crowne Plaza, Holiday Inn, and Staybridge across Europe, the Middle East, and Asia-Pacific. Points earned on gov-rate stays. IHG One Rewards points don't expire for active duty members.", src:"IHG.com/government", url:"https://www.ihg.com/hotels/us/en/reservation", seasonal:false, verified:true },
+  { id:"i112", org:"Accor Hotels (Europe / Asia-Pacific)", cat:"Travel", sub:"Hotel Chain", country:"Germany", icon:"🏨", elig:["Active Duty","Reserve","Guard","Retiree"], discount:"Government rates at Sofitel, Novotel, ibis", desc:"Accor Hotels (parent of Sofitel, Mercure, Novotel, ibis, Fairmont, Pullman) offers government/military rates at properties across Europe, the Middle East, Africa, and Asia-Pacific — particularly useful in France, Germany, Australia, and Southeast Asia where Accor dominates.", src:"All.Accor.com", url:"https://all.accor.com/", seasonal:false, verified:true },
+
+  // JAPAN RAIL / TRANSPORT
+  { id:"i120", org:"JR Pass (Japan Rail) — Military Discount", cat:"Travel", sub:"Transportation Japan", country:"Japan", icon:"🚄", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Exchange/ITT office discounts on JR Pass", desc:"The JR Pass (unlimited Shinkansen and JR rail travel in Japan) isn't a military-exclusive benefit, but military ITT offices at Yokota, Kadena, Iwakuni, and Misawa often sell them at slightly below-retail prices and can advise on routes. Essential for Japan touring — 14-day pass covers the entire country.", src:"JRPass.com (via ITT offices)", url:"https://www.jrpass.com/", seasonal:false, verified:true },
+
+  // GERMANY RAIL
+  { id:"i121", org:"Deutsche Bahn (German Rail) — Bayernticket", cat:"Travel", sub:"Transportation Germany", country:"Germany", icon:"🚂", elig:["Active Duty","Reserve","Guard","DoD Civilian","Dependent"], discount:"Group Bavaria day pass ~€30 for 5 people", desc:"The Deutsche Bahn Bayernticket allows unlimited regional rail travel in Bavaria for groups of up to 5 for ~€30/day — essential for exploring the Garmisch/Munich/Nuremberg/Regensburg area from Edelweiss or USAG Bavaria. Not military-exclusive but massively useful for EUCOM-stationed personnel touring Germany.", src:"Bahn.de", url:"https://www.bahn.de/", seasonal:false, verified:true },
+
+  // EUROPE RAIL GENERAL
+  { id:"i122", org:"Eurail Pass — Military/Government Discount", cat:"Travel", sub:"Transportation Europe", country:"Germany", icon:"🚆", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"ITT offices sell at discounted rates", desc:"Eurail Passes for unlimited European train travel are sold at EUCOM ITT offices at a discount. With one pass, EUCOM-stationed personnel can access France, Italy, Spain, Netherlands, Belgium, and 30+ other countries. Coordinate through your nearest garrison MWR/ITT office.", src:"Eurail.com (via ITT offices)", url:"https://www.eurail.com/", seasonal:false, verified:true },
+];
+
+/* ==========================================================
+   AFRC RESORT DATABASE (DEEP DIVE)
+   ========================================================== */
+const AFRC_RESORTS = [
+  {
+    id: "afrc001",
+    name: "Shades of Green",
+    subtitle: "Walt Disney World Resort, Orlando, FL",
+    location: { flag:"🇺🇸", city:"Lake Buena Vista, Florida", country:"USA" },
+    gradient: "linear-gradient(160deg, #1A4D2E 0%, #2E7D32 60%, #1B5E20 100%)",
+    bgEmoji: "🏰",
+    badge: "DISNEY WORLD",
+    description: "The only hotel located inside the Walt Disney World Resort complex exclusively for the military. Positioned between the Magic Kingdom and EPCOT, with free Disney transportation. Perhaps the single highest-value military benefit for families.",
+    eligibility: ["Active Duty","Retiree","Reserve","DoD Civilian","Disabled Veteran"],
+    eligLabels: [["ad","Active Duty"],["ret","Retiree"],["res","Reserve"],["dod","DoD Civ"],["vet","Disabled Vet"]],
+    rates: [
+      { tier:"Cat I (Active Duty)", low:185, high:240, note:"E1–O10, all branches" },
+      { tier:"Cat II (Retirees)", low:210, high:265, note:"All retirees" },
+      { tier:"Cat III (DoD Civ)", low:225, high:295, note:"GS/WG employees" },
+    ],
+    comparison: "Civilian Disney-area resorts: $350–$900+/night",
+    booking: { window:"18 months all categories", url:"https://www.shadesofgreen.org", phone:"407-824-3400" },
+    cancellation: "72-hour cancellation policy; peak periods may vary",
+    amenities: ["Free Disney Transportation","3 Pools","7 Restaurants/Bars","Fitness Center","Military Disney Ticket Sales","Free Resort Parking","Golf Privileges","On-site Grocery","Room Service"],
+    tips: "Book exactly at your 18-month window — popular dates fill within hours. Military Disney Salute tickets (discounted multi-day) sold at front desk.",
+    source: "shadesofgreen.org",
+    sourceUrl: "https://www.shadesofgreen.org"
+  },
+  {
+    id: "afrc002",
+    name: "Hale Koa Hotel",
+    subtitle: "Waikiki Beach, Honolulu, Hawaii",
+    location: { flag:"🇺🇸", city:"Honolulu, Hawaii", country:"Hawaii" },
+    gradient: "linear-gradient(160deg, #00695C 0%, #00897B 60%, #004D40 100%)",
+    bgEmoji: "🌺",
+    badge: "WAIKIKI BEACH",
+    description: "Direct Waikiki beachfront property. One of the most prime real estate locations for any hotel in the world — and ours. Five categories of lodging from basic to luxury suites, all with beach access, at a fraction of civilian rates.",
+    eligibility: ["Active Duty","Retiree","Reserve","DoD Civilian"],
+    eligLabels: [["ad","Active Duty"],["ret","Retiree"],["res","Reserve"],["dod","DoD Civ"]],
+    rates: [
+      { tier:"Cat I (Active E1–E4)", low:145, high:195, note:"Lowest military rates" },
+      { tier:"Cat II (Active E5–O10)", low:175, high:235, note:"Standard military" },
+      { tier:"Cat V (Retirees)", low:195, high:280, note:"Lower availability" },
+    ],
+    comparison: "Civilian Waikiki beachfront: $400–$900+/night",
+    booking: { window:"60 days (A/D), 30 days (Retirees)", url:"https://www.halekoa.com", phone:"800-367-6027" },
+    cancellation: "72-hour cancellation; deposit required for peak season",
+    amenities: ["Private Waikiki Beach","Sunset Luau","6 Restaurants","5 Pools (Tiered)","Fitness Center","Spa","Surfing Lessons","Beach Equipment Rental","Nightly Entertainment","On-site Shopping"],
+    tips: "Sunset Luau sells out weeks in advance — book immediately after booking room. Beach access alone is worth the stay vs inland hotels.",
+    source: "halekoa.com",
+    sourceUrl: "https://www.halekoa.com"
+  },
+  {
+    id: "afrc003",
+    name: "New Sanno Hotel",
+    subtitle: "Central Tokyo (Hiroo/Roppongi), Japan",
+    location: { flag:"🇯🇵", city:"Tokyo, Japan", country:"Japan" },
+    gradient: "linear-gradient(160deg, #B71C1C 0%, #C62828 60%, #7F0000 100%)",
+    bgEmoji: "⛩️",
+    badge: "TOKYO JAPAN",
+    description: "A U.S. military hotel operated by the U.S. Navy in one of Tokyo's most desirable neighborhoods — Hiroo/Roppongi. 24-hour front desk, American dining, free shuttle to local transit. Tokyo hotels in this neighborhood run $350–$700/night commercially.",
+    eligibility: ["Active Duty","Retiree","Reserve","DoD Civilian"],
+    eligLabels: [["ad","Active Duty"],["ret","Retiree"],["res","Reserve"],["dod","DoD Civ"]],
+    rates: [
+      { tier:"Cat I (Active Duty)", low:150, high:195, note:"Best availability" },
+      { tier:"Cat II (Retirees)", low:170, high:215, note:"Subject to availability" },
+      { tier:"Cat III (DoD Civ)", low:180, high:220, note:"Subject to availability" },
+    ],
+    comparison: "Comparable Tokyo hotels: $350–$700/night",
+    booking: { window:"60 days (A/D), 30 days (Retirees/DoD)", url:"https://www.thenewsanno.com", phone:"DSN 315-229-8222" },
+    cancellation: "48–72 hours prior; peak periods more restrictive",
+    amenities: ["American & Japanese Restaurants","Bar/Lounge","Fitness Center","Business Center","Shuttle to Metro","Currency Exchange","US-brand amenities","24hr Front Desk","Laundry Service"],
+    tips: "Ideal base for Tokyo tourism. Free shuttle to Hiroo Station (Hibiya Line). CAC required at check-in. Retirees must call during Japanese business hours due to staffing.",
+    source: "thenewsanno.com",
+    sourceUrl: "https://www.thenewsanno.com"
+  },
+  {
+    id: "afrc004",
+    name: "Dragon Hill Lodge",
+    subtitle: "Yongsan Garrison, Seoul, South Korea",
+    location: { flag:"🇰🇷", city:"Seoul, South Korea", country:"South Korea" },
+    gradient: "linear-gradient(160deg, #1A237E 0%, #283593 60%, #0D1641 100%)",
+    bgEmoji: "🐉",
+    badge: "SEOUL KOREA",
+    description: "Full-service resort hotel in central Seoul on historic Yongsan Garrison. Far beyond typical base lodging — full amenities including spa, bowling, pool, multiple restaurants, and gaming. Seoul civilian luxury hotels: $300–$600/night.",
+    eligibility: ["Active Duty","Retiree","Reserve","DoD Civilian"],
+    eligLabels: [["ad","Active Duty"],["ret","Retiree"],["res","Reserve"],["dod","DoD Civ"]],
+    rates: [
+      { tier:"Cat I (Active Duty)", low:120, high:170, note:"All pay grades" },
+      { tier:"Cat II (Retirees)", low:145, high:190, note:"Subject to availability" },
+      { tier:"Cat III (DoD Civ)", low:155, high:200, note:"Least availability" },
+    ],
+    comparison: "Comparable Seoul hotels: $280–$550/night",
+    booking: { window:"60 days (A/D), 45 days (Retirees)", url:"https://www.dragonhilllodge.com", phone:"DSN 315-738-4002" },
+    cancellation: "72 hours prior to arrival",
+    amenities: ["Indoor Pool & Jacuzzi","Bowling Center","Full Spa","American & Asian Restaurants","Food Court","Fitness Center","Golf Simulator","Gift Shop","Business Center","Shuttles to ITAEWON/Downtown"],
+    tips: "KATUSA Snack Bar on the garrison offers incredible value Korean and American food. Itaewon shopping district is walkable from the garrison. Book R&R stays well in advance — particularly popular for OCONUS-stationed personnel.",
+    source: "dragonhilllodge.com",
+    sourceUrl: "https://www.dragonhilllodge.com"
+  },
+  {
+    id: "afrc005",
+    name: "Edelweiss Lodge & Resort",
+    subtitle: "Garmisch-Partenkirchen, Bavaria, Germany",
+    location: { flag:"🇩🇪", city:"Garmisch-Partenkirchen, Germany", country:"Germany" },
+    gradient: "linear-gradient(160deg, #01579B 0%, #0277BD 60%, #002F6C 100%)",
+    bgEmoji: "🏔️",
+    badge: "BAVARIAN ALPS",
+    description: "AFRC's European flagship resort sits in the heart of the Bavarian Alps near Germany's highest peak, the Zugspitze. Ski-in/ski-out access in winter; world-class hiking in summer. By far the most cost-effective way to experience an Alpine resort.",
+    eligibility: ["Active Duty","Retiree","Reserve","DoD Civilian"],
+    eligLabels: [["ad","Active Duty"],["ret","Retiree"],["res","Reserve"],["dod","DoD Civ"]],
+    rates: [
+      { tier:"Cat I (Active Duty)", low:100, high:155, note:"Best room selection" },
+      { tier:"Cat II (Retirees)", low:120, high:175, note:"30-day advance book" },
+      { tier:"Cat III (DoD Civ)", low:135, high:185, note:"Subject to availability" },
+    ],
+    comparison: "Comparable Garmisch alpine resorts: $250–$600/night",
+    booking: { window:"90 days (A/D), 60 days (Retirees/DoD)", url:"https://www.edelweisslodgeandresort.com", phone:"011-49-8821-9440-0" },
+    cancellation: "7 days (peak season), 72 hours (shoulder season)",
+    amenities: ["Ski-in/Ski-out Access","Outdoor Heated Pool","Spa & Sauna","4 Restaurants","Fitness Center","Cultural Tours","Ski Rental","Summer Hiking Programs","Children's Programs","Shuttle to Town"],
+    tips: "Peak ski season (Jan–Mar) and summer (Jul–Aug) book out 90 days instantly. Mountain view rooms command a premium but are worth it. The outdoor heated pool with Zugspitze views is iconic. Neuschwanstein Castle day trip organized by MWR staff on-site.",
+    source: "edelweisslodgeandresort.com",
+    sourceUrl: "https://www.edelweisslodgeandresort.com"
+  }
+];
+
+/* ==========================================================
+   SPACE-A TERMINALS
+   ========================================================== */
+const SPA_TERMINALS = [
+  { name:"Baltimore-Washington Thurgood Marshall (BWI)", loc:"Maryland", routes:"Ramstein, Rota, CONUS-wide", note:"Major AMC hub" },
+  { name:"Joint Base Lewis-McChord (JBLM)", loc:"Washington", routes:"WESTPAC (Japan, Korea, Hawaii)", note:"Primary Pacific gateway" },
+  { name:"Travis AFB", loc:"California", routes:"Hawaii, Japan, Korea, Guam", note:"Key PACAF hub" },
+  { name:"Ramstein Air Base", loc:"Germany", routes:"CONUS, EUCOM, AFRICOM", note:"Primary EUCOM hub" },
+  { name:"Kadena Air Base", loc:"Okinawa, Japan", routes:"Korea, Japan, CONUS, Southeast Asia", note:"PACAF western hub" },
+  { name:"Yokota Air Base", loc:"Tokyo, Japan", routes:"Korea, Guam, CONUS", note:"USFJ primary terminal" },
+  { name:"Osan Air Base", loc:"South Korea", routes:"Japan, Guam, CONUS", note:"USFK terminal" },
+  { name:"Hickam Field (JBPHH)", loc:"Pearl Harbor, Hawaii", routes:"CONUS, WESTPAC", note:"Hawaii gateway" },
+  { name:"Lajes Field", loc:"Azores, Portugal", routes:"EUCOM ↔ CONUS mid-Atlantic", note:"Transatlantic waypoint" },
+  { name:"Naval Air Station Rota", loc:"Spain", routes:"Norfolk, EUCOM, CONUS", note:"Atlantic Naval hub" },
+];
+
+/* ==========================================================
+   STATE BENEFITS DATABASE (SELECT HIGHLIGHTS)
+   ========================================================== */
+const STATE_BENEFITS = [
+  { abbr:"TX", name:"Texas", highlights:["NO income tax","100% disabled: full property tax exemption","Free hunting/fishing license for 50%+ disabled","State veterans cemetery free","Vehicle registration discount"], stars:["NO income tax","100% full property tax exemption"] },
+  { abbr:"FL", name:"Florida", highlights:["NO income tax","100% P&T: full homestead exemption","Disabled veterans: tiered homestead exemption","Free admission: state museums","Free hunting/fishing: 10%+ disabled"], stars:["NO income tax","Full homestead exemption for P&T"] },
+  { abbr:"SD", name:"South Dakota", highlights:["NO income tax","NO inheritance tax","Property tax freeze: disabled vets","Free license plates w/ veteran designation","Free state park access: veterans"], stars:["NO income tax","NO state taxes of almost any kind"] },
+  { abbr:"WY", name:"Wyoming", highlights:["NO income tax","Property tax exemption up to $3,000","Hunting/fishing priority & discounts","Free admission: state museums"], stars:["NO income tax"] },
+  { abbr:"NV", name:"Nevada", highlights:["NO income tax","Veteran property tax exemption $2,000","Disabled vet: increased exemption","Free veteran license plate"], stars:["NO income tax"] },
+  { abbr:"VA", name:"Virginia", highlights:["100% P&T: full property tax exemption","Surviving spouse exemption","Strong Tuition program (Chapter 33 supplement)","License plate options"], stars:["100% P&T full property exemption"] },
+  { abbr:"NC", name:"North Carolina", highlights:["Military retirement pay partially exempt","Combat pay tax exempt","National Guard pay during state emergencies exempt","Free tuition: Nat'l Guard members","Veteran-preference hiring strong"], stars:["Military pay tax exemptions","Free NG tuition"] },
+  { abbr:"GA", name:"Georgia", highlights:["Retirement pay exempt up to $35K per retiree","Disabled vet: homestead exemption","Strong military priority employment","National Guard: tuition waiver"], stars:["Strong retirement pay exemption"] },
+  { abbr:"TN", name:"Tennessee", highlights:["NO income tax on wages","Military retirement pay not taxed","Free license plates","Hunting/fishing discounts","Strong veteran homeownership programs"], stars:["NO income tax","Military retirement not taxed"] },
+  { abbr:"WA", name:"Washington", highlights:["NO income tax","Military retirement pay: 100% exempt","Free hunting/fishing: active duty & veterans","Parks discounts","Free burial: state veterans cemetery"], stars:["NO income tax","100% retirement pay exempt"] },
+  { abbr:"AK", name:"Alaska", highlights:["NO income tax","NO state sales tax","Property tax exemption: disabled vets","Military retirement: partially exempt","Free hunting/fishing: disabled vets"], stars:["NO income and sales tax"] },
+  { abbr:"CO", name:"Colorado", highlights:["$24K retirement pay exemption (age 55+)","Disabled vet: property tax reductions","Active duty/vet job placement programs","State tuition assistance supplement","National Guard: tuition waiver"], stars:["Retirement exemption growing annually"] },
+  { abbr:"CA", name:"California", highlights:["Military pay exempt while stationed outside CA","Veterans exemption on property tax $4,000 (basic)","Disabled vet: up to $196,262 property exempt","CalVet home loan program","Strong state hiring preference"], stars:["High cost of living offset partially by programs"] },
+  { abbr:"NY", name:"New York", highlights:["Military pay exempt from state/city income tax","Pension partially exempt for 20-yr+ retirees","Veterans property tax exemption (Alternative)","Gold Star family exemption","Strong city/state veteran hiring preference"], stars:["Military pay exempt from taxes"] },
+  { abbr:"IL", name:"Illinois", highlights:["Military retirement: 100% exempt from state income tax","Property tax homestead exemption for veterans","Free admission: state parks","Illinois Veteran Grant (IVG): free tuition in-state","Veterans Bonus: Combat Bonus Program"], stars:["100% retirement pay exempt","IVG free in-state tuition"] },
+  { abbr:"MD", name:"Maryland", highlights:["Up to $15K military retirement exempt (age 55+)","Disabled vet: full property tax exemption","Maryland Overseas combat pay exempt","VetCash bonus payments","Free tuition: Purple Heart recipients"], stars:["Purple Heart: free tuition"] },
+  { abbr:"AZ", name:"Arizona", highlights:["Military retirement: 100% exempt","Disabled vet: property tax exemption","Free hunting/fishing: honorably discharged vets","No state tax on battle pay","License plate programs"], stars:["100% retirement pay tax exempt"] },
+  { abbr:"HI", name:"Hawaii", highlights:["Military pay earned outside HI: exempt","Veteran property tax exemptions vary by county","Free state parks admission","Hawaii Vet Grant program","Strong TRICARE supplement population"], stars:["Military pay earned OCONUS: exempt"] },
+  { abbr:"SC", name:"South Carolina", highlights:["Military retirement: 100% exempt from income tax (after 2022 phase-in)","Combat pay exempt","Disabled vet: property tax waiver","License plate programs","Veteran preference hiring strong"], stars:["100% retirement pay exempt"] },
+  { abbr:"PA", name:"Pennsylvania", highlights:["Military pay: 100% exempt from state income tax","Military retirement: 100% exempt","Disabled vet: property tax relief","Real ID alignment for veterans","Blind veterans: increased exemption"], stars:["Military pay + retirement 100% exempt"] },
+  // ── REMAINING 35 STATES ──────────────────────────────────────────
+  { abbr:"AL", name:"Alabama", highlights:["Military retirement: 100% exempt from state income tax","All active duty pay: exempt","Disabled vet: property tax exemption up to $99,400 assessed value","Free hunting/fishing license: 20%+ service-connected disabled","Free vehicle license plates (several veteran plates)"], stars:["100% retirement pay tax exempt","Active duty pay fully exempt"] },
+  { abbr:"AR", name:"Arkansas", highlights:["Military retirement: up to $6,000 exempt from income tax (phasing to full exemption)","Combat pay: exempt","Disabled vet property tax: full exemption if 100% P&T","Free vehicle license plates","Veteran hiring preference"], stars:["Full property tax exemption for 100% P&T"] },
+  { abbr:"CT", name:"Connecticut", highlights:["Military pay earned in CT: 100% exempt","Pension income partially exempt","Property tax exemption: $1,500–$5,000 depending on disability rating","Disabled vet: additional exemption","Free hunting/fishing: active duty deployed"], stars:["Military pay fully exempt from CT income tax"] },
+  { abbr:"DE", name:"Delaware", highlights:["Military pension: first $2,000 exempt","Combat pay exempt","Property tax credit: veterans $400/yr","Veterans mortgage program","Free veteran ID cards","Veteran hiring preference state jobs"], stars:["Combat pay fully exempt"] },
+  { abbr:"IA", name:"Iowa", highlights:["Military retirement: 100% exempt from state income tax (as of 2024)","Active duty pay: exempt","Property tax credit for veterans","Veterans Trust Fund: emergency financial assistance","Free hunting/fishing: 70%+ disabled vet"], stars:["100% retirement pay exempt (as of 2024)"] },
+  { abbr:"ID", name:"Idaho", highlights:["Military retirement pay: 100% exempt (after 2015 phase-in)","Property tax reduction: disabled vets","Free hunting/fishing: 40%+ disabled","Vehicle registration exemptions","POW license plate options"], stars:["100% retirement pay exempt"] },
+  { abbr:"IN", name:"Indiana", highlights:["Military pension: deduction up to $6,250","Combat pay: exempt","Property tax deduction: $12,480 for veterans with disability","Surviving spouse: maintains deduction","Veterans preference hiring"], stars:["Significant property tax deduction"] },
+  { abbr:"KS", name:"Kansas", highlights:["Military retirement: 100% exempt from state income tax","Active duty pay: exempt while outside KS","Property tax relief: disabled veterans","Free hunting/fishing: resident veterans","Veteran employment preference strong"], stars:["100% retirement pay exempt"] },
+  { abbr:"KY", name:"Kentucky", highlights:["Military retirement: 100% exempt from state income tax","Active duty pay: exempt while on active duty","Property tax exemption: $40,500 for 100% disabled","Free hunting/fishing: resident vets","Service medal license plates"], stars:["100% retirement exempt","$40,500 property exemption"] },
+  { abbr:"LA", name:"Louisiana", highlights:["Military retirement: 100% exempt","Active duty pay of LA residents: partially exempt","100% disabled: full property tax exemption","Surviving spouse: maintains exemption","Free hunting/fishing: 100% disabled vet"], stars:["100% retirement pay exempt","Full property exemption P&T"] },
+  { abbr:"MA", name:"Massachusetts", highlights:["Active duty pay: exempt from MA income tax","Veterans annuity: partial exemption","Property tax exemption: $400–$1,500 depending on service","Blind veterans: increased exemption","State tuition waiver for children of KIA","Strong veteran employment programs"], stars:["Tuition waiver for KIA/MIA children"] },
+  { abbr:"MI", name:"Michigan", highlights:["Military retirement: 100% exempt (if entered service before 1997)","Partial exemption for post-1997 service","Property tax exemption: 100% disabled vets full exemption","Surviving spouse: maintains exemption","Free hunting/fishing: 100% disabled","Michigan Veteran Homes: low-cost care"], stars:["Full property exemption 100% disabled"] },
+  { abbr:"MN", name:"Minnesota", highlights:["Military retirement pay: partially exempt","Veterans' Property Tax Market Value Exclusion","100% disabled: up to $300K home value excluded from property tax","Surviving spouse: maintains exclusion","Free state park permit: Purple Heart/POW","Strong state veteran employment preference"], stars:["Major property tax market value exclusion","Strong survivor benefits"] },
+  { abbr:"MO", name:"Missouri", highlights:["Military retirement: 100% exempt from state income tax","Active duty pay: exempt while on A/D","Property tax credit: seniors/disabled vets","Veterans' Homes program","Free hunting/fishing: 100% disabled","Missouri Veterans Commission emergency aid"], stars:["100% retirement pay exempt"] },
+  { abbr:"MS", name:"Mississippi", highlights:["Military retirement: 100% exempt from state income tax","Active duty pay: exempt","Property tax exemption: disabled veterans","Ad valorem tax exemption: 100% disabled vets on primary residence","Free hunting/fishing: 100% disabled","Vehicle registration savings"], stars:["100% retirement pay exempt","100% disabled: full ad valorem exemption"] },
+  { abbr:"MT", name:"Montana", highlights:["Military retirement: exempt up to $4,370/yr","Active duty pay: partially exempt","Property tax exemption: disabled vets $2K–$6K+ assessed","Veterans preference hiring strong","Free fishing: resident vets","Montana Veterans' Home: low-cost care"], stars:["Retirement pay partially exempt"] },
+  { abbr:"NE", name:"Nebraska", highlights:["Military retirement: 40% exempt (increasing to 100% by 2026)","Active duty pay: exempt while on orders","Homestead exemption: disabled vet 100% exempt up to cap","Veteran preference: absolute preference for 30%+ disabled","Free hunting/fishing: active duty & deployed Guard"], stars:["Retirement exemption growing to 100% by 2026"] },
+  { abbr:"NH", name:"New Hampshire", highlights:["NO state income tax on wages","Military pensions: not taxed","Property tax credit: $700/yr for qualifying vets","100% disabled: enhanced tax credit","Free hunting/fishing: active duty & certain vets","NH State Veterans' Cemetery: free burial"], stars:["NO income tax","$700/yr property tax credit"] },
+  { abbr:"NJ", name:"New Jersey", highlights:["Veterans property tax deduction: $250/yr","100% disabled vet: full property tax exemption on primary home","Surviving spouse: maintains exemption","Military pay: exempt while on active duty","New Jersey Veterans Bonus: combat veterans","State parks: discounted entry"], stars:["Full property exemption 100% disabled"] },
+  { abbr:"NM", name:"New Mexico", highlights:["Military retirement: 100% exempt from income tax (as of 2022)","Combat pay: exempt","Property tax exemption: $4,000 for veterans","100% disabled: increased exemption","Free hunting/fishing license: 100% disabled vet","NM veterans bonus program"], stars:["100% military retirement now fully exempt (2022)"] },
+  { abbr:"ND", name:"North Dakota", highlights:["Military retirement: fully exempt from state income tax","Active duty pay: exempt","Property tax credit: disabled vets","Veteran land board loan program","Free hunting/fishing: resident veterans","Strong ND Veteran Employment Initiative"], stars:["100% retirement pay exempt"] },
+  { abbr:"OH", name:"Ohio", highlights:["Military retirement pay: 100% exempt from Ohio income tax","Active duty pay: exempt","Disabled vet homestead exemption: $50,000 property value reduction","100% disabled or deceased: unlimited homestead exemption","Free hunting/fishing: 100% disabled vet","Ohio Veterans Bonus"], stars:["Unlimited homestead exemption for 100% disabled","100% retirement exempt"] },
+  { abbr:"OK", name:"Oklahoma", highlights:["Military retirement: 75% exempt ($10,000 max)","Active duty pay: 100% exempt","Disabled vet: property tax exemption (increasing with rating)","100% disabled: full property exemption on residence","Free hunting/fishing: 60%+ disabled vet","OK Veteran Education Assistance Grant"], stars:["100% disabled: full property exemption"] },
+  { abbr:"OR", name:"Oregon", highlights:["Military retirement: $6,250/person exemption ($12,500 joint)","Active duty pay: exempt while on leave outside OR","Property tax exemption: $22,500–$85,000 depending on disability","Surviving spouse: maintains exemption","Free hunting/fishing: 40%+ disabled vet","Oregon Veterans Home Loans (ODVA)"], stars:["Strong Oregon veterans home loan program"] },
+  { abbr:"RI", name:"Rhode Island", highlights:["Military retirement: $15,000 exempt from state income tax","Combat pay: exempt","Property tax exemption: $1,000 off assessed value","100% disabled: up to $6,000 additional exemption","Free hunting/fishing: 100% P&T disabled vet","RI Veterans Bonus: combat pay supplement"], stars:["Retirement pay partially exempt","P&T property benefit"] },
+  { abbr:"UT", name:"Utah", highlights:["Military retirement: up to $1,000 tax credit","Active duty pay: 100% exempt","Property tax abatement: qualifying veteran homeowners","Veteran hiring preference strong","Free hunting/fishing: active duty deployed","Utah Veteran Employment Initiative"], stars:["Active duty pay fully exempt","$1,000 retirement credit"] },
+  { abbr:"VT", name:"Vermont", highlights:["Military retirement: $10,000 exempt from VT income tax","Active duty pay: 100% exempt","Property tax credit: veterans with low income","Disabled vet: increased credit","Veterans mortgage program","Free veteran ID"], stars:["Active duty pay fully exempt","$10K retirement exemption"] },
+  { abbr:"WI", name:"Wisconsin", highlights:["Military retirement: 100% exempt from state income tax (as of 2017 phase-in)","Active duty pay: exempt","Property tax credit: disabled veterans","100% disabled: full property tax exemption","Free hunting/fishing: 100% disabled vet","Wisconsin Veterans Home Loans (WVLP)"], stars:["100% retirement pay exempt","Full property exemption 100% disabled"] },
+  { abbr:"WV", name:"West Virginia", highlights:["Military retirement: 100% exempt from state income tax","Active duty pay: exempt","Property tax exemption: $20,000 assessed value reduction","100% disabled: full property tax exemption","Free hunting/fishing: resident vets honorably discharged","WV State Veterans Cemetery"], stars:["100% retirement pay exempt","Full property exemption 100% disabled"] },
+  { abbr:"ME", name:"Maine", highlights:["Military retirement: partially exempt (up to $10,000)","Active duty pay: 100% exempt while outside ME","Property tax exemption: $6,000 assessed value for vets","Paraplegic vet: full property tax exemption","Free hunting/fishing: 100% disabled vet","Maine Veterans' Homes: low-cost care"], stars:["Paraplegic vet: full property exemption","Active duty pay fully exempt"] },
+  { abbr:"MN", name:"Minnesota", highlights:["Military retirement: partial exemption","Vet property tax market value exclusion: up to $300K for 100% disabled","Surviving spouse: maintains exclusion","Free state park: Purple Heart/POW vets","Strong state veteran hiring preference","Veteran emergency fund assistance"], stars:["Up to $300K home market value excluded for 100% disabled"] },
+  { abbr:"NE", name:"Nebraska", highlights:["Military retirement: growing toward 100% exemption by 2026","Homestead exemption: 100% disabled vet full exemption","Veteran absolute hiring preference for 30%+ disabled","Free hunting/fishing: active & deployed Guard","Nebraska Veterans Aid Fund: emergency assistance"], stars:["100% exemption for disabled homestead","Retirement growing to 100% exempt"] },
+];
+
+/* ==========================================================
+   SEASONAL PROMOTIONS DATABASE
+   ========================================================== */
+const SEASONAL = [
+  { id:"s001", org:"Golden Corral", cat:"Food", icon:"🍽️", event:"Military Appreciation Monday", period:"Monday after Veterans Day (annual)", recurrence:"95%", elig:["Active Duty","Veteran","Retiree"], discount:"Free dinner buffet", desc:"Golden Corral's most anticipated annual event — free dinner buffet for all veterans and active military. Typically serves 500,000–1M meals nationally. No purchase required; proof of service accepted at door.", seasonal:true },
+  { id:"s002", org:"Texas Roadhouse", cat:"Food", icon:"🥩", event:"Veterans Day Free Meal", period:"November 11 annually", recurrence:"98%", elig:["Veteran","Active Duty","Retiree"], discount:"Free lunch/dinner entrée", desc:"Free lunch from the Veterans Day menu (usually 11am–2pm) — highly popular, often with wait. One of the most consistently offered Veterans Day benefits.", seasonal:true },
+  { id:"s003", org:"Applebee's", cat:"Food", icon:"🍔", event:"Veterans Day Free Entrée", period:"November 11 annually", recurrence:"97%", elig:["Veteran","Active Duty","Retiree"], discount:"Free full entrée", desc:"Free full entrée from special Veterans Day menu. Applebee's has run this promotion nearly every year for 20+ years. Dine-in only; military ID, DD-214, or veteran ID accepted.", seasonal:true },
+  { id:"s004", org:"Denny's", cat:"Food", icon:"🍳", event:"Veterans Day Grand Slam", period:"November 11 (6am–noon)", recurrence:"95%", elig:["Veteran","Active Duty"], discount:"Free Grand Slam Breakfast", desc:"Free Grand Slam breakfast between 6am and noon on Veterans Day. One of the original Veterans Day free meals — running for well over a decade.", seasonal:true },
+  { id:"s005", org:"IHOP", cat:"Food", icon:"🥞", event:"Veterans Day Pancakes", period:"November 11", recurrence:"90%", elig:["Veteran","Active Duty","Retiree"], discount:"Free red/white/blue pancakes", desc:"Free short stack of red, white, and blue pancakes. Most locations, all day. Military ID or proof of service required.", seasonal:true },
+  { id:"s006", org:"Major Retailers (Target, Walmart, etc.)", cat:"Retail", icon:"🛒", event:"Military Appreciation Month Sales", period:"May (Military Appreciation Month)", recurrence:"80%", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"Varies 10–30%", desc:"Many major retailers run enhanced military discounts or special promotions throughout May in honor of Military Appreciation Month. Participation and discount amounts vary by company and year.", seasonal:true },
+  { id:"s007", org:"Disney Military Salute Tickets", cat:"Entertainment", icon:"🏰", event:"Annual Military Salute Ticket Program", period:"Typically Jan 1 – Sept 30 (varies)", recurrence:"92%", elig:["Active Duty","Reserve","Guard"], discount:"$89–$99/day tickets (vs $109–$189+)", desc:"Disney's annual Military Salute ticket program offers deeply discounted multi-day tickets through the Shades of Green front desk and select USO/ITT offices. Typically available Jan–Sept; dates and prices adjusted annually.", seasonal:true },
+  { id:"s008", org:"SeaWorld Waves of Honor (Extended)", cat:"Entertainment", icon:"🌊", event:"Military Appreciation Events", period:"Memorial Day, July 4, Veterans Day periods", recurrence:"85%", elig:["Active Duty","Veteran"], discount:"Additional discounts layered on base offer", desc:"Beyond the year-round free admission for active duty, SeaWorld parks run additional Military Appreciation events around Memorial Day and July 4 with extra discounts for accompanying family members.", seasonal:true },
+  { id:"s009", org:"Various Auto Dealers", cat:"Auto", icon:"🚗", event:"Memorial Day / Veterans Day Auto Sales", period:"May & November", recurrence:"95%", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"Stacked military + holiday incentives", desc:"Auto manufacturers typically stack Memorial Day/Veterans Day sale incentives on top of existing military rebates — sometimes totaling $2,000–$4,000+ off MSRP. Best time of year to exercise auto military benefits.", seasonal:true },
+  { id:"s010", org:"Various Airlines", cat:"Travel", icon:"✈️", event:"Holiday / Leave Travel Military Fares", period:"Thanksgiving, Christmas, Spring Break", recurrence:"70%", elig:["Active Duty","Reserve","Guard"], discount:"Military fare exemptions/discounts", desc:"Several airlines (United, Delta, American) extend baggage fee waivers and sometimes fare discounts for military personnel traveling on orders during peak holiday travel periods. Check with each airline's military travel desk.", seasonal:true },
+];
+
+/* ==========================================================
+   APP STATE & RENDERING
+   ========================================================== */
+let activeElig = "all";
+let activeCat = "";
+let activeCountry = "";
+let activeStateFilter = "";
+let searchQuery = "";
+let activeTab = "benefits";
+
+/* ==========================================================
+   FAVORITES SYSTEM (localStorage-persisted)
+   ========================================================== */
+const FAV_KEY = 'milbenefits_favorites_v2';
+
+function loadFavs() {
+  try { return JSON.parse(localStorage.getItem(FAV_KEY)) || []; }
+  catch(e) { return []; }
+}
+function saveFavs(ids) {
+  try { localStorage.setItem(FAV_KEY, JSON.stringify(ids)); } catch(e){}
+}
+function isFaved(id) { return loadFavs().includes(id); }
+
+function toggleFav(id, e) {
+  if (e) { e.stopPropagation(); e.preventDefault(); }
+  const favs = loadFavs();
+  const idx = favs.indexOf(id);
+  let added = false;
+  if (idx === -1) { favs.push(id); added = true; }
+  else { favs.splice(idx, 1); }
+  saveFavs(favs);
+  updateFavUI();
+  showToast(added ? '⭐ Saved to favorites' : '✕ Removed from favorites');
+  // Refresh whichever tab is currently showing
+  if (activeTab === 'benefits') renderBenefits();
+  if (activeTab === 'international') renderInternational(document.querySelector('.country-btn.active')?.dataset.country || 'all');
+  if (activeTab === 'favorites') renderFavoritesTab();
+  renderFavPanel();
+}
+
+function updateFavUI() {
+  const count = loadFavs().length;
+  document.getElementById('fav-count-badge').textContent = count;
+  document.getElementById('fav-tab-count').textContent = count + ' SAVED';
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('fav-toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+let favPanelOpen = false;
+function toggleFavPanel() {
+  favPanelOpen = !favPanelOpen;
+  document.getElementById('fav-panel').classList.toggle('open', favPanelOpen);
+  if (favPanelOpen) renderFavPanel();
+}
+
+function renderFavPanel() {
+  const favs = loadFavs();
+  const allItems = [...BENEFITS, ...SEASONAL];
+  const saved = favs.map(id => allItems.find(x => x.id === id)).filter(Boolean);
+
+  const emptyEl = document.getElementById('fav-empty');
+  const listEl = document.getElementById('fav-list');
+
+  if (saved.length === 0) {
+    emptyEl.style.display = 'block';
+    listEl.innerHTML = '';
+    return;
+  }
+  emptyEl.style.display = 'none';
+
+  listEl.innerHTML = saved.map(b => `
+    <div class="fav-item" onclick="openBenefitModal('${b.id}')">
+      <div class="fav-item-icon">${b.icon}</div>
+      <div class="fav-item-content">
+        <div class="fav-item-org">${b.org}</div>
+        <div class="fav-item-sub">${b.cat} · ${b.sub || ''}</div>
+      </div>
+      <div class="fav-item-discount">${b.discount.length > 12 ? '★' : b.discount}</div>
+      <button class="fav-item-remove" onclick="toggleFav('${b.id}', event)" title="Remove">✕</button>
+    </div>
+  `).join('');
+}
+
+function renderFavoritesTab() {
+  const favs = loadFavs();
+  const allItems = [...BENEFITS, ...SEASONAL];
+  const saved = favs.map(id => allItems.find(x => x.id === id)).filter(Boolean);
+  updateFavUI();
+
+  const emptyEl = document.getElementById('fav-tab-empty');
+  const contentEl = document.getElementById('fav-tab-content');
+
+  if (saved.length === 0) {
+    emptyEl.style.display = 'block';
+    contentEl.style.display = 'none';
+    return;
+  }
+  emptyEl.style.display = 'none';
+  contentEl.style.display = 'block';
+
+  // Table rows
+  document.getElementById('fav-table-body').innerHTML = saved.map((b, i) => `
+    <tr style="${i % 2 === 0 ? '' : 'background:var(--chalk)'}">
+      <td style="padding:10px 16px;font-weight:600;font-size:13px">${b.icon} ${b.org}</td>
+      <td style="padding:10px 16px;font-size:12px;color:var(--text-muted)">${b.cat}</td>
+      <td style="padding:10px 16px;font-size:12px;font-weight:600;color:var(--navy-700)">${b.discount.slice(0,30)}${b.discount.length > 30 ? '…' : ''}</td>
+      <td style="padding:10px 16px;font-size:11px">${b.elig.slice(0,3).join(', ')}</td>
+      <td style="padding:10px 16px;font-size:11px"><a href="${b.url}" target="_blank" style="color:var(--navy-600);word-break:break-all">${b.src}</a></td>
+      <td style="padding:10px 16px" class="no-print">
+        <button class="fav-item-remove" onclick="toggleFav('${b.id}', event);renderFavoritesTab();" title="Remove">✕</button>
+      </td>
+    </tr>
+  `).join('');
+
+  // Cards grid
+  document.getElementById('fav-cards-grid').innerHTML = saved.map(b => `
+    <div class="benefit-card" onclick="openBenefitModal('${b.id}')">
+      <button class="fav-btn saved" onclick="toggleFav('${b.id}', event);renderFavoritesTab();" title="Remove from saved">⭐</button>
+      <div class="benefit-card-top">
+        <div class="benefit-icon ${getCategoryIcon(b.cat)}">${b.icon}</div>
+        <div class="benefit-meta">
+          <div class="benefit-org">${b.org}</div>
+          <div class="benefit-cat">${b.cat} · ${b.sub}</div>
+        </div>
+        <div class="benefit-discount">
+          <div class="benefit-discount-amount ${b.cat==='Government'?'brass':''}">${b.discount.length > 8 ? '⭐' : b.discount}</div>
+          <div class="benefit-discount-label">${b.discount.length > 8 ? b.discount.slice(0,10)+'…' : 'Off'}</div>
+        </div>
+      </div>
+      <div class="benefit-desc">${b.desc.slice(0, 120)}${b.desc.length > 120 ? '…' : ''}</div>
+      <div class="benefit-footer">
+        <div class="benefit-elig-chips">${renderEligChips(b.elig)}</div>
+        <span class="benefit-source">${b.src.split('.')[0]}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function clearAllFavs() {
+  if (!confirm('Remove all saved benefits? This cannot be undone.')) return;
+  saveFavs([]);
+  updateFavUI();
+  renderFavPanel();
+  if (activeTab === 'favorites') renderFavoritesTab();
+  showToast('🗑️ All saved benefits cleared');
+}
+
+function exportFavCSV() {
+  const favs = loadFavs();
+  const allItems = [...BENEFITS, ...SEASONAL];
+  const saved = favs.map(id => allItems.find(x => x.id === id)).filter(Boolean);
+  if (saved.length === 0) { showToast('No saved benefits to export'); return; }
+  const header = ['Organization','Category','Subcategory','Discount','Eligibility','Country','Source URL'];
+  const rows = saved.map(b => [
+    `"${b.org}"`, `"${b.cat}"`, `"${b.sub}"`, `"${b.discount}"`,
+    `"${b.elig.join('; ')}"`, `"${b.country}"`, `"${b.url}"`
+  ]);
+  const csv = [header, ...rows].map(r => r.join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'my-military-benefits.csv'; a.click();
+  showToast('📥 CSV exported');
+}
+
+/* ==========================================================
+   PRINT FUNCTIONS
+   ========================================================== */
+function triggerPrint() {
+  document.getElementById('print-date').textContent = new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+  window.print();
+}
+
+function printFavorites() {
+  // Switch to favorites tab first, then print
+  const btn = document.getElementById('tab-btn-favorites');
+  switchTab('favorites', btn);
+  renderFavoritesTab();
+  setTimeout(() => {
+    document.getElementById('print-date').textContent = new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+    window.print();
+  }, 150);
+}
+
+/* ==========================================================
+   TAB SWITCHING
+   ========================================================== */
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+  activeTab = tab;
+
+  if (tab === 'afrc') renderAFRC();
+  if (tab === 'spacea') renderSpaceA();
+  if (tab === 'international') renderInternational('all');
+  if (tab === 'states') renderStates();
+  if (tab === 'seasonal') renderSeasonal();
+  if (tab === 'benefits') renderBenefits();
+  if (tab === 'favorites') renderFavoritesTab();
+}
+
+function getCategoryIcon(cat) {
+  const map = { Retail:'benefit-icon-retail', Food:'benefit-icon-food', Travel:'benefit-icon-travel',
+    Auto:'benefit-icon-auto', Telecom:'benefit-icon-telecom', Finance:'benefit-icon-finance',
+    Entertainment:'benefit-icon-entertain', Health:'benefit-icon-health', Education:'benefit-icon-education',
+    Government:'benefit-icon-gov', 'Theme Parks':'benefit-icon-parks' };
+  return map[cat] || 'benefit-icon-gov';
+}
+
+function renderEligChips(eligArr) {
+  const map = { 'Active Duty':['elig-ad','AD'], 'Reserve':['elig-res','RES'], 'Guard':['elig-res','NG'],
+    'Veteran':['elig-vet','VET'], 'Retiree':['elig-ret','RET'], 'Spouse':['elig-dod','SPS'],
+    'Dependent':['elig-dod','DEP'], 'DoD Civilian':['elig-dod','DoD'], 'Disabled Veteran':['elig-vet','DV'],
+    'Gold Star':['elig-ret','GS'], 'Eligible Family':['elig-dod','FAM'] };
+  return eligArr.slice(0,5).map(e => {
+    const [cls, lbl] = map[e] || ['elig-dod', e.slice(0,3).toUpperCase()];
+    return `<span class="elig-chip ${cls}">${lbl}</span>`;
+  }).join('');
+}
+
+function renderBenefits(filtered) {
+  const grid = document.getElementById('benefits-grid');
+  const noRes = document.getElementById('no-results');
+  const data = filtered || applyFilters(BENEFITS);
+
+  if (data.length === 0) {
+    grid.innerHTML = '';
+    noRes.style.display = 'block';
+    document.getElementById('results-summary').textContent = '0 results';
+    return;
+  }
+  noRes.style.display = 'none';
+  document.getElementById('results-summary').textContent = `Showing ${data.length} of ${BENEFITS.length} benefits`;
+
+  grid.innerHTML = data.map(b => `
+    <div class="benefit-card" onclick="openBenefitModal('${b.id}')">
+      ${b.verified ? '<div class="verified-badge" title="Verified">✓</div>' : ''}
+      <button class="fav-btn ${isFaved(b.id) ? 'saved' : ''}" onclick="toggleFav('${b.id}', event)" title="${isFaved(b.id) ? 'Remove from saved' : 'Save benefit'}">${isFaved(b.id) ? '⭐' : '☆'}</button>
+      ${b.seasonal ? '<div class="seasonal-badge" style="right:46px">Seasonal</div>' : ''}
+      <div class="benefit-card-top">
+        <div class="benefit-icon ${getCategoryIcon(b.cat)}">${b.icon}</div>
+        <div class="benefit-meta">
+          <div class="benefit-org">${b.org}</div>
+          <div class="benefit-cat">${b.cat} · ${b.sub}</div>
+        </div>
+        <div class="benefit-discount">
+          <div class="benefit-discount-amount ${b.cat==='Government'?'brass':''}">${b.discount.length > 8 ? '⭐' : b.discount}</div>
+          <div class="benefit-discount-label">${b.discount.length > 8 ? b.discount.slice(0,10)+'…' : 'Off'}</div>
+        </div>
+      </div>
+      <div class="benefit-desc">${b.desc.slice(0, 120)}${b.desc.length > 120 ? '…' : ''}</div>
+      <div class="benefit-footer">
+        <div class="benefit-elig-chips">${renderEligChips(b.elig)}</div>
+        <span class="benefit-source">${b.src.split('.')[0]}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function applyFilters(data) {
+  return data.filter(b => {
+    const qMatch = !searchQuery ||
+      b.org.toLowerCase().includes(searchQuery) ||
+      b.desc.toLowerCase().includes(searchQuery) ||
+      b.sub.toLowerCase().includes(searchQuery) ||
+      b.cat.toLowerCase().includes(searchQuery);
+    const eligMatch = activeElig === 'all' || b.elig.includes(activeElig);
+    const catMatch = !activeCat || b.cat === activeCat;
+    const countryMatch = !activeCountry || b.country === activeCountry;
+    return qMatch && eligMatch && catMatch && countryMatch;
+  });
+}
+
+function runSearch() {
+  searchQuery = document.getElementById('main-search').value.toLowerCase().trim();
+  activeCat = document.getElementById('cat-filter').value;
+  activeCountry = document.getElementById('country-filter').value;
+  if (activeTab === 'benefits') renderBenefits();
+  if (activeTab === 'international') renderInternational(activeCountry || 'all');
+}
+
+document.getElementById('main-search').addEventListener('keyup', e => {
+  if (e.key === 'Enter') runSearch();
+});
+document.getElementById('nav-search-input').addEventListener('input', e => {
+  document.getElementById('main-search').value = e.target.value;
+  searchQuery = e.target.value.toLowerCase().trim();
+  if (activeTab === 'benefits') renderBenefits();
+});
+
+function filterElig(btn) {
+  document.querySelectorAll('[data-elig]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeElig = btn.dataset.elig;
+  renderBenefits();
+}
+
+/* ---- AFRC ---- */
+function renderAFRC() {
+  const grid = document.getElementById('afrc-grid');
+  grid.innerHTML = AFRC_RESORTS.map(r => `
+    <div class="afrc-card" onclick="openAFRCModal('${r.id}')">
+      <div class="afrc-card-header" style="background:${r.gradient}">
+        <div class="afrc-card-bg">${r.bgEmoji}</div>
+        <span class="afrc-badge">${r.badge}</span>
+        <div class="afrc-location">
+          <div class="afrc-location-flag">${r.location.flag}</div>
+          <div class="afrc-location-name">${r.location.city}</div>
+        </div>
+      </div>
+      <div class="afrc-card-body">
+        <div class="afrc-card-name">${r.name}</div>
+        <div class="afrc-card-tagline">${r.subtitle}</div>
+        <div class="afrc-rate-row">
+          ${r.rates.slice(0,2).map(rt => `
+            <div class="afrc-rate">
+              <div class="afrc-rate-tier">${rt.tier.split('(')[1]?.replace(')','') || rt.tier}</div>
+              <div class="afrc-rate-price">$${rt.low}–${rt.high}</div>
+              <div class="afrc-rate-note">/night</div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="afrc-eligibility">
+          ${r.eligLabels.map(([cls, label]) => `<span class="elig-chip elig-${cls}">${label}</span>`).join('')}
+        </div>
+        <div class="afrc-info-row">
+          <span class="afrc-info-item">📅 Book: ${r.booking.window}</span>
+          <span class="afrc-info-item">🌐 ${r.source}</span>
+        </div>
+        <div class="afrc-actions">
+          <a href="${r.booking.url}" target="_blank" class="afrc-btn afrc-btn-primary" onclick="event.stopPropagation()">Book Now</a>
+          <button class="afrc-btn afrc-btn-secondary">Full Details</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openAFRCModal(id) {
+  const r = AFRC_RESORTS.find(x => x.id === id);
+  if (!r) return;
+
+  document.getElementById('modal-title-area').innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
+      <span style="font-size:28px">${r.location.flag}</span>
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:28px;line-height:1">${r.name}</div>
+        <div style="color:rgba(255,255,255,.6);font-size:14px;margin-top:2px">${r.subtitle}</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+      ${r.eligLabels.map(([cls,l]) => `<span class="elig-chip elig-${cls}">${l}</span>`).join('')}
+    </div>
+  `;
+
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-section">
+      <div class="modal-section-title">Overview</div>
+      <p style="color:var(--text-secondary);font-size:14px;line-height:1.7;margin-bottom:14px">${r.description}</p>
+      <div class="info-box">
+        <div class="info-box-title">💡 Pro Tip</div>
+        ${r.tips}
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-title">Room Rates by Priority Category</div>
+      <table class="priority-table">
+        <thead><tr><th>Category</th><th>Rate Range</th><th>Who</th></tr></thead>
+        <tbody>${r.rates.map(rt => `<tr><td><strong>${rt.tier}</strong></td><td><span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--navy-800)">$${rt.low}–$${rt.high}/night</span></td><td style="color:var(--text-muted)">${rt.note}</td></tr>`).join('')}</tbody>
+      </table>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:8px">Comparison: ${r.comparison}</p>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-title">Amenities</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        ${r.amenities.map(a => `<span style="background:var(--chalk);border:1px solid var(--border);border-radius:4px;padding:5px 12px;font-size:12px;font-weight:500">${a}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-title">Booking Information</div>
+      <div class="modal-grid">
+        <div class="modal-item">
+          <div class="modal-item-label">Booking Window</div>
+          <div class="modal-item-value">${r.booking.window}</div>
+        </div>
+        <div class="modal-item">
+          <div class="modal-item-label">Cancellation Policy</div>
+          <div class="modal-item-value" style="font-size:13px">${r.cancellation}</div>
+        </div>
+        <div class="modal-item">
+          <div class="modal-item-label">Website</div>
+          <div class="modal-item-value"><a href="${r.booking.url}" target="_blank" style="color:var(--navy-600)">${r.source}</a></div>
+        </div>
+        <div class="modal-item">
+          <div class="modal-item-label">Phone</div>
+          <div class="modal-item-value" style="font-family:'JetBrains Mono',monospace;font-size:13px">${r.booking.phone}</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:8px">
+      <a href="${r.booking.url}" target="_blank" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px">
+        🌐 Visit Official Website
+      </a>
+    </div>
+  `;
+
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function openBenefitModal(id) {
+  const b = [...BENEFITS, ...SEASONAL].find(x => x.id === id);
+  if (!b) return;
+  const faved = isFaved(id);
+
+  document.getElementById('modal-title-area').innerHTML = `
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="font-size:36px">${b.icon}</div>
+      <div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;line-height:1">${b.org}</div>
+        <div style="color:rgba(255,255,255,.6);font-size:13px;margin-top:2px">${b.cat} · ${b.sub}</div>
+      </div>
+      <div style="margin-left:auto;text-align:right">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:var(--brass-300)">${b.discount.slice(0,20)}</div>
+        <button onclick="toggleFav('${b.id}', event)" style="margin-top:6px;background:${faved ? 'var(--brass-500)' : 'rgba(255,255,255,.1)'};border:1px solid ${faved ? 'var(--brass-400)' : 'rgba(255,255,255,.2)'};color:${faved ? 'var(--navy-950)' : 'var(--white)'};border-radius:20px;padding:5px 14px;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:.04em" id="modal-fav-btn">
+          ${faved ? '⭐ Saved' : '☆ Save'}
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-section">
+      <div class="modal-section-title">Benefit Details</div>
+      <p style="color:var(--text-secondary);font-size:14px;line-height:1.7">${b.desc}</p>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-title">Eligibility</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        ${b.elig.map(e => `<span style="background:rgba(30,58,122,.08);border:1px solid rgba(30,58,122,.2);border-radius:4px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--navy-700)">${e}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-title">Official Source</div>
+      <div class="modal-item">
+        <div class="modal-item-label">Verified Source</div>
+        <div class="modal-item-value"><a href="${b.url}" target="_blank" style="color:var(--navy-600)">${b.url}</a></div>
+      </div>
+    </div>
+
+    ${b.seasonal ? `<div class="info-box"><div class="info-box-title">⚠️ Seasonal Benefit</div>This benefit may not be available year-round. Always verify current availability directly with the organization before planning.</div>` : ''}
+
+    <div style="text-align:center;margin-top:16px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="${b.url}" target="_blank" class="btn-primary">🔗 Visit Official Source</a>
+      <button onclick="toggleFav('${b.id}', event);closeModal();" class="btn-outline" style="background:var(--white)">
+        ${faved ? '✕ Remove from Saved' : '⭐ Save This Benefit'}
+      </button>
+    </div>
+  `;
+
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modal-overlay') || e.target.classList.contains('modal-close')) {
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal({target: document.getElementById('modal-overlay')}); });
+
+/* ---- SPACE-A ---- */
+function renderSpaceA() {
+  const grid = document.getElementById('terminals-grid');
+  grid.innerHTML = SPA_TERMINALS.map(t => `
+    <div class="state-card">
+      <div class="state-card-header">
+        <div class="state-abbr">✈️</div>
+        <div>
+          <div class="state-name">${t.name}</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5)">${t.loc}</div>
+        </div>
+      </div>
+      <div class="state-highlights">
+        <span class="state-highlight">Routes: ${t.routes}</span>
+        <span class="state-highlight star">${t.note}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ---- INTERNATIONAL ---- */
+function renderInternational(country) {
+  const grid = document.getElementById('intl-grid');
+  const data = country === 'all'
+    ? BENEFITS.filter(b => b.country !== 'USA')
+    : BENEFITS.filter(b => b.country === country);
+
+  if (data.length === 0) {
+    grid.innerHTML = '<p style="color:var(--text-muted);padding:20px">No international benefits found for this selection.</p>';
+    return;
+  }
+  grid.innerHTML = data.map(b => `
+    <div class="benefit-card" onclick="openBenefitModal('${b.id}')">
+      <button class="fav-btn ${isFaved(b.id) ? 'saved' : ''}" onclick="toggleFav('${b.id}', event)" title="${isFaved(b.id) ? 'Remove' : 'Save'}">${isFaved(b.id) ? '⭐' : '☆'}</button>
+      <div class="benefit-card-top">
+        <div class="benefit-icon ${getCategoryIcon(b.cat)}">${b.icon}</div>
+        <div class="benefit-meta">
+          <div class="benefit-org">${b.org}</div>
+          <div class="benefit-cat">${b.country} · ${b.sub}</div>
+        </div>
+      </div>
+      <div class="benefit-desc">${b.desc.slice(0,130)}…</div>
+      <div class="benefit-footer">
+        <div class="benefit-elig-chips">${renderEligChips(b.elig)}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterCountry(btn) {
+  document.querySelectorAll('.country-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderInternational(btn.dataset.country);
+}
+
+/* ---- STATES ---- */
+let stateTypeFilter = '';
+function filterStateType(btn) {
+  document.querySelectorAll('[data-sfilt]').forEach(b => b.classList.remove('active'));
+  if (stateTypeFilter === btn.dataset.sfilt) {
+    stateTypeFilter = '';
+  } else {
+    btn.classList.add('active');
+    stateTypeFilter = btn.dataset.sfilt;
+  }
+  renderStates();
+}
+
+function filterStates() {
+  renderStates(document.getElementById('state-search').value.toLowerCase());
+}
+
+function renderStates(q) {
+  const grid = document.getElementById('states-grid');
+  // De-dupe by abbr (keep last entry wins for dupes we added)
+  const seen = new Set();
+  const unique = STATE_BENEFITS.filter(s => {
+    if (seen.has(s.abbr)) return false;
+    seen.add(s.abbr);
+    return true;
+  });
+  const data = unique.filter(s => {
+    const qMatch = !q || s.name.toLowerCase().includes(q) || s.abbr.toLowerCase().includes(q);
+    const typeMatch = !stateTypeFilter || s.highlights.some(h => {
+      if (stateTypeFilter === 'property_tax') return h.toLowerCase().includes('property tax') || h.toLowerCase().includes('homestead') || h.toLowerCase().includes('exemption');
+      if (stateTypeFilter === 'education') return h.toLowerCase().includes('tuition') || h.toLowerCase().includes('education') || h.toLowerCase().includes('grant');
+      if (stateTypeFilter === 'parks') return h.toLowerCase().includes('park') || h.toLowerCase().includes('hunting') || h.toLowerCase().includes('fishing');
+      if (stateTypeFilter === 'income_tax') return h.toLowerCase().includes('income tax') || h.toLowerCase().includes('no income') || h.toLowerCase().includes('no state');
+      return true;
+    });
+    return qMatch && typeMatch;
+  }).sort((a,b) => a.name.localeCompare(b.name));
+
+  document.getElementById('states-count').textContent = data.length + ' STATES';
+
+  grid.innerHTML = data.map(s => `
+    <div class="state-card">
+      <div class="state-card-header">
+        <div class="state-abbr">${s.abbr}</div>
+        <div class="state-name">${s.name}</div>
+      </div>
+      <div class="state-highlights">
+        ${s.stars.map(st => `<span class="state-highlight star">⭐ ${st}</span>`).join('')}
+        ${s.highlights.filter(h => !s.stars.includes(h)).slice(0,3).map(h => `<span class="state-highlight">${h}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ---- SEASONAL ---- */
+function renderSeasonal() {
+  const grid = document.getElementById('seasonal-grid');
+  grid.innerHTML = SEASONAL.map(s => `
+    <div class="benefit-card" onclick="openBenefitModal('${s.id}')">
+      <div class="seasonal-badge" style="right:14px">Seasonal</div>
+      <button class="fav-btn ${isFaved(s.id) ? 'saved' : ''}" onclick="toggleFav('${s.id}', event)" title="${isFaved(s.id) ? 'Remove' : 'Save'}" style="right:46px">${isFaved(s.id) ? '⭐' : '☆'}</button>
+      <div class="benefit-card-top">
+        <div class="benefit-icon ${getCategoryIcon(s.cat)}">${s.icon}</div>
+        <div class="benefit-meta">
+          <div class="benefit-org">${s.org}</div>
+          <div class="benefit-cat">${s.event}</div>
+        </div>
+        <div class="benefit-discount">
+          <div class="benefit-discount-amount" style="font-size:18px">${s.recurrence}</div>
+          <div class="benefit-discount-label">Return Rate</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--amber-500);font-weight:600;margin-bottom:8px">📅 ${s.period}</div>
+      <div class="benefit-desc">${s.desc.slice(0,120)}…</div>
+      <div class="benefit-footer">
+        <div class="benefit-elig-chips">${renderEligChips(s.elig)}</div>
+        <span class="benefit-source">${s.discount}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ============================================================
+   INITIALIZE
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('print-date').textContent = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  updateFavUI();
+  renderBenefits();
+  renderAFRC();
+  renderSpaceA();
+  renderInternational('all');
+  renderStates();
+  renderSeasonal();
+  renderFavoritesTab();
+});
+
+/* ============================================================
+   END OF SCRIPT
+   ============================================================ */
+
+</script>
+</body>
+</html>
