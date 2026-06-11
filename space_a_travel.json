@@ -1,0 +1,323 @@
+{
+  "priority_categories": [
+    {
+      "category": "CAT I",
+      "priority": "Highest",
+      "name": "Emergency Leave",
+      "who_qualifies": "Active duty, RC members on active duty orders, and their dependents traveling on certified emergency leave (EFMP/humanitarian).",
+      "requirements": "Commander-verified emergency leave authorization. Travel must be to/from emergency location.",
+      "notes": "Extremely rare use — authentic family emergencies only. No space-A flexibility; military may also arrange funded emergency travel in crisis cases.",
+      "oconus_eligible": true
+    },
+    {
+      "category": "CAT II",
+      "priority": "Very High",
+      "name": "Environmental & Morale Leave (EML)",
+      "who_qualifies": "Active duty members and dependents on Environmental and Morale Leave. Unaccompanied dependents of members serving overseas more than 365 days.",
+      "requirements": "Valid EML orders. For OCONUS-to-CONUS: member must have been stationed OCONUS for 365+ consecutive days.",
+      "notes": "Most commonly applies to members stationed at remote/isolated OCONUS locations (e.g., Diego Garcia, Alert, JTFB). The EML Space-A benefit is one of the most valuable quality-of-life perks for these postings.",
+      "oconus_eligible": true
+    },
+    {
+      "category": "CAT III",
+      "priority": "High",
+      "name": "Ordinary Leave (Active Duty)",
+      "who_qualifies": "Active duty members on approved leave orders.",
+      "requirements": "Approved leave orders with leave start and end dates. Member must have a legitimate leave period.",
+      "notes": "The most common category for active duty Space-A travel. Used for vacation travel, visiting family, and R&R. Must have sufficient leave balance.",
+      "oconus_eligible": true
+    },
+    {
+      "category": "CAT IV",
+      "priority": "Medium",
+      "name": "Unaccompanied Dependents (OCONUS)",
+      "who_qualifies": "Command-sponsored dependents of OCONUS-stationed active duty members traveling unaccompanied.",
+      "requirements": "Command sponsorship and active duty member must be OCONUS assigned.",
+      "notes": "Dependents must have a dependent ID card and be command-sponsored. Useful for family members traveling to/from an OCONUS duty station.",
+      "oconus_eligible": true
+    },
+    {
+      "category": "CAT V",
+      "priority": "Standard",
+      "name": "Permissive TDY / Retirees / 100% P&T Veterans / Activated Reservists",
+      "who_qualifies": "Members on permissive TDY (house hunting, transition). Retired military of all components. Veterans with 100% P&T disability rating. Selected Reserve and Guard members on activated orders. Retired Reserve members who have reached age 60 and are collecting retirement pay.",
+      "requirements": "Permissive TDY: valid permissive TDY authorization. Retirees: military retiree ID. 100% P&T: VA disability ID showing P&T status. Activated RC: valid orders.",
+      "notes": "Most retirees fall into CAT V for CONUS travel and CAT VI for OCONUS. This is the primary category for long-term military retirees. 100% P&T disabled veterans receiving CAT V access is a newer benefit — extremely valuable.",
+      "oconus_eligible": false,
+      "oconus_note": "Retirees: CONUS travel is CAT V. OCONUS travel drops retirees to CAT VI."
+    },
+    {
+      "category": "CAT VI",
+      "priority": "Lowest",
+      "name": "Retirees (OCONUS Travel)",
+      "who_qualifies": "All retired military traveling on Space-A outside CONUS. Reserve/Guard retirees who have reached age 60. Medal of Honor recipients and their families.",
+      "requirements": "Military retiree ID. For Reserve/Guard: must have reached retirement age (typically 60) and be drawing retired pay.",
+      "notes": "The lowest priority for actual seats. OCONUS Space-A travel as a retiree requires maximum schedule flexibility — you may wait days at a terminal. Best strategy: register at multiple terminals, check flight schedules online, and have alternate plans.",
+      "oconus_eligible": true
+    }
+  ],
+
+  "registration_process": {
+    "how_to_register": [
+      "In person at the AMC terminal",
+      "By email to the terminal (preferred for early registration)",
+      "Online via AMC website at amc.af.mil (select terminals)",
+      "Via AMC app (AMC Travel Site)"
+    ],
+    "registration_validity": "60 days from date of sign-up. Must re-register before expiration or you lose your date/time stamp priority.",
+    "what_to_include_in_email": [
+      "Full name (as on military ID)",
+      "SSN (last 4 digits) or DoD ID number",
+      "Rank/rate",
+      "Status (Active Duty/Retiree/CAT V etc.)",
+      "Number of passengers traveling",
+      "Names and ages of all passengers",
+      "Desired destinations (can list multiple)",
+      "Contact phone number and email"
+    ],
+    "manifesting_process": "When a flight is called, eligible passengers with the highest category and earliest registration time are manifested in order. Once manifested, you have a 'return priority' to complete your trip home even if circumstances change.",
+    "rollcall": "Roll call typically 3 hours before departure. Passengers must be present at roll call or they are dropped.",
+    "important_rules": [
+      "Registration is NOT a reservation — you are standby until manifested",
+      "Once manifested for a flight, you have priority for a return flight",
+      "Registration expires after 60 days — renew before expiration",
+      "Passports required for all international travel",
+      "CAC or military ID required at all times",
+      "Dependents traveling without the sponsor need a command authorization letter",
+      "Pets are generally NOT allowed on Space-A flights",
+      "Weight limits apply: typically 2 checked bags (70 lbs each) + 1 carry-on",
+      "No guarantee of return travel — plan contingency (commercial ticket purchase budget)"
+    ]
+  },
+
+  "terminals": [
+    {
+      "id": "spt001",
+      "name": "Baltimore-Washington International (BWI) / Andrews AFB",
+      "location": "Maryland",
+      "installation": "Joint Base Andrews / BWI Terminal",
+      "primary_routes": ["Ramstein AB (Germany)", "Rota NAS (Spain)", "CONUS domestic routes", "Lajes Field (Azores)"],
+      "hub_type": "Major AMC East Coast Hub",
+      "notes": "One of the busiest Space-A passenger terminals on the East Coast. High flight volume to EUCOM. Check amc.af.mil for current schedules.",
+      "website": "https://www.amc.af.mil/AMC-Travel-Site/Space-A/"
+    },
+    {
+      "id": "spt002",
+      "name": "Joint Base Lewis-McChord (JBLM)",
+      "location": "Tacoma, Washington",
+      "installation": "JBLM McChord Field",
+      "primary_routes": ["Yokota AB (Japan)", "Kadena AB (Okinawa)", "Hickam Field (Hawaii)", "Alaska"],
+      "hub_type": "Primary Pacific Northwest Gateway",
+      "notes": "The main gateway for Pacific Space-A travel from the continental U.S. Northwest Coast. High volume to Japan and Korea.",
+      "website": "https://www.jblm.army.mil/"
+    },
+    {
+      "id": "spt003",
+      "name": "Travis AFB",
+      "location": "Fairfield, California",
+      "installation": "Travis Air Force Base",
+      "primary_routes": ["Hawaii (JBPHH)", "Yokota AB (Japan)", "Kadena AB (Okinawa)", "Guam (Andersen)", "Korea (Osan)"],
+      "hub_type": "Primary West Coast / PACAF Hub",
+      "notes": "Travis AFB is THE primary West Coast Space-A hub for Pacific travel. Extremely busy — arrive early, have flexible dates. Often the first stop before Hickam for WESTPAC destinations.",
+      "website": "https://www.travis.af.mil/"
+    },
+    {
+      "id": "spt004",
+      "name": "Ramstein Air Base",
+      "location": "Ramstein-Miesenbach, Germany",
+      "installation": "Ramstein AB (86th Airlift Wing)",
+      "primary_routes": ["CONUS (Andrews/Dover/McGuire)", "Rota NAS", "AFRICOM destinations", "Incirlik (Turkey)", "EUCOM-wide"],
+      "hub_type": "Primary EUCOM Air Mobility Hub",
+      "notes": "The hub of Air Mobility Command in Europe. Enormous passenger terminal with high flight volume. Essential for EUCOM-to-CONUS and intra-EUCOM Space-A. Integrated with Kaiserslautern military community.",
+      "website": "https://www.ramstein.af.mil/"
+    },
+    {
+      "id": "spt005",
+      "name": "Kadena Air Base",
+      "location": "Okinawa, Japan",
+      "installation": "Kadena AB (18th Wing)",
+      "primary_routes": ["Travis AFB (CONUS)", "Yokota AB (Tokyo)", "Osan AB (Korea)", "Guam (Andersen)", "Southeast Asia"],
+      "hub_type": "PACAF Western Pacific Hub",
+      "notes": "The major Space-A hub in the Western Pacific. Key node for intra-WESTPAC travel and CONUS connections. Okinawa is an excellent R&R destination in itself.",
+      "website": "https://www.kadena.af.mil/"
+    },
+    {
+      "id": "spt006",
+      "name": "Yokota Air Base",
+      "location": "Fussa, Tokyo, Japan",
+      "installation": "Yokota AB (374th Airlift Wing) / USFJ HQ",
+      "primary_routes": ["CONUS (Travis, JBLM)", "Kadena AB (Okinawa)", "Osan / Misawa", "Guam"],
+      "hub_type": "USFJ Primary Air Mobility Terminal",
+      "notes": "The Space-A gateway for Tokyo area travel. Yokota is 35 miles west of central Tokyo. Proximity to New Sanno Hotel makes this a natural first/last stop for Tokyo visits.",
+      "website": "https://www.yokota.af.mil/"
+    },
+    {
+      "id": "spt007",
+      "name": "Osan Air Base",
+      "location": "Pyeongtaek, South Korea",
+      "installation": "Osan AB (51st Fighter Wing) / 7th Air Force",
+      "primary_routes": ["Yokota AB", "Kadena AB", "Guam", "Misawa AB", "CONUS connections"],
+      "hub_type": "USFK Air Mobility Terminal",
+      "notes": "Primary Space-A point of departure from Korea. Camp Humphreys is nearby — coordinate with USFK travel office. Seoul/Yongsan (Dragon Hill Lodge) is 45 minutes north by highway.",
+      "website": "https://www.osan.af.mil/"
+    },
+    {
+      "id": "spt008",
+      "name": "Joint Base Pearl Harbor-Hickam (JBPHH)",
+      "location": "Honolulu, Hawaii",
+      "installation": "Hickam Field, Pearl Harbor",
+      "primary_routes": ["Travis AFB", "JBLM (CONUS)", "Andersen (Guam)", "Yokota (Japan)", "Kadena (Okinawa)"],
+      "hub_type": "Hawaii / PACOM Gateway",
+      "notes": "The gateway between CONUS and the Western Pacific. Hawaii itself is a premier Space-A destination. Hale Koa Hotel on Waikiki makes Hawaii one of the most sought-after Space-A trips.",
+      "website": "https://www.jbphh.navy.mil/"
+    },
+    {
+      "id": "spt009",
+      "name": "Lajes Field",
+      "location": "Terceira Island, Azores, Portugal",
+      "installation": "Lajes Field, Portuguese Air Base No. 4",
+      "primary_routes": ["East Coast CONUS (Andrews, Dover)", "Ramstein (Germany)", "EUCOM connections"],
+      "hub_type": "Mid-Atlantic Transatlantic Waypoint",
+      "notes": "A critical refueling stop on transatlantic routes. Terceira Island itself is a beautiful, undervisited travel destination — volcanic calderas, whale watching, traditional Portuguese culture. Worth a planned overnight.",
+      "website": "https://www.lajesfield.af.mil/"
+    },
+    {
+      "id": "spt010",
+      "name": "Naval Air Station Rota",
+      "location": "Rota, Cádiz Province, Spain",
+      "installation": "NAS Rota (Naval Station Rota)",
+      "primary_routes": ["East Coast CONUS (Norfolk, Mayport)", "Ramstein", "Sigonella (Italy)", "EUCOM"],
+      "hub_type": "Atlantic Naval Air Mobility Hub",
+      "notes": "NAS Rota is the primary U.S. Navy Space-A terminal in Europe. Gateway to Spain, Morocco, and Southern Europe. Rota village and Jerez de la Frontera are excellent local destinations.",
+      "website": "https://www.navylifesw.com/rota/"
+    },
+    {
+      "id": "spt011",
+      "name": "Andersen Air Force Base",
+      "location": "Yigo, Guam",
+      "installation": "Andersen AFB (36th Wing)",
+      "primary_routes": ["Hawaii (JBPHH)", "CONUS (Travis)", "Kadena (Okinawa)", "Yokota (Japan)", "Philippines (historically)"],
+      "hub_type": "Western Pacific / INDOPACOM Hub",
+      "notes": "Guam is a major Space-A hub in the Western Pacific and a destination in itself. Adjacent to beautiful beaches, diving sites, and CNMI islands. Andersen FamCamp provides excellent accommodation.",
+      "website": "https://www.andersen.af.mil/"
+    },
+    {
+      "id": "spt012",
+      "name": "McGuire AFB / Joint Base MDL",
+      "location": "Wrightstown, New Jersey",
+      "installation": "Joint Base McGuire-Dix-Lakehurst",
+      "primary_routes": ["Ramstein (Germany)", "Rota (Spain)", "East Coast CONUS", "EUCOM routes"],
+      "hub_type": "Northeast CONUS / EUCOM Hub",
+      "notes": "Major East Coast Space-A terminal close to New York City. One of the highest-frequency terminals for trans-Atlantic travel.",
+      "website": "https://www.jbmdl.jb.mil/"
+    },
+    {
+      "id": "spt013",
+      "name": "Dover Air Force Base",
+      "location": "Dover, Delaware",
+      "installation": "Dover AFB (436th Airlift Wing)",
+      "primary_routes": ["Ramstein (Germany)", "Rota (Spain)", "CONUS", "Moron (Spain)", "Southwest Asia"],
+      "hub_type": "Major AMC East Coast Airlift Hub",
+      "notes": "One of the busiest AMC airlift wings in the country. High flight frequency to EUCOM destinations. Less well-known than Andrews but often has better seat availability.",
+      "website": "https://www.dover.af.mil/"
+    },
+    {
+      "id": "spt014",
+      "name": "NAS Sigonella",
+      "location": "Sicily, Italy",
+      "installation": "NAS Sigonella (Sicily, Italy)",
+      "primary_routes": ["Rota (Spain)", "Ramstein (Germany)", "Naples area", "AFRICOM", "CENTCOM connections"],
+      "hub_type": "Mediterranean / EUCOM Naval Hub",
+      "notes": "Sicily's NAS Sigonella serves as a Space-A terminal for intra-Mediterranean travel. Access to Italy, Malta, Tunisia, and North Africa. Combine with Sigonella MWR for Sicily tours.",
+      "website": "https://www.nsasicily.navy.mil/"
+    },
+    {
+      "id": "spt015",
+      "name": "NSA Bahrain (Manama)",
+      "location": "Bahrain (Kingdom of Bahrain)",
+      "installation": "Naval Support Activity Bahrain",
+      "primary_routes": ["CONUS (via Ramstein or Al Udeid)", "Rota", "Sigonella", "Middle East regional"],
+      "hub_type": "NAVCENT / Fifth Fleet Hub",
+      "notes": "Limited Space-A availability from Bahrain but serves as a key node for CENTCOM-deployed personnel. NSA Bahrain MWR coordinates rotations and leave travel options.",
+      "website": "https://www.navcent.navy.mil/"
+    },
+    {
+      "id": "spt016",
+      "name": "Misawa Air Base",
+      "location": "Misawa, Aomori Prefecture, Japan",
+      "installation": "Misawa AB (35th Fighter Wing / USFJ)",
+      "primary_routes": ["Yokota AB", "Kadena AB", "CONUS connections via Yokota or JBLM"],
+      "hub_type": "Northern Japan Air Mobility Terminal",
+      "notes": "Less-busy terminal than Yokota or Kadena — can mean better Space-A seat availability. Misawa itself is a gateway to northern Japan: Aomori Nebuta Festival, Lake Towada, skiing.",
+      "website": "https://www.misawa.af.mil/"
+    }
+  ],
+
+  "tips_and_strategy": [
+    {
+      "tip": "Register at multiple terminals simultaneously",
+      "detail": "You can be registered at more than one terminal at the same time. If traveling from Travis to Japan, also register at JBLM and Kadena for maximum flexibility."
+    },
+    {
+      "tip": "Use the AMC Travel Site and Facebook groups",
+      "detail": "The official AMC Travel Site (amc.af.mil) shows upcoming flight schedules. Space-A Facebook groups (SpaceA Travel) post real-time seat availability and tips from travelers."
+    },
+    {
+      "tip": "Always have a commercial airline backup plan",
+      "detail": "Never rely solely on Space-A for time-critical travel. Build a budget for a commercial fallback ticket — especially for OCONUS travel with a return deadline."
+    },
+    {
+      "tip": "Roll call is mandatory",
+      "detail": "Roll call is typically 3 hours before scheduled departure. If you are not present at roll call, you are dropped regardless of your priority or registration date."
+    },
+    {
+      "tip": "Best CONUS to Europe times",
+      "detail": "Late fall and early winter (November–February) tend to have better availability than summer for CONUS-to-EUCOM routes, as fewer vacationing families are traveling."
+    },
+    {
+      "tip": "OCONUS return is highest-priority",
+      "detail": "Once manifested on an outbound flight, you receive 'return priority' for getting home. This makes OCONUS Space-A significantly less risky for the return leg."
+    },
+    {
+      "tip": "Pack light but smart",
+      "detail": "Standard weight limits are 2 checked bags at 70 lbs each plus 1 carry-on. Military flights are aircraft, not airlines — they can change at any time. Packing light = maximum flexibility."
+    },
+    {
+      "tip": "Destination lists allow multiple options",
+      "detail": "When registering, you can list multiple destinations. 'Any' as a destination gives you the most flexibility but requires true schedule flexibility."
+    }
+  ],
+
+  "eligibility_summary": {
+    "conus_only": ["Reserve/Guard not on orders (varies by state programs)", "Inactive RC members"],
+    "conus_and_oconus": ["Active Duty (all components on orders)", "Active Duty on leave (CAT III)", "DoD Civilians on orders (CAT I/II)", "100% P&T Disabled Veterans (CAT V) — CONUS"],
+    "oconus_eligible_with_restrictions": [
+      "Retirees (CAT VI — lowest priority OCONUS)",
+      "100% P&T Disabled Veterans (CONUS Space-A CAT V; confirm OCONUS eligibility with specific terminal)",
+      "Reserve/Guard retirees at age 60+ drawing retirement pay"
+    ],
+    "not_eligible": [
+      "Veterans without retiree or P&T status",
+      "DoD civilians not on active duty travel orders",
+      "Family members without sponsor traveling with them (except command-sponsored OCONUS dependents)"
+    ]
+  },
+
+  "resources": [
+    {
+      "name": "AMC Travel Site (Official)",
+      "url": "https://www.amc.af.mil/AMC-Travel-Site/Space-A/",
+      "description": "Official AMC Space-A information including terminal listings and registration guidance."
+    },
+    {
+      "name": "Space-A Travel Facebook Group",
+      "url": "https://www.facebook.com/groups/spaceaflight",
+      "description": "Community group with real-time seat availability reports and traveler tips."
+    },
+    {
+      "name": "Pentagon Federal Travel",
+      "url": "https://www.penfed.org/",
+      "description": "Military travel financial planning resources."
+    }
+  ]
+}
