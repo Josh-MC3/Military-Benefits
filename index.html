@@ -451,6 +451,27 @@ select.filter-select:focus { border-color: var(--navy-600); }
   font-size: 9px; font-weight: 600; padding: 2px 7px;
   letter-spacing: 0.07em; text-transform: uppercase;
 }
+.nodata-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: #EDEBE6; color: var(--text-muted);
+  border: 1px solid var(--chalk-300); border-radius: 4px;
+  font-size: 9px; font-weight: 600; padding: 2px 7px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.va-metric-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin-bottom: 12px;
+}
+.va-metric-box {
+  background: var(--chalk); border-radius: var(--radius-md);
+  padding: 10px 12px; border: 1px solid var(--border);
+}
+.va-metric-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 4px;
+}
+.va-metric-value { font-size: 13px; color: var(--text-primary); line-height: 1.4; }
+.va-metric-value.nodata { color: var(--text-muted); font-style: italic; }
 
 /* ================================================
    AFRC DETAIL MODAL
@@ -984,6 +1005,7 @@ footer {
     <button class="tab-btn" onclick="switchTab('spacea', this)">Space-A Travel</button>
     <button class="tab-btn" onclick="switchTab('international', this)">International</button>
     <button class="tab-btn" onclick="switchTab('states', this)">State Benefits</button>
+    <button class="tab-btn" onclick="switchTab('oconusva', this)">OCONUS VA Care</button>
     <button class="tab-btn" onclick="switchTab('seasonal', this)">Seasonal</button>
     <button class="tab-btn" onclick="switchTab('favorites', this)" id="tab-btn-favorites" style="color:var(--brass-500)">⭐ My Saved</button>
   </div>
@@ -1115,6 +1137,27 @@ footer {
       </div>
 
       <div class="states-grid" id="states-grid"></div>
+    </div>
+  </div>
+
+  <!-- ==================== TAB: OCONUS VA CARE ==================== -->
+  <div class="tab-panel" id="tab-oconusva">
+    <div id="oconusva-section">
+      <div class="section-header">
+        <h2 class="section-title">OCONUS VA Medical Care</h2>
+        <span class="section-badge">OVERSEAS PATHWAYS</span>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Reality Check:</strong> There is only <strong>one</strong> VA-operated medical facility outside the United States — the Manila VA Outpatient Clinic in the Philippines. Everywhere else overseas, "VA care" means a reimbursement program (FMP) or a referral-based exam, not a VA clinic you walk into. None of these pathways currently publish a standardized wait-time metric the way CONUS VA facilities do — this tab tells you that plainly wherever it's true rather than guessing a number.
+      </div>
+
+      <div class="info-box" style="margin-bottom:20px">
+        <div class="info-box-title">⚠️ Scope Limit That Trips People Up</div>
+        The Foreign Medical Program and the Manila VA Outpatient Clinic generally cover <strong>service-connected conditions only</strong>. A routine "full check-up" unrelated to a rated disability typically isn't a covered service under either — this is the single biggest misunderstanding veterans have about OCONUS VA care.
+      </div>
+
+      <div id="oconusva-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;"></div>
     </div>
   </div>
 
@@ -1625,6 +1668,64 @@ const SEASONAL = [
   { id:"s010", org:"Various Airlines", cat:"Travel", icon:"✈️", event:"Holiday / Leave Travel Military Fares", period:"Thanksgiving, Christmas, Spring Break", recurrence:"70%", elig:["Active Duty","Reserve","Guard"], discount:"Military fare exemptions/discounts", desc:"Several airlines (United, Delta, American) extend baggage fee waivers and sometimes fare discounts for military personnel traveling on orders during peak holiday travel periods. Check with each airline's military travel desk.", seasonal:true },
 ];
 
+/* ---- OCONUS VA MEDICAL CARE ----
+   waitData/scopeData each carry a noData flag — set true when no
+   official published metric exists. Never fabricate a number; say so. */
+const OCONUS_VA = [
+  {
+    id:"ov001",
+    org:"Manila VA Outpatient Clinic",
+    cat:"Government", sub:"VA-Operated Facility", country:"Philippines",
+    icon:"🏥",
+    elig:["Veteran","Disabled Veteran"],
+    discount:"Service-connected care",
+    type:"The only VA-operated medical facility outside the U.S.",
+    desc:"Located on U.S. Embassy property in Pasay City, part of VISN 21. Provides internal medicine, mental health, and select specialty care (audiology, cardiology, dermatology, ENT, pulmonology, ophthalmology). Care is limited to VA-rated, service-connected conditions; non-service-connected follow-up beyond the clinic's capability becomes the veteran's responsibility. Requires a Philippines address and local phone number to enroll.",
+    waitData:{ noData:true, note:"VA does not publish a Manila-specific enrollment-to-appointment wait time. Pharmacy delivery is documented: ~2 days Metro Manila, 5 days Luzon, 8–10 days Visayas, 10–14 days Mindanao." },
+    scopeData:{ noData:false, note:"Acceptance = registering with a Philippines address/phone + a VA-rated service-connected disability. Full check-up = limited to that condition's specialty care on-site; anything beyond clinic capability is referred out at the veteran's own expense." },
+    src:"VA.gov", url:"https://www.va.gov/manila-health-care/", verified:true
+  },
+  {
+    id:"ov002",
+    org:"Foreign Medical Program (FMP)",
+    cat:"Government", sub:"VA Reimbursement Program", country:"Worldwide (non-CONUS)",
+    icon:"🌍",
+    elig:["Veteran","Disabled Veteran"],
+    discount:"Reimbursement only",
+    type:"Reimbursement program, not a clinic network",
+    desc:"FMP pays back veterans for care obtained from any provider abroad for a VA-rated, service-connected condition (or a condition aggravating one). No pre-authorization is required, it's a lifetime benefit with no re-registration, and there is no physical FMP office anywhere overseas — you find your own local provider and file for reimbursement. Routine, non-service-connected check-ups are explicitly NOT covered.",
+    waitData:{ noData:true, note:"There is no appointment system to measure — FMP reimburses care you've already arranged with a local provider. No official 'acceptance to appointment' metric exists because there's no appointment to schedule." },
+    scopeData:{ noData:false, note:"Acceptance = mailing/faxing VA Form 10-7959f-1; no medical exam required to enroll. Full check-up = NOT covered unless it's treatment for your specific rated condition; a general physical with no connection to a rated disability is excluded." },
+    src:"VA.gov", url:"https://www.va.gov/communitycare/programs/veterans/fmp/", verified:true
+  },
+  {
+    id:"ov003",
+    org:"Overseas C&P (Compensation & Pension) Exams",
+    cat:"Government", sub:"VA Disability Claim Process", country:"Worldwide (non-CONUS)",
+    icon:"📋",
+    elig:["Veteran","Disabled Veteran"],
+    discount:"Claim-scoped exam",
+    type:"A process, not a facility — applies wherever you're filing a disability claim from abroad",
+    desc:"For veterans abroad with an open VA disability claim, the C&P exam (used to rate or re-rate a condition) can be conducted three ways: by a VA-contracted local doctor near your residence, by a military doctor on a U.S. installation in countries with a large troop presence (Germany, Italy, South Korea, Japan), or — least commonly — by a traveling VA doctor sent overseas. VA does not reimburse travel costs for attending the exam outside the U.S., so it's scheduled as close to your address as VA's contractor network allows.",
+    waitData:{ noData:true, note:"No published standard turnaround exists for OCONUS C&P scheduling. It depends entirely on contractor coverage in your country/region — VA's published exam wait-time stats are CONUS-only." },
+    scopeData:{ noData:false, note:"Acceptance = VA scheduling an exam after your claim and current overseas address are on file (Form 21-4138). Full check-up = the exam itself is narrowly scoped to the disability under claim, not a general physical." },
+    src:"VA.gov", url:"https://www.va.gov/resources/va-claim-exam/", verified:true
+  },
+  {
+    id:"ov004",
+    org:"Overseas Military Treatment Facilities (MTFs)",
+    cat:"Government", sub:"Military Hospital — Veteran Access Is the Exception", country:"Worldwide (non-CONUS)",
+    icon:"⛑️",
+    elig:["Veteran","Disabled Veteran"],
+    discount:"Referral-based access",
+    type:"Built for active duty/dependents, not a standing veteran care option",
+    desc:"Facilities like Landstuhl Regional Medical Center (Germany), Yokota AB Clinic and Naval Hospital Okinawa (Japan), and Brian Allgood Army Community Hospital (South Korea) primarily serve active duty, retirees enrolled in TRICARE, and dependents. They are not a walk-in option for veterans seeking VA-covered care — any veteran access for a service-connected condition runs through the FMP or C&P pathways above, typically via a referral, not direct enrollment at the MTF.",
+    waitData:{ noData:true, note:"No published metric exists for 'veteran acceptance to appointment' at these facilities because veterans (not on TRICARE/retiree status) aren't a standard patient population there." },
+    scopeData:{ noData:true, note:"Scope for veteran access specifically isn't separately published by DoD or VA — access, if granted, is case-by-case through a referral, not a defined benefit package." },
+    src:"Health.mil", url:"https://www.health.mil/Military-Health-Topics/Access-Cost-Quality-and-Safety/Health-Care-Availability", verified:true
+  },
+];
+
 /* ---- INTERNATIONAL BENEFITS (curated, with region/booking detail) ---- */
 const INTERNATIONAL = [
   { id:"i001", org:"New Sanno Hotel", cat:"Travel", sub:"AFRC Lodging", country:"Japan", region:"Tokyo", icon:"🏯", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Dependent"], discount:"Central Tokyo lodging ~$150–$225/night (civilian equivalent: $350–$700)", desc:"U.S. military hotel operated by the U.S. Navy in Tokyo's upscale Hiroo/Minami-Azabu neighborhood. Full-service American hotel with Japanese dining, free shuttle to Hiroo Station (Hibiya Line), currency exchange, and 24-hour desk. Priority booking for active duty; retirees and DoD civilians also eligible.", src:"TheNewSanno.com", url:"https://www.thenewsanno.com", booking_url:"https://www.thenewsanno.com", phone:"DSN 315-229-8222 / CIV 011-81-3-3440-7871", tips:"Golden Week (late April–early May) and cherry blossom season (late March–early April) book out instantly at window open. Retirees must call during Japanese business hours.", last_verified:"2025-01", seasonal:false, verified:true },
@@ -1697,6 +1798,7 @@ function toggleFav(id, e) {
   // Refresh whichever tab is currently showing
   if (activeTab === 'benefits') renderBenefits();
   if (activeTab === 'international') renderInternational(document.querySelector('.country-btn.active')?.dataset.country || 'all');
+  if (activeTab === 'oconusva') renderOconusVA();
   if (activeTab === 'favorites') renderFavoritesTab();
   renderFavPanel();
 }
@@ -1725,7 +1827,7 @@ function toggleFavPanel() {
 
 function renderFavPanel() {
   const favs = loadFavs();
-  const allItems = [...INTERNATIONAL, ...BENEFITS, ...SEASONAL];
+  const allItems = [...INTERNATIONAL, ...BENEFITS, ...SEASONAL, ...OCONUS_VA];
   const saved = favs.map(id => allItems.find(x => x.id === id)).filter(Boolean);
 
   const emptyEl = document.getElementById('fav-empty');
@@ -1753,7 +1855,7 @@ function renderFavPanel() {
 
 function renderFavoritesTab() {
   const favs = loadFavs();
-  const allItems = [...INTERNATIONAL, ...BENEFITS, ...SEASONAL];
+  const allItems = [...INTERNATIONAL, ...BENEFITS, ...SEASONAL, ...OCONUS_VA];
   const saved = favs.map(id => allItems.find(x => x.id === id)).filter(Boolean);
   updateFavUI();
 
@@ -1817,7 +1919,7 @@ function clearAllFavs() {
 
 function exportFavCSV() {
   const favs = loadFavs();
-  const allItems = [...INTERNATIONAL, ...BENEFITS, ...SEASONAL];
+  const allItems = [...INTERNATIONAL, ...BENEFITS, ...SEASONAL, ...OCONUS_VA];
   const saved = favs.map(id => allItems.find(x => x.id === id)).filter(Boolean);
   if (saved.length === 0) { showToast('No saved benefits to export'); return; }
   const header = ['Organization','Category','Subcategory','Discount','Eligibility','Country','Source URL'];
@@ -1865,6 +1967,7 @@ function switchTab(tab, btn) {
   if (tab === 'spacea') renderSpaceA();
   if (tab === 'international') renderInternational('all');
   if (tab === 'states') renderStates();
+  if (tab === 'oconusva') renderOconusVA();
   if (tab === 'seasonal') renderSeasonal();
   if (tab === 'benefits') renderBenefits();
   if (tab === 'favorites') renderFavoritesTab();
@@ -2083,9 +2186,10 @@ function openAFRCModal(id) {
 }
 
 function openBenefitModal(id) {
-  const b = [...INTERNATIONAL, ...BENEFITS, ...SEASONAL].find(x => x.id === id);
+  const b = [...INTERNATIONAL, ...BENEFITS, ...SEASONAL, ...OCONUS_VA].find(x => x.id === id);
   if (!b) return;
   const faved = isFaved(id);
+  const isOconusVA = id.startsWith('ov');
 
   document.getElementById('modal-title-area').innerHTML = `
     <div style="display:flex;align-items:center;gap:14px">
@@ -2095,7 +2199,7 @@ function openBenefitModal(id) {
         <div style="color:rgba(255,255,255,.6);font-size:13px;margin-top:2px">${b.cat} · ${b.sub}</div>
       </div>
       <div style="margin-left:auto;text-align:right">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:var(--brass-300)">${b.discount.slice(0,20)}</div>
+        ${b.discount ? `<div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:var(--brass-300)">${b.discount.slice(0,20)}</div>` : ''}
         <button onclick="toggleFav('${b.id}', event)" style="margin-top:6px;background:${faved ? 'var(--brass-500)' : 'rgba(255,255,255,.1)'};border:1px solid ${faved ? 'var(--brass-400)' : 'rgba(255,255,255,.2)'};color:${faved ? 'var(--navy-950)' : 'var(--white)'};border-radius:20px;padding:5px 14px;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:.04em" id="modal-fav-btn">
           ${faved ? '⭐ Saved' : '☆ Save'}
         </button>
@@ -2108,6 +2212,26 @@ function openBenefitModal(id) {
       <div class="modal-section-title">Benefit Details</div>
       <p style="color:var(--text-secondary);font-size:14px;line-height:1.7">${b.desc}</p>
     </div>
+
+    ${isOconusVA ? `
+    <div class="modal-section">
+      <div class="modal-section-title">Acceptance → Full Check-Up: Wait Time vs. Scope</div>
+      <div class="modal-grid">
+        <div class="modal-item">
+          <div class="modal-item-label">⏱️ Wait Time (Acceptance → Appointment)</div>
+          ${b.waitData.noData
+            ? `<div class="modal-item-value"><span class="nodata-badge">No published data</span></div><div class="modal-item-sub">${b.waitData.note}</div>`
+            : `<div class="modal-item-value" style="font-size:13px">${b.waitData.note}</div>`}
+        </div>
+        <div class="modal-item">
+          <div class="modal-item-label">📋 Scope (Intake vs. Full Check-Up)</div>
+          ${b.scopeData.noData
+            ? `<div class="modal-item-value"><span class="nodata-badge">No published data</span></div><div class="modal-item-sub">${b.scopeData.note}</div>`
+            : `<div class="modal-item-value" style="font-size:13px">${b.scopeData.note}</div>`}
+        </div>
+      </div>
+    </div>
+    ` : ''}
 
     <div class="modal-section">
       <div class="modal-section-title">Eligibility</div>
@@ -2281,6 +2405,42 @@ function renderSeasonal() {
   `).join('');
 }
 
+/* ---- OCONUS VA CARE ---- */
+function renderOconusVA() {
+  const grid = document.getElementById('oconusva-grid');
+  grid.innerHTML = OCONUS_VA.map(v => `
+    <div class="benefit-card" onclick="openBenefitModal('${v.id}')">
+      <button class="fav-btn ${isFaved(v.id) ? 'saved' : ''}" onclick="toggleFav('${v.id}', event)" title="${isFaved(v.id) ? 'Remove' : 'Save'}">${isFaved(v.id) ? '⭐' : '☆'}</button>
+      <div class="benefit-card-top">
+        <div class="benefit-icon benefit-icon-health">${v.icon}</div>
+        <div class="benefit-meta">
+          <div class="benefit-org">${v.org}</div>
+          <div class="benefit-cat">${v.country} · ${v.sub}</div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--navy-600);font-weight:600;margin-bottom:8px">${v.type}</div>
+      <div class="benefit-desc">${v.desc.slice(0,140)}…</div>
+      <div class="va-metric-row">
+        <div class="va-metric-box">
+          <div class="va-metric-label">⏱️ Wait Time</div>
+          ${v.waitData.noData
+            ? `<span class="nodata-badge">No published data</span>`
+            : `<div class="va-metric-value">${v.waitData.note.slice(0,70)}…</div>`}
+        </div>
+        <div class="va-metric-box">
+          <div class="va-metric-label">📋 Scope</div>
+          ${v.scopeData.noData
+            ? `<span class="nodata-badge">No published data</span>`
+            : `<div class="va-metric-value">${v.scopeData.note.slice(0,70)}…</div>`}
+        </div>
+      </div>
+      <div class="benefit-footer">
+        <div class="benefit-elig-chips">${renderEligChips(v.elig)}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
 /* ============================================================
    INITIALIZE
    ============================================================ */
@@ -2293,6 +2453,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderInternational('all');
   renderStates();
   renderSeasonal();
+  renderOconusVA();
   renderFavoritesTab();
 });
 
