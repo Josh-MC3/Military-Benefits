@@ -274,6 +274,123 @@ select.filter-select:focus { border-color: var(--navy-600); }
 
 .results-summary { font-size: 13px; color: var(--text-muted); margin-left: auto; white-space: nowrap; }
 
+.view-toggle {
+  display: flex; gap: 2px; background: var(--chalk);
+  border: 1px solid var(--border); border-radius: var(--radius-md);
+  padding: 3px; flex-shrink: 0;
+}
+.view-toggle-btn {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; color: var(--text-muted);
+  background: transparent; border: none; border-radius: 6px;
+  padding: 6px 11px; cursor: pointer; transition: all .15s;
+  white-space: nowrap;
+}
+.view-toggle-btn:hover { color: var(--text-primary); }
+.view-toggle-btn.active { background: var(--white); color: var(--navy-800); box-shadow: var(--shadow-sm); }
+.view-toggle-icon { font-size: 13px; line-height: 1; }
+
+/* ================================================
+   BENEFIT LIST VIEW (DETAILS / ROWS)
+   ================================================ */
+#benefits-grid.is-list, .states-grid.is-list, .afrc-grid.is-list {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.benefit-row {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 12px 16px;
+  display: flex; align-items: center; gap: 14px;
+  cursor: pointer; transition: all .15s; position: relative;
+}
+.benefit-row:hover { border-color: var(--chalk-300); box-shadow: var(--shadow-sm); background: var(--chalk); }
+.benefit-row-fav {
+  background: transparent; border: none; font-size: 17px; cursor: pointer;
+  flex-shrink: 0; line-height: 1; padding: 2px; color: var(--text-muted);
+}
+.benefit-row-fav.saved { color: var(--brass-500); }
+.benefit-row-icon {
+  width: 34px; height: 34px; border-radius: var(--radius-sm); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 16px;
+}
+.benefit-row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.benefit-row-org { font-weight: 700; font-size: 14px; color: var(--text-primary); line-height: 1.3; }
+.benefit-row-desc {
+  font-size: 12px; color: var(--text-muted); line-height: 1.3;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.benefit-row-cat {
+  font-size: 10px; color: var(--text-muted); text-transform: uppercase;
+  letter-spacing: 0.06em; flex-shrink: 0; width: 110px; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+.benefit-row-elig { display: flex; gap: 3px; flex-shrink: 0; max-width: 160px; overflow: hidden; }
+.benefit-row-discount {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 14px;
+  color: var(--navy-800); flex-shrink: 0; width: 130px; text-align: right;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.benefit-row-discount.brass { color: var(--brass-500); }
+.benefit-row-badges { display: flex; gap: 4px; flex-shrink: 0; }
+
+@media (max-width: 768px) {
+  .benefit-row-cat, .benefit-row-elig { display: none; }
+  .benefit-row-discount { width: 90px; font-size: 13px; }
+}
+
+/* ---- AFRC LIST ROW ---- */
+.afrc-row {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 12px 16px;
+  display: flex; align-items: center; gap: 14px;
+  cursor: pointer; transition: all .15s;
+}
+.afrc-row:hover { border-color: var(--chalk-300); box-shadow: var(--shadow-sm); background: var(--chalk); }
+.afrc-row-icon {
+  width: 40px; height: 40px; border-radius: var(--radius-sm); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 20px;
+  color: white;
+}
+.afrc-row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.afrc-row-name { font-weight: 700; font-size: 14px; color: var(--text-primary); }
+.afrc-row-location { font-size: 12px; color: var(--text-muted); }
+.afrc-row-rate {
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 15px;
+  color: var(--navy-800); flex-shrink: 0; width: 110px; text-align: right;
+}
+.afrc-row-elig { display: flex; gap: 3px; flex-shrink: 0; max-width: 180px; overflow: hidden; }
+.afrc-row-badge {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--navy-600); background: rgba(30,58,122,.08); border-radius: 4px;
+  padding: 3px 8px; flex-shrink: 0; white-space: nowrap;
+}
+@media (max-width: 768px) {
+  .afrc-row-elig, .afrc-row-badge { display: none; }
+}
+
+/* ---- STATE/TERMINAL LIST ROW ---- */
+.state-row {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: 10px 16px;
+  display: flex; align-items: center; gap: 14px;
+}
+.state-row-abbr {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  background: var(--navy-800); color: white; display: flex; align-items: center;
+  justify-content: center; font-weight: 800; font-size: 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+.state-row-main { flex: 1; min-width: 0; }
+.state-row-name { font-weight: 700; font-size: 14px; color: var(--text-primary); }
+.state-row-sub { font-size: 11px; color: var(--text-muted); }
+.state-row-highlights {
+  display: flex; gap: 6px; flex-wrap: nowrap; overflow: hidden;
+  flex-shrink: 1; max-width: 55%;
+}
+.state-row-highlights .state-highlight { white-space: nowrap; }
+@media (max-width: 768px) {
+  .state-row-highlights { display: none; }
+}
+
 /* ================================================
    SECTION HEADERS
    ================================================ */
@@ -550,7 +667,14 @@ select.filter-select:focus { border-color: var(--navy-600); }
 /* ================================================
    TABS
    ================================================ */
-.tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 32px; overflow-x: auto; }
+.tabs-row { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+.tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); overflow-x: auto; flex: 1; margin-bottom: 0; }
+.view-toggle { margin-bottom: 2px; }
+
+@media (max-width: 768px) {
+  .tabs-row { flex-wrap: wrap; gap: 10px; }
+  .view-toggle { order: -1; align-self: flex-end; }
+}
 .tab-btn {
   padding: 12px 20px; font-size: 13px; font-weight: 600;
   border: none; background: none; cursor: pointer; color: var(--text-muted);
@@ -838,7 +962,8 @@ footer {
     box-shadow: none !important; transform: none !important;
   }
 
-  #benefits-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+  #benefits-grid, #benefits-grid.is-list, .states-grid.is-list, .afrc-grid.is-list { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+  .benefit-row, .state-row, .afrc-row { flex-direction: column; align-items: flex-start; }
   .states-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 8px !important; }
   .afrc-grid { grid-template-columns: 1fr 1fr !important; }
 
@@ -1016,15 +1141,25 @@ footer {
   </div>
 
   <!-- TABS -->
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('benefits', this)">All Benefits</button>
-    <button class="tab-btn" onclick="switchTab('afrc', this)">AFRC Resorts</button>
-    <button class="tab-btn" onclick="switchTab('spacea', this)">Space-A Travel</button>
-    <button class="tab-btn" onclick="switchTab('international', this)">International</button>
-    <button class="tab-btn" onclick="switchTab('states', this)">State Benefits</button>
-    <button class="tab-btn" onclick="switchTab('oconusva', this)">OCONUS VA Care</button>
-    <button class="tab-btn" onclick="switchTab('seasonal', this)">Seasonal</button>
-    <button class="tab-btn" onclick="switchTab('favorites', this)" id="tab-btn-favorites" style="color:var(--brass-500)">⭐ My Saved</button>
+  <div class="tabs-row">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('benefits', this)">All Benefits</button>
+      <button class="tab-btn" onclick="switchTab('afrc', this)">AFRC Resorts</button>
+      <button class="tab-btn" onclick="switchTab('spacea', this)">Space-A Travel</button>
+      <button class="tab-btn" onclick="switchTab('international', this)">International</button>
+      <button class="tab-btn" onclick="switchTab('states', this)">State Benefits</button>
+      <button class="tab-btn" onclick="switchTab('oconusva', this)">OCONUS VA Care</button>
+      <button class="tab-btn" onclick="switchTab('seasonal', this)">Seasonal</button>
+      <button class="tab-btn" onclick="switchTab('favorites', this)" id="tab-btn-favorites" style="color:var(--brass-500)">⭐ My Saved</button>
+    </div>
+    <div class="view-toggle" id="view-toggle" role="group" aria-label="Switch between list and card view">
+      <button class="view-toggle-btn" id="view-btn-list" onclick="setViewMode('list')" title="List view" aria-pressed="true">
+        <span class="view-toggle-icon">☰</span> List
+      </button>
+      <button class="view-toggle-btn" id="view-btn-card" onclick="setViewMode('card')" title="Card view" aria-pressed="false">
+        <span class="view-toggle-icon">▦</span> Cards
+      </button>
+    </div>
   </div>
 
   <!-- ==================== TAB: ALL BENEFITS ==================== -->
@@ -1832,6 +1967,10 @@ let activeCat = "";
 let activeCountry = "";
 let searchQuery = "";
 let activeTab = "benefits";
+const VIEW_MODE_KEY = 'milbenefits_view_mode';
+let viewMode = (function(){
+  try { return localStorage.getItem(VIEW_MODE_KEY) || 'list'; } catch(e) { return 'list'; }
+})();
 
 /* ==========================================================
    FAVORITES SYSTEM (localStorage-persisted)
@@ -2068,7 +2207,12 @@ function renderBenefits(filtered) {
   noRes.style.display = 'none';
   document.getElementById('results-summary').textContent = `Showing ${data.length} of ${BENEFITS.length} benefits`;
 
-  grid.innerHTML = data.map(b => `
+  grid.classList.toggle('is-list', viewMode === 'list');
+  grid.innerHTML = data.map(b => viewMode === 'list' ? renderBenefitRow(b) : renderBenefitCard(b)).join('');
+}
+
+function renderBenefitCard(b) {
+  return `
     <div class="benefit-card" onclick="openBenefitModal('${b.id}')">
       ${b.verified ? '<div class="verified-badge" title="Verified">✓</div>' : ''}
       <button class="fav-btn ${isFaved(b.id) ? 'saved' : ''}" onclick="toggleFav('${b.id}', event)" title="${isFaved(b.id) ? 'Remove from saved' : 'Save benefit'}">${isFaved(b.id) ? '⭐' : '☆'}</button>
@@ -2090,7 +2234,71 @@ function renderBenefits(filtered) {
         <span class="benefit-source">${b.src.split('.')[0]}</span>
       </div>
     </div>
-  `).join('');
+  `;
+}
+
+function renderBenefitRow(b) {
+  return `
+    <div class="benefit-row" onclick="openBenefitModal('${b.id}')">
+      <button class="benefit-row-fav ${isFaved(b.id) ? 'saved' : ''}" onclick="toggleFav('${b.id}', event)" title="${isFaved(b.id) ? 'Remove from saved' : 'Save benefit'}">${isFaved(b.id) ? '⭐' : '☆'}</button>
+      <div class="benefit-row-icon ${getCategoryIcon(b.cat)}">${b.icon}</div>
+      <div class="benefit-row-main">
+        <div class="benefit-row-org">${b.org}</div>
+        <div class="benefit-row-desc">${b.desc.slice(0, 110)}${b.desc.length > 110 ? '…' : ''}</div>
+      </div>
+      <div class="benefit-row-cat">${b.cat} · ${b.sub}</div>
+      <div class="benefit-row-elig">${renderEligChips(b.elig)}</div>
+      <div class="benefit-row-discount ${b.cat==='Government'?'brass':''}">${b.discount}</div>
+      <div class="benefit-row-badges">
+        ${b.verified ? '<span class="verified-badge" style="position:static" title="Verified">✓</span>' : ''}
+        ${b.seasonal ? '<span class="seasonal-badge" style="position:static">Seasonal</span>' : ''}
+      </div>
+    </div>
+  `;
+}
+
+function renderGenericRow(b, opts) {
+  opts = opts || {};
+  const subLabel = opts.sub || `${b.cat}${b.sub ? ' · ' + b.sub : ''}`;
+  const discount = b.discount || opts.discountFallback || '';
+  return `
+    <div class="benefit-row" onclick="openBenefitModal('${b.id}')">
+      <button class="benefit-row-fav ${isFaved(b.id) ? 'saved' : ''}" onclick="toggleFav('${b.id}', event)" title="${isFaved(b.id) ? 'Remove from saved' : 'Save benefit'}">${isFaved(b.id) ? '⭐' : '☆'}</button>
+      <div class="benefit-row-icon ${getCategoryIcon(b.cat)}">${b.icon}</div>
+      <div class="benefit-row-main">
+        <div class="benefit-row-org">${b.org}</div>
+        <div class="benefit-row-desc">${b.desc.slice(0, 110)}${b.desc.length > 110 ? '…' : ''}</div>
+      </div>
+      <div class="benefit-row-cat">${subLabel}</div>
+      <div class="benefit-row-elig">${renderEligChips(b.elig)}</div>
+      <div class="benefit-row-discount ${b.cat==='Government'?'brass':''}">${discount}</div>
+      <div class="benefit-row-badges">
+        ${b.verified ? '<span class="verified-badge" style="position:static" title="Verified">✓</span>' : ''}
+        ${b.seasonal ? '<span class="seasonal-badge" style="position:static">Seasonal</span>' : ''}
+      </div>
+    </div>
+  `;
+}
+
+function setViewMode(mode) {
+  viewMode = mode;
+  try { localStorage.setItem(VIEW_MODE_KEY, mode); } catch(e){}
+  document.getElementById('view-btn-list').classList.toggle('active', mode === 'list');
+  document.getElementById('view-btn-card').classList.toggle('active', mode === 'card');
+  document.getElementById('view-btn-list').setAttribute('aria-pressed', mode === 'list');
+  document.getElementById('view-btn-card').setAttribute('aria-pressed', mode === 'card');
+  renderActiveTab();
+}
+
+function renderActiveTab() {
+  if (activeTab === 'benefits') renderBenefits();
+  if (activeTab === 'afrc') renderAFRC();
+  if (activeTab === 'spacea') renderSpaceA();
+  if (activeTab === 'international') renderInternational(document.querySelector('.country-btn.active')?.dataset.country || 'all');
+  if (activeTab === 'states') renderStates(document.getElementById('state-search')?.value.toLowerCase() || '');
+  if (activeTab === 'oconusva') renderOconusVA();
+  if (activeTab === 'seasonal') renderSeasonal();
+  if (activeTab === 'favorites') renderFavoritesTab();
 }
 
 function applyFilters(data) {
@@ -2134,6 +2342,22 @@ function filterElig(btn) {
 /* ---- AFRC ---- */
 function renderAFRC() {
   const grid = document.getElementById('afrc-grid');
+  grid.classList.toggle('is-list', viewMode === 'list');
+  if (viewMode === 'list') {
+    grid.innerHTML = AFRC_RESORTS.map(r => `
+      <div class="afrc-row" onclick="openAFRCModal('${r.id}')">
+        <div class="afrc-row-icon" style="background:${r.gradient}">${r.bgEmoji}</div>
+        <div class="afrc-row-main">
+          <div class="afrc-row-name">${r.name}</div>
+          <div class="afrc-row-location">${r.location.flag} ${r.location.city}</div>
+        </div>
+        <div class="afrc-row-elig">${r.eligLabels.map(([cls, label]) => `<span class="elig-chip elig-${cls}">${label}</span>`).join('')}</div>
+        <span class="afrc-row-badge">${r.badge}</span>
+        <div class="afrc-row-rate">$${r.rates[0].low}–${r.rates[0].high}/nt</div>
+      </div>
+    `).join('');
+    return;
+  }
   grid.innerHTML = AFRC_RESORTS.map(r => `
     <div class="afrc-card" onclick="openAFRCModal('${r.id}')">
       <div class="afrc-card-header" style="background:${r.gradient}">
@@ -2356,6 +2580,23 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal({
 /* ---- SPACE-A ---- */
 function renderSpaceA() {
   const grid = document.getElementById('terminals-grid');
+  grid.classList.toggle('is-list', viewMode === 'list');
+  if (viewMode === 'list') {
+    grid.innerHTML = SPA_TERMINALS.map(t => `
+      <div class="state-row">
+        <div class="state-row-abbr">✈️</div>
+        <div class="state-row-main">
+          <div class="state-row-name">${t.name}</div>
+          <div class="state-row-sub">${t.loc}</div>
+        </div>
+        <div class="state-row-highlights">
+          <span class="state-highlight">Routes: ${t.routes}</span>
+          <span class="state-highlight star">${t.note}</span>
+        </div>
+      </div>
+    `).join('');
+    return;
+  }
   grid.innerHTML = SPA_TERMINALS.map(t => `
     <div class="state-card">
       <div class="state-card-header">
@@ -2384,7 +2625,10 @@ function renderInternational(country) {
     grid.innerHTML = '<p style="color:var(--text-muted);padding:20px">No international benefits found for this selection.</p>';
     return;
   }
-  grid.innerHTML = data.map(b => `
+  grid.style.display = viewMode === 'list' ? 'flex' : 'grid';
+  grid.style.flexDirection = viewMode === 'list' ? 'column' : '';
+  grid.style.gap = viewMode === 'list' ? '8px' : '14px';
+  grid.innerHTML = data.map(b => viewMode === 'list' ? renderGenericRow(b, { sub: `${b.country}${b.region ? ' · ' + b.region : ''} · ${b.sub}` }) : `
     <div class="benefit-card" onclick="openBenefitModal('${b.id}')">
       <button class="fav-btn ${isFaved(b.id) ? 'saved' : ''}" onclick="toggleFav('${b.id}', event)" title="${isFaved(b.id) ? 'Remove' : 'Save'}">${isFaved(b.id) ? '⭐' : '☆'}</button>
       <div class="benefit-card-top">
@@ -2448,6 +2692,22 @@ function renderStates(q) {
 
   document.getElementById('states-count').textContent = data.length + ' STATES';
 
+  grid.classList.toggle('is-list', viewMode === 'list');
+  if (viewMode === 'list') {
+    grid.innerHTML = data.map(s => `
+      <div class="state-row">
+        <div class="state-row-abbr">${s.abbr}</div>
+        <div class="state-row-main">
+          <div class="state-row-name">${s.name}</div>
+        </div>
+        <div class="state-row-highlights">
+          ${s.stars.slice(0,1).map(st => `<span class="state-highlight star">⭐ ${st}</span>`).join('')}
+          ${s.highlights.filter(h => !s.stars.includes(h)).slice(0,2).map(h => `<span class="state-highlight">${h}</span>`).join('')}
+        </div>
+      </div>
+    `).join('');
+    return;
+  }
   grid.innerHTML = data.map(s => `
     <div class="state-card">
       <div class="state-card-header">
@@ -2465,7 +2725,10 @@ function renderStates(q) {
 /* ---- SEASONAL ---- */
 function renderSeasonal() {
   const grid = document.getElementById('seasonal-grid');
-  grid.innerHTML = SEASONAL.map(s => `
+  grid.style.display = viewMode === 'list' ? 'flex' : 'grid';
+  grid.style.flexDirection = viewMode === 'list' ? 'column' : '';
+  grid.style.gap = viewMode === 'list' ? '8px' : '14px';
+  grid.innerHTML = SEASONAL.map(s => viewMode === 'list' ? renderGenericRow(s, { sub: s.event }) : `
     <div class="benefit-card" onclick="openBenefitModal('${s.id}')">
       <div class="seasonal-badge" style="right:14px">Seasonal</div>
       <button class="fav-btn ${isFaved(s.id) ? 'saved' : ''}" onclick="toggleFav('${s.id}', event)" title="${isFaved(s.id) ? 'Remove' : 'Save'}" style="right:46px">${isFaved(s.id) ? '⭐' : '☆'}</button>
@@ -2493,7 +2756,12 @@ function renderSeasonal() {
 /* ---- OCONUS VA CARE ---- */
 function renderOconusVA() {
   const grid = document.getElementById('oconusva-grid');
-  grid.innerHTML = OCONUS_VA.map(v => `
+  grid.style.display = viewMode === 'list' ? 'flex' : 'grid';
+  grid.style.flexDirection = viewMode === 'list' ? 'column' : '';
+  grid.style.gap = viewMode === 'list' ? '8px' : '14px';
+  grid.innerHTML = OCONUS_VA.map(v => viewMode === 'list'
+    ? renderGenericRow(v, { sub: `${v.country} · ${v.sub}`, discountFallback: v.waitData.noData ? 'Wait: no data' : 'Wait: documented' })
+    : `
     <div class="benefit-card" onclick="openBenefitModal('${v.id}')">
       <button class="fav-btn ${isFaved(v.id) ? 'saved' : ''}" onclick="toggleFav('${v.id}', event)" title="${isFaved(v.id) ? 'Remove' : 'Save'}">${isFaved(v.id) ? '⭐' : '☆'}</button>
       <div class="benefit-card-top">
@@ -2531,6 +2799,10 @@ function renderOconusVA() {
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('print-date').textContent = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('view-btn-list').classList.toggle('active', viewMode === 'list');
+  document.getElementById('view-btn-card').classList.toggle('active', viewMode === 'card');
+  document.getElementById('view-btn-list').setAttribute('aria-pressed', viewMode === 'list');
+  document.getElementById('view-btn-card').setAttribute('aria-pressed', viewMode === 'card');
   updateFavUI();
   renderBenefits();
   renderAFRC();
