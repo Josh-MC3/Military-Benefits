@@ -298,34 +298,35 @@ select.filter-select:focus { border-color: var(--navy-600); }
 }
 .benefit-row {
   background: var(--white); border: 1px solid var(--border);
-  border-radius: var(--radius-md); padding: 12px 16px;
+  border-radius: var(--radius-md); padding: 21px 16px;
   display: flex; align-items: center; gap: 14px;
   cursor: pointer; transition: all .15s; position: relative;
+  min-height: 84px;
 }
 .benefit-row:hover { border-color: var(--chalk-300); box-shadow: var(--shadow-sm); background: var(--chalk); }
 .benefit-row-fav {
-  background: transparent; border: none; font-size: 17px; cursor: pointer;
+  background: transparent; border: none; font-size: 20px; cursor: pointer;
   flex-shrink: 0; line-height: 1; padding: 2px; color: var(--text-muted);
 }
 .benefit-row-fav.saved { color: var(--brass-500); }
 .benefit-row-icon {
-  width: 34px; height: 34px; border-radius: var(--radius-sm); flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center; font-size: 16px;
+  width: 50px; height: 50px; border-radius: var(--radius-sm); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 22px;
 }
-.benefit-row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
-.benefit-row-org { font-weight: 700; font-size: 14px; color: var(--text-primary); line-height: 1.3; }
+.benefit-row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.benefit-row-org { font-weight: 700; font-size: 16px; color: var(--text-primary); line-height: 1.3; }
 .benefit-row-desc {
-  font-size: 12px; color: var(--text-muted); line-height: 1.3;
+  font-size: 13px; color: var(--text-muted); line-height: 1.4;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .benefit-row-cat {
-  font-size: 10px; color: var(--text-muted); text-transform: uppercase;
+  font-size: 11px; color: var(--text-muted); text-transform: uppercase;
   letter-spacing: 0.06em; flex-shrink: 0; width: 110px; white-space: nowrap;
   overflow: hidden; text-overflow: ellipsis;
 }
 .benefit-row-elig { display: flex; gap: 3px; flex-shrink: 0; max-width: 160px; overflow: hidden; }
 .benefit-row-discount {
-  font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 14px;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 16px;
   color: var(--navy-800); flex-shrink: 0; width: 130px; text-align: right;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
@@ -334,34 +335,35 @@ select.filter-select:focus { border-color: var(--navy-600); }
 
 @media (max-width: 768px) {
   .benefit-row-cat, .benefit-row-elig { display: none; }
-  .benefit-row-discount { width: 90px; font-size: 13px; }
+  .benefit-row-discount { width: 90px; font-size: 14px; }
 }
 
 /* ---- AFRC LIST ROW ---- */
 .afrc-row {
   background: var(--white); border: 1px solid var(--border);
-  border-radius: var(--radius-md); padding: 12px 16px;
+  border-radius: var(--radius-md); padding: 21px 16px;
   display: flex; align-items: center; gap: 14px;
   cursor: pointer; transition: all .15s;
+  min-height: 84px;
 }
 .afrc-row:hover { border-color: var(--chalk-300); box-shadow: var(--shadow-sm); background: var(--chalk); }
 .afrc-row-icon {
-  width: 40px; height: 40px; border-radius: var(--radius-sm); flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center; font-size: 20px;
+  width: 56px; height: 56px; border-radius: var(--radius-sm); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 26px;
   color: white;
 }
-.afrc-row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
-.afrc-row-name { font-weight: 700; font-size: 14px; color: var(--text-primary); }
-.afrc-row-location { font-size: 12px; color: var(--text-muted); }
+.afrc-row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.afrc-row-name { font-weight: 700; font-size: 16px; color: var(--text-primary); }
+.afrc-row-location { font-size: 13px; color: var(--text-muted); }
 .afrc-row-rate {
-  font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 15px;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 17px;
   color: var(--navy-800); flex-shrink: 0; width: 110px; text-align: right;
 }
 .afrc-row-elig { display: flex; gap: 3px; flex-shrink: 0; max-width: 180px; overflow: hidden; }
 .afrc-row-badge {
-  font-size: 9px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
   color: var(--navy-600); background: rgba(30,58,122,.08); border-radius: 4px;
-  padding: 3px 8px; flex-shrink: 0; white-space: nowrap;
+  padding: 4px 9px; flex-shrink: 0; white-space: nowrap;
 }
 @media (max-width: 768px) {
   .afrc-row-elig, .afrc-row-badge { display: none; }
@@ -370,18 +372,19 @@ select.filter-select:focus { border-color: var(--navy-600); }
 /* ---- STATE/TERMINAL LIST ROW ---- */
 .state-row {
   background: var(--white); border: 1px solid var(--border);
-  border-radius: var(--radius-md); padding: 10px 16px;
+  border-radius: var(--radius-md); padding: 18px 16px;
   display: flex; align-items: center; gap: 14px;
+  min-height: 70px;
 }
 .state-row-abbr {
-  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0;
   background: var(--navy-800); color: white; display: flex; align-items: center;
-  justify-content: center; font-weight: 800; font-size: 12px;
+  justify-content: center; font-weight: 800; font-size: 14px;
   font-family: 'Barlow Condensed', sans-serif;
 }
 .state-row-main { flex: 1; min-width: 0; }
-.state-row-name { font-weight: 700; font-size: 14px; color: var(--text-primary); }
-.state-row-sub { font-size: 11px; color: var(--text-muted); }
+.state-row-name { font-weight: 700; font-size: 16px; color: var(--text-primary); }
+.state-row-sub { font-size: 12px; color: var(--text-muted); }
 .state-row-highlights {
   display: flex; gap: 6px; flex-wrap: nowrap; overflow: hidden;
   flex-shrink: 1; max-width: 55%;
@@ -747,6 +750,17 @@ select.filter-select:focus { border-color: var(--navy-600); }
 .country-btn:hover { border-color: var(--navy-500); color: var(--navy-700); }
 .country-btn.active { background: var(--navy-800); color: var(--white); border-color: var(--navy-800); }
 
+.subtab-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.subtab-btn {
+  padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  border: 1px solid var(--border); background: var(--white);
+  cursor: pointer; transition: all .15s; color: var(--text-secondary);
+}
+.subtab-btn:hover { border-color: var(--brass-400); color: var(--navy-700); }
+.subtab-btn.active { background: var(--brass-500); color: var(--navy-950); border-color: var(--brass-500); }
+.travel-subpanel { display: none; }
+.travel-subpanel.active { display: block; }
+
 /* ================================================
    FOOTER
    ================================================ */
@@ -999,11 +1013,12 @@ footer {
     <span class="nav-logo-text">Mil<span>Benefits</span></span>
   </a>
   <div class="nav-links">
-    <a href="#afrc-section" class="nav-link">AFRC Resorts</a>
-    <a href="#benefits-section" class="nav-link">All Benefits</a>
-    <a href="#space-a-section" class="nav-link">Space-A</a>
-    <a href="#international-section" class="nav-link">International</a>
-    <a href="#states-section" class="nav-link">State Benefits</a>
+    <a href="#main" class="nav-link" onclick="navGoToTab('all', this); return false;">All</a>
+    <a href="#main" class="nav-link" onclick="navGoToTab('travel', this); return false;">Travel / Lodging</a>
+    <a href="#main" class="nav-link" onclick="navGoToTab('stores', this); return false;">Stores</a>
+    <a href="#main" class="nav-link" onclick="navGoToTab('restaurants', this); return false;">Restaurants</a>
+    <a href="#main" class="nav-link" onclick="navGoToTab('states', this); return false;">State Benefits</a>
+    <a href="#main" class="nav-link" onclick="navGoToTab('vacareabroad', this); return false;">VA Care Abroad</a>
   </div>
   <div class="nav-search-wrap">
     <span class="nav-search-icon">🔍</span>
@@ -1143,13 +1158,13 @@ footer {
   <!-- TABS -->
   <div class="tabs-row">
     <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('benefits', this)">All Benefits</button>
-      <button class="tab-btn" onclick="switchTab('afrc', this)">AFRC Resorts</button>
-      <button class="tab-btn" onclick="switchTab('spacea', this)">Space-A Travel</button>
-      <button class="tab-btn" onclick="switchTab('international', this)">International</button>
-      <button class="tab-btn" onclick="switchTab('states', this)">State Benefits</button>
-      <button class="tab-btn" onclick="switchTab('oconusva', this)">OCONUS VA Care</button>
-      <button class="tab-btn" onclick="switchTab('seasonal', this)">Seasonal</button>
+      <button class="tab-btn active" onclick="switchTab('all', this)" id="tab-btn-all">All</button>
+      <button class="tab-btn" onclick="switchTab('travel', this)" id="tab-btn-travel">Travel / Lodging</button>
+      <button class="tab-btn" onclick="switchTab('stores', this)" id="tab-btn-stores">Stores</button>
+      <button class="tab-btn" onclick="switchTab('restaurants', this)" id="tab-btn-restaurants">Restaurants</button>
+      <button class="tab-btn" onclick="switchTab('states', this)" id="tab-btn-states">State Benefits</button>
+      <button class="tab-btn" onclick="switchTab('vacareabroad', this)" id="tab-btn-vacareabroad">VA Care Abroad</button>
+      <button class="tab-btn" onclick="switchTab('other', this)" id="tab-btn-other">Other Benefits</button>
       <button class="tab-btn" onclick="switchTab('favorites', this)" id="tab-btn-favorites" style="color:var(--brass-500)">⭐ My Saved</button>
     </div>
     <div class="view-toggle" id="view-toggle" role="group" aria-label="Switch between list and card view">
@@ -1162,110 +1177,156 @@ footer {
     </div>
   </div>
 
-  <!-- ==================== TAB: ALL BENEFITS ==================== -->
-  <div class="tab-panel active" id="tab-benefits">
-    <div id="benefits-grid"></div>
+  <!-- ==================== TAB: ALL ==================== -->
+  <div class="tab-panel active" id="tab-all">
+    <div id="all-grid"></div>
     <div id="no-results">
       <h3>No Results Found</h3>
       <p>Try adjusting your search or filters.</p>
     </div>
   </div>
 
-  <!-- ==================== TAB: AFRC RESORTS ==================== -->
-  <div class="tab-panel" id="tab-afrc">
-    <div id="afrc-section">
+  <!-- ==================== TAB: TRAVEL / LODGING ==================== -->
+  <div class="tab-panel" id="tab-travel">
+
+    <!-- Sub-nav within Travel/Lodging -->
+    <div class="subtab-row" id="travel-subtabs">
+      <button class="subtab-btn active" data-travelsub="general" onclick="switchTravelSub(this)">General Travel Benefits</button>
+      <button class="subtab-btn" data-travelsub="afrc" onclick="switchTravelSub(this)">AFRC Resorts</button>
+      <button class="subtab-btn" data-travelsub="spacea" onclick="switchTravelSub(this)">Space-A Travel</button>
+      <button class="subtab-btn" data-travelsub="international" onclick="switchTravelSub(this)">International</button>
+    </div>
+
+    <!-- GENERAL TRAVEL BENEFITS -->
+    <div class="travel-subpanel active" id="travelsub-general">
       <div class="section-header">
-        <h2 class="section-title">Armed Forces Recreation Centers</h2>
-        <span class="section-badge">5 PROPERTIES</span>
+        <h2 class="section-title">Travel & Lodging Benefits</h2>
+        <span class="section-badge" id="travel-general-count">TRAVEL</span>
       </div>
       <div class="tip-box">
-        <strong>💡 Pro Tip:</strong> AFRC properties offer some of the most extraordinary value in military benefits — Shades of Green puts you inside Disney World for a fraction of civilian resort rates. Booking windows open early and fill fast; set calendar reminders for your eligible window. All properties accept CAC/Military ID; some allow DD-214 for veterans.
+        <strong>💡 Tip:</strong> This covers hotel chains, rental cars, cruises, theme parks (including National Parks), and vacation clubs. For AFRC resorts, Space-A flights, or international/OCONUS lodging, use the sub-tabs above.
       </div>
-      <div class="afrc-grid" id="afrc-grid"></div>
+      <div id="travel-general-grid"></div>
     </div>
-  </div>
 
-  <!-- ==================== TAB: SPACE-A ==================== -->
-  <div class="tab-panel" id="tab-spacea">
-    <div id="space-a-section">
-      <div class="section-header">
-        <h2 class="section-title">Space-Available (Space-A) Travel</h2>
-        <span class="section-badge">FREE MILITARY FLIGHTS</span>
+    <!-- AFRC RESORTS -->
+    <div class="travel-subpanel" id="travelsub-afrc">
+      <div id="afrc-section">
+        <div class="section-header">
+          <h2 class="section-title">Armed Forces Recreation Centers</h2>
+          <span class="section-badge">5 PROPERTIES</span>
+        </div>
+        <div class="tip-box">
+          <strong>💡 Pro Tip:</strong> AFRC properties offer some of the most extraordinary value in military benefits — Shades of Green puts you inside Disney World for a fraction of civilian resort rates. Booking windows open early and fill fast; set calendar reminders for your eligible window. All properties accept CAC/Military ID; some allow DD-214 for veterans.
+        </div>
+        <div class="afrc-grid" id="afrc-grid"></div>
       </div>
+    </div>
 
-      <div class="space-a-banner">
-        <div class="space-a-icon">✈️</div>
-        <div class="space-a-content">
-          <h3>Military's Best-Kept Travel Secret</h3>
-          <p>Space-Available travel allows eligible military personnel and their families to fly on Department of Defense aircraft at no cost or minimal cost on a space-available basis. With over 60 AMC terminal locations worldwide, this benefit can enable international travel for essentially free — the catch is flexibility in schedule.</p>
+    <!-- SPACE-A -->
+    <div class="travel-subpanel" id="travelsub-spacea">
+      <div id="space-a-section">
+        <div class="section-header">
+          <h2 class="section-title">Space-Available (Space-A) Travel</h2>
+          <span class="section-badge">FREE MILITARY FLIGHTS</span>
+        </div>
+
+        <div class="space-a-banner">
+          <div class="space-a-icon">✈️</div>
+          <div class="space-a-content">
+            <h3>Military's Best-Kept Travel Secret</h3>
+            <p>Space-Available travel allows eligible military personnel and their families to fly on Department of Defense aircraft at no cost or minimal cost on a space-available basis. With over 60 AMC terminal locations worldwide, this benefit can enable international travel for essentially free — the catch is flexibility in schedule.</p>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Space-A Priority Categories</div>
+          <table class="priority-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Priority Level</th>
+                <th>Who Qualifies</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>CAT I</strong></td><td>Highest</td><td>Emergency leave (EFMP)</td><td>Verified commander authorization required</td></tr>
+              <tr><td><strong>CAT II</strong></td><td>Very High</td><td>Environmental & morale leave; EML dependents</td><td>Overseas-to-CONUS for >365 days TDY</td></tr>
+              <tr><td><strong>CAT III</strong></td><td>High</td><td>Ordinary leave (Active Duty)</td><td>Must be on approved leave orders</td></tr>
+              <tr><td><strong>CAT IV</strong></td><td>Medium</td><td>Unaccompanied family members (overseas)</td><td>Dependents of OCONUS-stationed member</td></tr>
+              <tr><td><strong>CAT V</strong></td><td>Standard</td><td>Permissive TDY, retirees, 100% P&T vets, activated Reservists</td><td>Most common category for retirees</td></tr>
+              <tr><td><strong>CAT VI</strong></td><td>Lowest</td><td>Retirees traveling outside CONUS</td><td>Reserve/Guard retirees age 60+ also qualify</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-title">Key AMC Terminals for Pacific / OCONUS Travel</div>
+          <div class="states-grid" id="terminals-grid"></div>
+        </div>
+
+        <div class="info-box">
+          <div class="info-box-title">⚠️ Space-A Essentials</div>
+          <ul style="padding-left:18px;line-height:2">
+            <li>Sign up at the AMC terminal in person, via email, or via <a href="https://www.amc.af.mil/AMC-Travel-Site/Space-A/" target="_blank" style="color:var(--navy-700)">AMC website</a></li>
+            <li>Registration is valid for <strong>60 days</strong>; re-register before expiration</li>
+            <li>Once manifested, you have priority to complete your trip home</li>
+            <li>Pets are generally not allowed; contact terminal for current policy</li>
+            <li>Passports required for international travel (even for SOFA countries)</li>
+            <li>OCONUS eligible: Active duty, retirees, 100% P&T disabled vets, and their dependents</li>
+          </ul>
         </div>
       </div>
+    </div>
 
-      <div class="modal-section">
-        <div class="modal-section-title">Space-A Priority Categories</div>
-        <table class="priority-table">
-          <thead>
-            <tr>
-              <th>Category</th>
-              <th>Priority Level</th>
-              <th>Who Qualifies</th>
-              <th>Notes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td><strong>CAT I</strong></td><td>Highest</td><td>Emergency leave (EFMP)</td><td>Verified commander authorization required</td></tr>
-            <tr><td><strong>CAT II</strong></td><td>Very High</td><td>Environmental & morale leave; EML dependents</td><td>Overseas-to-CONUS for >365 days TDY</td></tr>
-            <tr><td><strong>CAT III</strong></td><td>High</td><td>Ordinary leave (Active Duty)</td><td>Must be on approved leave orders</td></tr>
-            <tr><td><strong>CAT IV</strong></td><td>Medium</td><td>Unaccompanied family members (overseas)</td><td>Dependents of OCONUS-stationed member</td></tr>
-            <tr><td><strong>CAT V</strong></td><td>Standard</td><td>Permissive TDY, retirees, 100% P&T vets, activated Reservists</td><td>Most common category for retirees</td></tr>
-            <tr><td><strong>CAT VI</strong></td><td>Lowest</td><td>Retirees traveling outside CONUS</td><td>Reserve/Guard retirees age 60+ also qualify</td></tr>
-          </tbody>
-        </table>
-      </div>
+    <!-- INTERNATIONAL -->
+    <div class="travel-subpanel" id="travelsub-international">
+      <div id="international-section">
+        <div class="section-header">
+          <h2 class="section-title">International Military Benefits</h2>
+          <span class="section-badge">WORLDWIDE</span>
+        </div>
 
-      <div class="modal-section">
-        <div class="modal-section-title">Key AMC Terminals for Pacific / OCONUS Travel</div>
-        <div class="states-grid" id="terminals-grid"></div>
-      </div>
+        <div class="country-tabs" id="country-tabs">
+          <button class="country-btn active" data-country="all" onclick="filterCountry(this)">🌐 All</button>
+          <button class="country-btn" data-country="Japan" onclick="filterCountry(this)">🇯🇵 Japan</button>
+          <button class="country-btn" data-country="South Korea" onclick="filterCountry(this)">🇰🇷 Korea</button>
+          <button class="country-btn" data-country="Germany" onclick="filterCountry(this)">🇩🇪 Germany</button>
+          <button class="country-btn" data-country="Italy" onclick="filterCountry(this)">🇮🇹 Italy</button>
+          <button class="country-btn" data-country="UK" onclick="filterCountry(this)">🇬🇧 UK / Benelux</button>
+          <button class="country-btn" data-country="Spain" onclick="filterCountry(this)">🇪🇸 Spain / Portugal</button>
+          <button class="country-btn" data-country="Hawaii" onclick="filterCountry(this)">🌺 Hawaii</button>
+          <button class="country-btn" data-country="Guam" onclick="filterCountry(this)">🏝️ Guam</button>
+          <button class="country-btn" data-country="Bahrain" onclick="filterCountry(this)">🇧🇭 Middle East</button>
+          <button class="country-btn" data-country="Australia" onclick="filterCountry(this)">🇦🇺 Pacific / AUS</button>
+        </div>
 
-      <div class="info-box">
-        <div class="info-box-title">⚠️ Space-A Essentials</div>
-        <ul style="padding-left:18px;line-height:2">
-          <li>Sign up at the AMC terminal in person, via email, or via <a href="https://www.amc.af.mil/AMC-Travel-Site/Space-A/" target="_blank" style="color:var(--navy-700)">AMC website</a></li>
-          <li>Registration is valid for <strong>60 days</strong>; re-register before expiration</li>
-          <li>Once manifested, you have priority to complete your trip home</li>
-          <li>Pets are generally not allowed; contact terminal for current policy</li>
-          <li>Passports required for international travel (even for SOFA countries)</li>
-          <li>OCONUS eligible: Active duty, retirees, 100% P&T disabled vets, and their dependents</li>
-        </ul>
+        <div id="intl-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;"></div>
       </div>
     </div>
   </div>
 
-  <!-- ==================== TAB: INTERNATIONAL ==================== -->
-  <div class="tab-panel" id="tab-international">
-    <div id="international-section">
-      <div class="section-header">
-        <h2 class="section-title">International Military Benefits</h2>
-        <span class="section-badge">WORLDWIDE</span>
-      </div>
-
-      <div class="country-tabs" id="country-tabs">
-        <button class="country-btn active" data-country="all" onclick="filterCountry(this)">🌐 All</button>
-        <button class="country-btn" data-country="Japan" onclick="filterCountry(this)">🇯🇵 Japan</button>
-        <button class="country-btn" data-country="South Korea" onclick="filterCountry(this)">🇰🇷 Korea</button>
-        <button class="country-btn" data-country="Germany" onclick="filterCountry(this)">🇩🇪 Germany</button>
-        <button class="country-btn" data-country="Italy" onclick="filterCountry(this)">🇮🇹 Italy</button>
-        <button class="country-btn" data-country="UK" onclick="filterCountry(this)">🇬🇧 UK / Benelux</button>
-        <button class="country-btn" data-country="Spain" onclick="filterCountry(this)">🇪🇸 Spain / Portugal</button>
-        <button class="country-btn" data-country="Hawaii" onclick="filterCountry(this)">🌺 Hawaii</button>
-        <button class="country-btn" data-country="Guam" onclick="filterCountry(this)">🏝️ Guam</button>
-        <button class="country-btn" data-country="Bahrain" onclick="filterCountry(this)">🇧🇭 Middle East</button>
-        <button class="country-btn" data-country="Australia" onclick="filterCountry(this)">🇦🇺 Pacific / AUS</button>
-      </div>
-
-      <div id="intl-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;"></div>
+  <!-- ==================== TAB: STORES ==================== -->
+  <div class="tab-panel" id="tab-stores">
+    <div class="section-header">
+      <h2 class="section-title">Retail & Store Discounts</h2>
+      <span class="section-badge" id="stores-count">STORES</span>
     </div>
+    <div id="stores-grid"></div>
+  </div>
+
+  <!-- ==================== TAB: RESTAURANTS ==================== -->
+  <div class="tab-panel" id="tab-restaurants">
+    <div class="section-header">
+      <h2 class="section-title">Restaurant & Food Discounts</h2>
+      <span class="section-badge" id="restaurants-count">RESTAURANTS</span>
+    </div>
+    <div class="info-box" style="margin-bottom:24px">
+      <div class="info-box-title">ℹ️ Many Are Seasonal</div>
+      A number of restaurant deals (Veterans Day free meals, Military Appreciation Month specials) only run during specific windows each year. Items marked "Seasonal" are not available year-round — always verify current dates with the restaurant before planning around them.
+    </div>
+    <div id="restaurants-grid"></div>
   </div>
 
   <!-- ==================== TAB: STATE BENEFITS ==================== -->
@@ -1292,40 +1353,37 @@ footer {
     </div>
   </div>
 
-  <!-- ==================== TAB: OCONUS VA CARE ==================== -->
-  <div class="tab-panel" id="tab-oconusva">
+  <!-- ==================== TAB: VA CARE ABROAD ==================== -->
+  <div class="tab-panel" id="tab-vacareabroad">
     <div id="oconusva-section">
       <div class="section-header">
-        <h2 class="section-title">OCONUS VA Medical Care</h2>
+        <h2 class="section-title">VA Care Abroad</h2>
         <span class="section-badge">OVERSEAS PATHWAYS</span>
       </div>
 
       <div class="tip-box">
-        <strong>💡 Reality Check:</strong> There is only <strong>one</strong> VA-operated medical facility outside the United States — the Manila VA Outpatient Clinic in the Philippines. Everywhere else overseas, "VA care" means a reimbursement program (FMP) or a referral-based exam, not a VA clinic you walk into. None of these pathways currently publish a standardized wait-time metric the way CONUS VA facilities do — this tab tells you that plainly wherever it's true rather than guessing a number.
+        <strong>💡 Reality Check:</strong> There is only <strong>one</strong> VA-operated medical facility outside the United States — the Manila VA Outpatient Clinic in the Philippines. Everywhere else overseas, "VA care" means a reimbursement program (FMP) or a referral-based exam, not a VA clinic you walk into. None of these pathways currently publish an official wait time the way CONUS VA facilities do — this tab tells you that plainly wherever it's true rather than guessing a number.
       </div>
 
       <div class="info-box" style="margin-bottom:20px">
         <div class="info-box-title">⚠️ Scope Limit That Trips People Up</div>
-        The Foreign Medical Program and the Manila VA Outpatient Clinic generally cover <strong>service-connected conditions only</strong>. A routine "full check-up" unrelated to a rated disability typically isn't a covered service under either — this is the single biggest misunderstanding veterans have about OCONUS VA care.
+        The Foreign Medical Program and the Manila VA Outpatient Clinic generally cover <strong>service-connected conditions only</strong>. A routine "full check-up" unrelated to a rated disability typically isn't a covered service under either — this is the single biggest misunderstanding veterans have about VA care abroad.
       </div>
 
       <div id="oconusva-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;"></div>
     </div>
   </div>
 
-  <!-- ==================== TAB: SEASONAL ==================== -->
-  <div class="tab-panel" id="tab-seasonal">
+  <!-- ==================== TAB: OTHER BENEFITS ==================== -->
+  <div class="tab-panel" id="tab-other">
     <div class="section-header">
-      <h2 class="section-title">Seasonal & Annual Promotions</h2>
-      <span class="section-badge">LIMITED TIME</span>
+      <h2 class="section-title">Other Benefits</h2>
+      <span class="section-badge" id="other-count">FINANCE · EDUCATION · GOVERNMENT · HEALTH · AUTO · TELECOM</span>
     </div>
-
-    <div class="info-box" style="margin-bottom:24px">
-      <div class="info-box-title">ℹ️ About Seasonal Benefits</div>
-      These promotions recur annually but are NOT permanent benefits. Dates and participation may vary year to year. Always verify current offerings directly with the organization before planning around them. Items marked with ⭐ have 90%+ annual recurrence rates.
+    <div class="tip-box">
+      <strong>💡 What's Here:</strong> Everything that doesn't fit Travel/Lodging, Stores, or Restaurants — credit unions, card benefits, GI Bill and certifications, VA disability/home loan/grants, gym memberships, auto discounts, and phone plans. Some seasonal promotions (auto sales events, etc.) also live here.
     </div>
-
-    <div id="seasonal-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;"></div>
+    <div id="other-grid"></div>
   </div>
 
   <!-- ==================== TAB: FAVORITES ==================== -->
@@ -1509,10 +1567,10 @@ const BENEFITS = [
   // -------- ENTERTAINMENT & THEME PARKS --------
   { id:"e001", org:"Shades of Green (Walt Disney World)", cat:"Travel", sub:"AFRC Resort", country:"USA", icon:"🏰", elig:["Active Duty","Reserve","Guard","Retiree","DoD Civilian","Disabled Veteran"], discount:"Deeply discounted Disney-adjacent resort", desc:"Exclusively for the military — located inside Walt Disney World between the Magic Kingdom and EPCOT. Room rates drastically below civilian Disney resorts. Free or heavily discounted park tickets available. One of the absolute crown jewels of military benefits.", src:"ShadesOfGreen.org", url:"https://www.shadesofgreen.org", seasonal:false, verified:true },
   { id:"e002", org:"Disney Theme Parks (Military Salute)", cat:"Entertainment", sub:"Theme Parks", country:"USA", icon:"🏰", elig:["Active Duty","Reserve","Guard"], discount:"Discounted 4-day / 6-day tickets", desc:"Disney's Military Salute program offers 4-day or 6-day park tickets at deeply discounted rates ($89–$99/day vs. $109–$189 standard). Available to active duty and activated Guard/Reserve. Tickets purchasable at base ITT/ITR offices or on Shades of Green website.", src:"Disney.com/military", url:"https://DisneyWorld.disney.go.com/military/", seasonal:false, verified:true },
-  { id:"e003", org:"Universal Orlando / Hollywood", cat:"Entertainment", sub:"Theme Parks", country:"USA", icon:"🎢", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"Free/Discounted tickets", desc:"Universal offers active military free 1-day tickets to both Universal Studios Florida and Islands of Adventure. Veterans and retirees receive discounts. Tickets available at USO locations, ITT offices, and Universal's military ticket portal.", src:"UniversalOrlando.com/military", url:"https://www.universalorlando.com/web/en/us/plan-your-visit/tickets-passes/military-passes/index.html", seasonal:false, verified:true },
+  { id:"e003", org:"Universal Orlando / Hollywood", cat:"Travel", sub:"Theme Parks", country:"USA", icon:"🎢", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"Free/Discounted tickets", desc:"Universal offers active military free 1-day tickets to both Universal Studios Florida and Islands of Adventure. Veterans and retirees receive discounts. Tickets available at USO locations, ITT offices, and Universal's military ticket portal.", src:"UniversalOrlando.com/military", url:"https://www.universalorlando.com/web/en/us/plan-your-visit/tickets-passes/military-passes/index.html", seasonal:false, verified:true },
   { id:"e004", org:"SeaWorld / Busch Gardens (Waves of Honor)", cat:"Entertainment", sub:"Theme Parks", country:"USA", icon:"🌊", elig:["Active Duty","Reserve","Guard"], discount:"Free single-day admission", desc:"SeaWorld's Waves of Honor program offers free single-day admission to active military members (E1–O10, W1–W5) at SeaWorld, Busch Gardens, Aquatica, and Sesame Place. One free admission per year. Family members receive discounted admission.", src:"SeaWorld.com/military", url:"https://seaworld.com/military/", seasonal:false, verified:true },
   { id:"e005", org:"Six Flags", cat:"Entertainment", sub:"Theme Parks", country:"USA", icon:"🎡", elig:["Active Duty","Reserve","Guard","Veteran"], discount:"Discounted/Free Admission", desc:"Six Flags offers complimentary admission to active duty military during annual Military Appreciation events, and discounted tickets through the Armed Forces Entertainment portal. Varies by park.", src:"SixFlags.com", url:"https://www.sixflags.com/", seasonal:false, verified:true },
-  { id:"e006", org:"National Park Service (NPC)", cat:"Entertainment", sub:"National Parks", country:"USA", icon:"🏔️", elig:["Active Duty","Reserve","Guard","Spouse","Dependent"], discount:"FREE Annual Pass", desc:"The America the Beautiful — National Parks and Federal Recreational Lands Annual Pass is FREE for current U.S. military and their dependents. Access to 2,000+ federal recreation sites, national parks, national forests, and BLM lands. Valid for entrance fees.", src:"NPS.gov/planyourvisit/military-pass", url:"https://www.nps.gov/planyourvisit/military.htm", seasonal:false, verified:true },
+  { id:"e006", org:"National Park Service (NPC)", cat:"Travel", sub:"National Parks", country:"USA", icon:"🏔️", elig:["Active Duty","Reserve","Guard","Spouse","Dependent"], discount:"FREE Annual Pass", desc:"The America the Beautiful — National Parks and Federal Recreational Lands Annual Pass is FREE for current U.S. military and their dependents. Access to 2,000+ federal recreation sites, national parks, national forests, and BLM lands. Valid for entrance fees.", src:"NPS.gov/planyourvisit/military-pass", url:"https://www.nps.gov/planyourvisit/military.htm", seasonal:false, verified:true },
   { id:"e007", org:"Smithsonian Institution", cat:"Entertainment", sub:"Museums", country:"USA", icon:"🏛️", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse","Dependent"], discount:"Free Admission (always free)", desc:"All 19 Smithsonian museums and galleries in Washington D.C. and New York are permanently free to all visitors — no military discount needed because they're always free. Includes the Air and Space Museum, National Zoo, American History Museum, and more.", src:"Si.edu", url:"https://www.si.edu/visit", seasonal:false, verified:true },
   { id:"e008", org:"Margaritaville Resorts & Hotels", cat:"Travel", sub:"Resort Discount", country:"USA", icon:"🌴", elig:["Active Duty","Reserve","Guard","Veteran","Retiree"], discount:"10–25% off (varies by property)", desc:"Margaritaville isn't one corporate discount — each resort (Gatlinburg, Biloxi, Fort Myers Beach, Hollywood Beach FL, Panama City Beach, Grand Cayman, Lake Conroe, and Camp Margaritaville RV resorts) runs its own military/veteran/first-responder rate, typically 10–25% off best available rate. Must show valid military or veteran ID at check-in; blackout dates and minimum-stay requirements vary by property. Always check the specific resort's own offers page rather than assuming one rate applies chain-wide.", src:"MargaritavilleResorts.com/offers", url:"https://www.margaritavilleresorts.com/offers", seasonal:false, verified:true },
   { id:"e009", org:"Atlantis Paradise Island (Bahamas) — Caesars SALUTE Card", cat:"Travel", sub:"Resort Discount / Loyalty Program", country:"Bahamas", icon:"🏝️", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Spouse"], discount:"10% year-round + free 4-night Coral Tower stay (select months)", desc:"The Caesars Rewards SALUTE Card is a free military loyalty program — sign up in person at any U.S. Caesars Rewards location with military ID or DD-214 to get automatic Platinum status. Platinum perks include a 10% year-round hotel discount, complimentary parking at many properties, 15% off casino gift shops, and — the headline benefit — a complimentary 4-night stay (including room taxes) at The Coral at Atlantis, Paradise Island in the Bahamas. That free-stay offer is restricted to specific months (historically January, May, September, and October), is limited to once per year, has blackout dates, and does NOT cover the mandatory daily resort fee or fees for additional guests. Booking Atlantis directly (not through SALUTE) separately advertises up to 25% off best available rates as an alternative if the free-stay window doesn't fit your travel plans.", src:"CaesarsRewards.com / Caesars Rewards Support", url:"https://www.caesars.com/myrewards/salute", seasonal:false, verified:true },
@@ -1542,7 +1600,7 @@ const BENEFITS = [
   { id:"g002", org:"VA Home Loan Guarantee", cat:"Government", sub:"Home Loan", country:"USA", icon:"🏠", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","Surviving Spouse"], discount:"Zero down payment, no PMI", desc:"VA-backed home loans allow eligible veterans to buy, build, or refinance with no down payment and no private mortgage insurance. Competitive interest rates. Funding fee waived for veterans with service-connected disability rating. Lifetime benefit — can be used multiple times.", src:"VA.gov/housing-assistance/home-loans", url:"https://www.va.gov/housing-assistance/home-loans/", seasonal:false, verified:true },
   { id:"g003", org:"VA Health Care", cat:"Government", sub:"Healthcare", country:"USA", icon:"🏥", elig:["Veteran","Disabled Veteran"], discount:"Free to low-cost health care", desc:"VA healthcare system provides comprehensive primary, specialty, mental health, and long-term care. Priority groups 1–3 (combat veterans, disabled vets, low-income) receive free care. Over 1,200 VA medical centers and clinics nationwide.", src:"VA.gov/health-care", url:"https://www.va.gov/health-care/", seasonal:false, verified:true },
   { id:"g004", org:"Military Star Card (Exchange Credit Card)", cat:"Finance", sub:"Credit Card", country:"USA", icon:"💳", elig:["Active Duty","Reserve","Guard","Veteran","Retiree","DoD Civilian"], discount:"10% off first purchase, 2% rewards", desc:"The Military Star card offers 10% off first day of purchases at military exchanges, 2% rewards on Exchange purchases, 1% on all other purchases. No foreign transaction fees. Can be used anywhere Mastercard accepted. Low APR for military.", src:"myECP.com/STAR", url:"https://www.myecp.com/public/pers/starcard/star_card_index.html", seasonal:false, verified:true },
-  { id:"g005", org:"National Parks Pass (Military)", cat:"Entertainment", sub:"National Parks", country:"USA", icon:"🏞️", elig:["Active Duty","Reserve","Guard","Spouse","Dependent"], discount:"Free Annual Pass ($80 value)", desc:"Current U.S. military and their dependents get a free America the Beautiful Annual Pass valid at all federal recreation lands. Obtain at any federal recreation site entrance or contact your base ITT. This single benefit saves families $80/year and unlocks 2,000+ park sites.", src:"NPS.gov/military", url:"https://www.nps.gov/planyourvisit/military.htm", seasonal:false, verified:true },
+  { id:"g005", org:"National Parks Pass (Military)", cat:"Travel", sub:"National Parks", country:"USA", icon:"🏞️", elig:["Active Duty","Reserve","Guard","Spouse","Dependent"], discount:"Free Annual Pass ($80 value)", desc:"Current U.S. military and their dependents get a free America the Beautiful Annual Pass valid at all federal recreation lands. Obtain at any federal recreation site entrance or contact your base ITT. This single benefit saves families $80/year and unlocks 2,000+ park sites.", src:"NPS.gov/military", url:"https://www.nps.gov/planyourvisit/military.htm", seasonal:false, verified:true },
   { id:"g006", org:"Hivers and Strivers", cat:"Government", sub:"Veteran Business Grant/Investment", country:"USA", icon:"💼", elig:["Veteran"], discount:"$250,000–$1,000,000 (equity investment, not a grant)", desc:"Hivers and Strivers is an angel investment group — not a grant — that invests $250,000 to $1 million in exchange for equity, exclusively in startups founded by graduates of the U.S. military academies (West Point, Annapolis, Air Force Academy, etc.). Since 2009 it has invested in over 20 veteran-founded companies. Most investors are veterans themselves and senior executives across a range of industries. This is the most capital-intensive option on this list but requires giving up equity, unlike the grant programs below.", src:"HiversandStrivers.com", url:"https://hiversandstrivers.com/", seasonal:false, verified:true },
   { id:"g007", org:"Stephen L. Tadlock Veteran Grant", cat:"Government", sub:"Veteran Business Microgrant", country:"USA", icon:"💰", elig:["Veteran","Disabled Veteran"], discount:"$1,000 microgrants to 20–25 recipients annually", desc:"Offered through Founders First, the Stephen L. Tadlock Veteran Grant provides $1,000 microgrants annually to 20–25 disabled veterans and veteran-owned small businesses (2–100 employees, under $5M revenue). Smaller dollar amount than other programs on this list, but winners also gain access to webinars, training, and networking opportunities to support business growth — the non-cash support is often as valuable as the microgrant itself for early-stage businesses.", src:"FoundersFirstCDC.org", url:"https://foundersfirstcdc.org/", seasonal:false, verified:true },
   { id:"g008", org:"Second Service Foundation — Military Entrepreneur Challenge", cat:"Government", sub:"Veteran Business Grant", country:"USA", icon:"🎯", elig:["Veteran","Active Duty"], discount:"Grant via pitch competition", desc:"The Military Entrepreneur Challenge (MEC), run by the Second Service Foundation, is a pitch-competition grant program: register online, go through speed coaching, then deliver a private pitch session in front of a judging panel for a chance to win a small business grant. Unlike straightforward application-based grants, this rewards a polished pitch — useful prep if you're also considering venture capital routes like Hivers and Strivers.", src:"SecondService.org", url:"https://www.secondservice.org/", seasonal:false, verified:true },
@@ -2076,7 +2134,7 @@ function renderFavoritesTab() {
     <tr style="${i % 2 === 0 ? '' : 'background:var(--chalk)'}">
       <td style="padding:10px 16px;font-weight:600;font-size:13px">${b.icon} ${b.org}</td>
       <td style="padding:10px 16px;font-size:12px;color:var(--text-muted)">${b.cat}</td>
-      <td style="padding:10px 16px;font-size:12px;font-weight:600;color:var(--navy-700)">${b.discount.slice(0,30)}${b.discount.length > 30 ? '…' : ''}</td>
+      <td style="padding:10px 16px;font-size:12px;font-weight:600;color:var(--navy-700)">${(b.discount||'—').slice(0,30)}${(b.discount||'').length > 30 ? '…' : ''}</td>
       <td style="padding:10px 16px;font-size:11px">${b.elig.slice(0,3).join(', ')}</td>
       <td style="padding:10px 16px;font-size:11px"><a href="${b.url}" target="_blank" style="color:var(--navy-600);word-break:break-all">${b.src}</a></td>
       <td style="padding:10px 16px" class="no-print">
@@ -2096,14 +2154,14 @@ function renderFavoritesTab() {
           <div class="benefit-cat">${b.cat} · ${b.sub}</div>
         </div>
         <div class="benefit-discount">
-          <div class="benefit-discount-amount ${b.cat==='Government'?'brass':''}">${b.discount.length > 8 ? '⭐' : b.discount}</div>
-          <div class="benefit-discount-label">${b.discount.length > 8 ? b.discount.slice(0,10)+'…' : 'Off'}</div>
+          <div class="benefit-discount-amount ${b.cat==='Government'?'brass':''}">${(b.discount||'').length > 8 ? '⭐' : (b.discount||'—')}</div>
+          <div class="benefit-discount-label">${(b.discount||'').length > 8 ? b.discount.slice(0,10)+'…' : 'Off'}</div>
         </div>
       </div>
       <div class="benefit-desc">${b.desc.slice(0, 120)}${b.desc.length > 120 ? '…' : ''}</div>
       <div class="benefit-footer">
         <div class="benefit-elig-chips">${renderEligChips(b.elig)}</div>
-        <span class="benefit-source">${b.src.split('.')[0]}</span>
+        <span class="benefit-source">${(b.src || b.discount || '—').split('.')[0]}</span>
       </div>
     </div>
   `).join('');
@@ -2163,15 +2221,21 @@ function switchTab(tab, btn) {
   btn.classList.add('active');
   document.getElementById('tab-' + tab).classList.add('active');
   activeTab = tab;
+  renderActiveTab();
+}
 
-  if (tab === 'afrc') renderAFRC();
-  if (tab === 'spacea') renderSpaceA();
-  if (tab === 'international') renderInternational('all');
-  if (tab === 'states') renderStates();
-  if (tab === 'oconusva') renderOconusVA();
-  if (tab === 'seasonal') renderSeasonal();
-  if (tab === 'benefits') renderBenefits();
-  if (tab === 'favorites') renderFavoritesTab();
+/* Frozen header nav-links: route to the real tab system instead of dead anchor jumps */
+function navGoToTab(tab, navLinkEl) {
+  const tabBtn = document.getElementById('tab-btn-' + tab);
+  if (!tabBtn) return;
+  tabBtn.click();
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  if (navLinkEl) navLinkEl.classList.add('active');
+  const tabsRow = document.querySelector('.tabs-row');
+  if (tabsRow) {
+    const y = tabsRow.getBoundingClientRect().top + window.scrollY - 70;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
 }
 
 function getCategoryIcon(cat) {
@@ -2193,10 +2257,50 @@ function renderEligChips(eligArr) {
   }).join('');
 }
 
+/* ==========================================================
+   NORMALIZED "ALL" DATASET
+   Merges every source array into one common shape so the
+   All tab can search/filter/display everything, including
+   reference-only data (AFRC, Space-A, States) as synthetic
+   rows that route clicks to their real modal/section.
+   ========================================================== */
+function buildAllItems() {
+  const stdItems = [...BENEFITS, ...INTERNATIONAL, ...SEASONAL, ...OCONUS_VA];
+
+  const afrcItems = AFRC_RESORTS.map(r => ({
+    id: r.id, org: r.name, cat: 'Travel', sub: 'AFRC Resort', country: r.location.country,
+    icon: r.bgEmoji, elig: r.eligibility, discount: `$${r.rates[0].low}–${r.rates[0].high}/nt`,
+    desc: r.description, src: r.source, url: r.sourceUrl, seasonal: false, verified: true,
+    __kind: 'afrc'
+  }));
+
+  const spaceaItems = SPA_TERMINALS.map((t, i) => ({
+    id: 'spa' + i, org: t.name, cat: 'Travel', sub: 'Space-A Terminal', country: 'USA',
+    icon: '✈️', elig: ['Active Duty','Reserve','Guard','Retiree','Disabled Veteran'],
+    discount: t.note, desc: `Routes: ${t.routes}. ${t.loc}.`, src: 'AMC.af.mil', url: 'https://www.amc.af.mil/AMC-Travel-Site/Space-A/',
+    seasonal: false, verified: true, __kind: 'spacea'
+  }));
+
+  const stateItems = (() => {
+    const seen = new Set();
+    return STATE_BENEFITS.filter(s => { if (seen.has(s.abbr)) return false; seen.add(s.abbr); return true; })
+      .map(s => ({
+        id: 'state-' + s.abbr, org: s.name + ' Veteran Benefits', cat: 'Government', sub: 'State Benefits', country: 'USA',
+        icon: '🏛️', elig: ['Veteran','Disabled Veteran','Active Duty','Retiree'],
+        discount: s.stars[0] || s.highlights[0] || 'See details',
+        desc: s.highlights.join(' · '), src: s.name + ' State VA Office', url: '#', seasonal: false, verified: true,
+        __kind: 'state', __abbr: s.abbr
+      }));
+  })();
+
+  return [...stdItems, ...afrcItems, ...spaceaItems, ...stateItems];
+}
+
 function renderBenefits(filtered) {
-  const grid = document.getElementById('benefits-grid');
+  const grid = document.getElementById('all-grid');
   const noRes = document.getElementById('no-results');
-  const data = filtered || applyFilters(BENEFITS);
+  const allItems = buildAllItems();
+  const data = filtered || applyFilters(allItems);
 
   if (data.length === 0) {
     grid.innerHTML = '';
@@ -2205,17 +2309,37 @@ function renderBenefits(filtered) {
     return;
   }
   noRes.style.display = 'none';
-  document.getElementById('results-summary').textContent = `Showing ${data.length} of ${BENEFITS.length} benefits`;
+  document.getElementById('results-summary').textContent = `Showing ${data.length} of ${allItems.length} benefits`;
 
   grid.classList.toggle('is-list', viewMode === 'list');
   grid.innerHTML = data.map(b => viewMode === 'list' ? renderBenefitRow(b) : renderBenefitCard(b)).join('');
 }
 
+function openItemModal(item) {
+  if (item.__kind === 'afrc') { openAFRCModal(item.id); return; }
+  if (item.__kind === 'spacea') { switchToTravelSub('spacea'); return; }
+  if (item.__kind === 'state') {
+    document.getElementById('tab-btn-states')?.click();
+    setTimeout(() => { const el = document.getElementById('state-search'); if (el) { el.value = item.org.replace(' Veteran Benefits',''); filterStates(); } }, 50);
+    return;
+  }
+  openBenefitModal(item.id);
+}
+
+function switchToTravelSub(key) {
+  document.getElementById('tab-btn-travel')?.click();
+  setTimeout(() => {
+    const btn = document.querySelector(`.subtab-btn[data-travelsub="${key}"]`);
+    if (btn) switchTravelSub(btn);
+  }, 50);
+}
+
 function renderBenefitCard(b) {
+  const isSynthetic = !!b.__kind;
   return `
-    <div class="benefit-card" onclick="openBenefitModal('${b.id}')">
+    <div class="benefit-card" data-item-id="${b.id}" data-item-kind="${b.__kind || ''}">
       ${b.verified ? '<div class="verified-badge" title="Verified">✓</div>' : ''}
-      <button class="fav-btn ${isFaved(b.id) ? 'saved' : ''}" onclick="toggleFav('${b.id}', event)" title="${isFaved(b.id) ? 'Remove from saved' : 'Save benefit'}">${isFaved(b.id) ? '⭐' : '☆'}</button>
+      ${isSynthetic ? '' : `<button class="fav-btn ${isFaved(b.id) ? 'saved' : ''}" onclick="toggleFav('${b.id}', event)" title="${isFaved(b.id) ? 'Remove from saved' : 'Save benefit'}">${isFaved(b.id) ? '⭐' : '☆'}</button>`}
       ${b.seasonal ? '<div class="seasonal-badge" style="right:46px">Seasonal</div>' : ''}
       <div class="benefit-card-top">
         <div class="benefit-icon ${getCategoryIcon(b.cat)}">${b.icon}</div>
@@ -2224,23 +2348,24 @@ function renderBenefitCard(b) {
           <div class="benefit-cat">${b.cat} · ${b.sub}</div>
         </div>
         <div class="benefit-discount">
-          <div class="benefit-discount-amount ${b.cat==='Government'?'brass':''}">${b.discount.length > 8 ? '⭐' : b.discount}</div>
-          <div class="benefit-discount-label">${b.discount.length > 8 ? b.discount.slice(0,10)+'…' : 'Off'}</div>
+          <div class="benefit-discount-amount ${b.cat==='Government'?'brass':''}">${(b.discount||'').length > 8 ? '⭐' : (b.discount||'—')}</div>
+          <div class="benefit-discount-label">${(b.discount||'').length > 8 ? b.discount.slice(0,10)+'…' : 'Off'}</div>
         </div>
       </div>
       <div class="benefit-desc">${b.desc.slice(0, 120)}${b.desc.length > 120 ? '…' : ''}</div>
       <div class="benefit-footer">
         <div class="benefit-elig-chips">${renderEligChips(b.elig)}</div>
-        <span class="benefit-source">${b.src.split('.')[0]}</span>
+        <span class="benefit-source">${(b.src || b.discount || '—').split('.')[0]}</span>
       </div>
     </div>
   `;
 }
 
 function renderBenefitRow(b) {
+  const isSynthetic = !!b.__kind;
   return `
-    <div class="benefit-row" onclick="openBenefitModal('${b.id}')">
-      <button class="benefit-row-fav ${isFaved(b.id) ? 'saved' : ''}" onclick="toggleFav('${b.id}', event)" title="${isFaved(b.id) ? 'Remove from saved' : 'Save benefit'}">${isFaved(b.id) ? '⭐' : '☆'}</button>
+    <div class="benefit-row" data-item-id="${b.id}" data-item-kind="${b.__kind || ''}">
+      ${isSynthetic ? '<span class="benefit-row-fav" style="visibility:hidden">☆</span>' : `<button class="benefit-row-fav ${isFaved(b.id) ? 'saved' : ''}" onclick="toggleFav('${b.id}', event)" title="${isFaved(b.id) ? 'Remove from saved' : 'Save benefit'}">${isFaved(b.id) ? '⭐' : '☆'}</button>`}
       <div class="benefit-row-icon ${getCategoryIcon(b.cat)}">${b.icon}</div>
       <div class="benefit-row-main">
         <div class="benefit-row-org">${b.org}</div>
@@ -2248,21 +2373,39 @@ function renderBenefitRow(b) {
       </div>
       <div class="benefit-row-cat">${b.cat} · ${b.sub}</div>
       <div class="benefit-row-elig">${renderEligChips(b.elig)}</div>
-      <div class="benefit-row-discount ${b.cat==='Government'?'brass':''}">${b.discount}</div>
+      <div class="benefit-row-discount ${b.cat==='Government'?'brass':''}">${b.discount || '—'}</div>
       <div class="benefit-row-badges">
         ${b.verified ? '<span class="verified-badge" style="position:static" title="Verified">✓</span>' : ''}
         ${b.seasonal ? '<span class="seasonal-badge" style="position:static">Seasonal</span>' : ''}
+        ${isSynthetic ? '<span class="afrc-row-badge" title="Opens in its own section">↗</span>' : ''}
       </div>
     </div>
   `;
 }
+
+/* Delegate clicks for any data-item-id card/row (All tab synthetic AFRC/Space-A/State rows + normal items everywhere) */
+document.addEventListener('click', e => {
+  const card = e.target.closest('.benefit-row[data-item-id], .benefit-card[data-item-id]');
+  if (!card || e.target.closest('.fav-btn, .benefit-row-fav')) return;
+  const id = card.dataset.itemId;
+  const kind = card.dataset.itemKind;
+  if (kind === 'afrc') { openAFRCModal(id); return; }
+  if (kind === 'spacea') { switchToTravelSub('spacea'); return; }
+  if (kind === 'state') {
+    const abbr = id.replace('state-','');
+    document.getElementById('tab-btn-states')?.click();
+    setTimeout(() => { const el = document.getElementById('state-search'); if (el) { el.value = abbr; filterStates(); } }, 50);
+    return;
+  }
+  openBenefitModal(id);
+});
 
 function renderGenericRow(b, opts) {
   opts = opts || {};
   const subLabel = opts.sub || `${b.cat}${b.sub ? ' · ' + b.sub : ''}`;
   const discount = b.discount || opts.discountFallback || '';
   return `
-    <div class="benefit-row" onclick="openBenefitModal('${b.id}')">
+    <div class="benefit-row" data-item-id="${b.id}" data-item-kind="${b.__kind || ''}">
       <button class="benefit-row-fav ${isFaved(b.id) ? 'saved' : ''}" onclick="toggleFav('${b.id}', event)" title="${isFaved(b.id) ? 'Remove from saved' : 'Save benefit'}">${isFaved(b.id) ? '⭐' : '☆'}</button>
       <div class="benefit-row-icon ${getCategoryIcon(b.cat)}">${b.icon}</div>
       <div class="benefit-row-main">
@@ -2291,14 +2434,48 @@ function setViewMode(mode) {
 }
 
 function renderActiveTab() {
-  if (activeTab === 'benefits') renderBenefits();
-  if (activeTab === 'afrc') renderAFRC();
-  if (activeTab === 'spacea') renderSpaceA();
-  if (activeTab === 'international') renderInternational(document.querySelector('.country-btn.active')?.dataset.country || 'all');
+  if (activeTab === 'all') renderBenefits();
+  if (activeTab === 'travel') renderTravelTab();
+  if (activeTab === 'stores') renderStores();
+  if (activeTab === 'restaurants') renderRestaurants();
   if (activeTab === 'states') renderStates(document.getElementById('state-search')?.value.toLowerCase() || '');
-  if (activeTab === 'oconusva') renderOconusVA();
-  if (activeTab === 'seasonal') renderSeasonal();
+  if (activeTab === 'vacareabroad') renderOconusVA();
+  if (activeTab === 'other') renderOther();
   if (activeTab === 'favorites') renderFavoritesTab();
+}
+
+function renderTravelTab() {
+  const activeSub = document.querySelector('.subtab-btn.active')?.dataset.travelsub || 'general';
+  if (activeSub === 'general') renderTravelGeneral();
+  if (activeSub === 'afrc') renderAFRC();
+  if (activeSub === 'spacea') renderSpaceA();
+  if (activeSub === 'international') renderInternational(document.querySelector('.country-btn.active')?.dataset.country || 'all');
+}
+
+function switchTravelSub(btn) {
+  document.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.travel-subpanel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('travelsub-' + btn.dataset.travelsub).classList.add('active');
+  renderTravelTab();
+}
+
+/* ---- TRAVEL: GENERAL (everything cat:"Travel" from BENEFITS + SEASONAL travel/theme-park entries) ---- */
+function renderTravelGeneral() {
+  const grid = document.getElementById('travel-general-grid');
+  const data = [
+    ...BENEFITS.filter(b => b.cat === 'Travel'),
+    ...SEASONAL.filter(s => s.cat === 'Travel' || (s.cat === 'Entertainment'))
+  ];
+  document.getElementById('travel-general-count').textContent = data.length + ' BENEFITS';
+  grid.style.display = viewMode === 'list' ? 'flex' : 'grid';
+  grid.style.flexDirection = viewMode === 'list' ? 'column' : '';
+  grid.style.gap = viewMode === 'list' ? '8px' : '14px';
+  grid.style.gridTemplateColumns = viewMode === 'list' ? '' : 'repeat(auto-fill, minmax(300px, 1fr))';
+  grid.innerHTML = data.map(b => viewMode === 'list'
+    ? renderGenericRow(b, { sub: `${b.cat} · ${b.sub || b.event || ''}`, discountFallback: b.discount })
+    : renderBenefitCard(b)
+  ).join('');
 }
 
 function applyFilters(data) {
@@ -2306,7 +2483,7 @@ function applyFilters(data) {
     const qMatch = !searchQuery ||
       b.org.toLowerCase().includes(searchQuery) ||
       b.desc.toLowerCase().includes(searchQuery) ||
-      b.sub.toLowerCase().includes(searchQuery) ||
+      (b.sub || '').toLowerCase().includes(searchQuery) ||
       b.cat.toLowerCase().includes(searchQuery);
     const eligMatch = activeElig === 'all' || b.elig.includes(activeElig);
     const catMatch = !activeCat || b.cat === activeCat;
@@ -2319,8 +2496,10 @@ function runSearch() {
   searchQuery = document.getElementById('main-search').value.toLowerCase().trim();
   activeCat = document.getElementById('cat-filter').value;
   activeCountry = document.getElementById('country-filter').value;
-  if (activeTab === 'benefits') renderBenefits();
-  if (activeTab === 'international') renderInternational(activeCountry || 'all');
+  if (activeTab === 'all') renderBenefits();
+  if (activeTab === 'travel' && document.querySelector('.subtab-btn.active')?.dataset.travelsub === 'international') {
+    renderInternational(activeCountry || 'all');
+  }
 }
 
 document.getElementById('main-search').addEventListener('keyup', e => {
@@ -2329,7 +2508,7 @@ document.getElementById('main-search').addEventListener('keyup', e => {
 document.getElementById('nav-search-input').addEventListener('input', e => {
   document.getElementById('main-search').value = e.target.value;
   searchQuery = e.target.value.toLowerCase().trim();
-  if (activeTab === 'benefits') renderBenefits();
+  if (activeTab === 'all') renderBenefits();
 });
 
 function filterElig(btn) {
@@ -2337,6 +2516,55 @@ function filterElig(btn) {
   btn.classList.add('active');
   activeElig = btn.dataset.elig;
   renderBenefits();
+}
+
+/* ---- STORES (cat:"Retail") ---- */
+function renderStores() {
+  const grid = document.getElementById('stores-grid');
+  const data = [...BENEFITS.filter(b => b.cat === 'Retail'), ...SEASONAL.filter(s => s.cat === 'Retail')];
+  document.getElementById('stores-count').textContent = data.length + ' STORES';
+  grid.style.display = viewMode === 'list' ? 'flex' : 'grid';
+  grid.style.flexDirection = viewMode === 'list' ? 'column' : '';
+  grid.style.gap = viewMode === 'list' ? '8px' : '14px';
+  grid.style.gridTemplateColumns = viewMode === 'list' ? '' : 'repeat(auto-fill, minmax(300px, 1fr))';
+  grid.innerHTML = data.map(b => viewMode === 'list'
+    ? renderGenericRow(b, { sub: `${b.cat} · ${b.sub || b.event || ''}`, discountFallback: b.discount })
+    : renderBenefitCard(b)
+  ).join('');
+}
+
+/* ---- RESTAURANTS (cat:"Food") ---- */
+function renderRestaurants() {
+  const grid = document.getElementById('restaurants-grid');
+  const data = [...BENEFITS.filter(b => b.cat === 'Food'), ...SEASONAL.filter(s => s.cat === 'Food')];
+  document.getElementById('restaurants-count').textContent = data.length + ' RESTAURANTS';
+  grid.style.display = viewMode === 'list' ? 'flex' : 'grid';
+  grid.style.flexDirection = viewMode === 'list' ? 'column' : '';
+  grid.style.gap = viewMode === 'list' ? '8px' : '14px';
+  grid.style.gridTemplateColumns = viewMode === 'list' ? '' : 'repeat(auto-fill, minmax(300px, 1fr))';
+  grid.innerHTML = data.map(b => viewMode === 'list'
+    ? renderGenericRow(b, { sub: `${b.cat} · ${b.sub || b.event || ''}`, discountFallback: b.discount })
+    : renderBenefitCard(b)
+  ).join('');
+}
+
+/* ---- OTHER BENEFITS (Finance, Education, Government, Health, Auto, Telecom) ---- */
+function renderOther() {
+  const grid = document.getElementById('other-grid');
+  const otherCats = ['Finance','Education','Government','Health','Auto','Telecom'];
+  const data = [
+    ...BENEFITS.filter(b => otherCats.includes(b.cat)),
+    ...SEASONAL.filter(s => otherCats.includes(s.cat))
+  ];
+  document.getElementById('other-count').textContent = data.length + ' BENEFITS';
+  grid.style.display = viewMode === 'list' ? 'flex' : 'grid';
+  grid.style.flexDirection = viewMode === 'list' ? 'column' : '';
+  grid.style.gap = viewMode === 'list' ? '8px' : '14px';
+  grid.style.gridTemplateColumns = viewMode === 'list' ? '' : 'repeat(auto-fill, minmax(300px, 1fr))';
+  grid.innerHTML = data.map(b => viewMode === 'list'
+    ? renderGenericRow(b, { sub: `${b.cat} · ${b.sub || b.event || ''}`, discountFallback: b.discount })
+    : renderBenefitCard(b)
+  ).join('');
 }
 
 /* ---- AFRC ---- */
@@ -2506,13 +2734,13 @@ function openBenefitModal(id) {
         <div class="modal-item">
           <div class="modal-item-label">⏱️ Wait Time (Acceptance → Appointment)</div>
           ${b.waitData.noData
-            ? `<div class="modal-item-value"><span class="nodata-badge">No published data</span></div><div class="modal-item-sub">${b.waitData.note}</div>`
+            ? `<div class="modal-item-value"><span class="nodata-badge">No official wait time</span></div><div class="modal-item-sub">${b.waitData.note}</div>`
             : `<div class="modal-item-value" style="font-size:13px">${b.waitData.note}</div>`}
         </div>
         <div class="modal-item">
           <div class="modal-item-label">📋 Scope (Intake vs. Full Check-Up)</div>
           ${b.scopeData.noData
-            ? `<div class="modal-item-value"><span class="nodata-badge">No published data</span></div><div class="modal-item-sub">${b.scopeData.note}</div>`
+            ? `<div class="modal-item-value"><span class="nodata-badge">No official scope published</span></div><div class="modal-item-sub">${b.scopeData.note}</div>`
             : `<div class="modal-item-value" style="font-size:13px">${b.scopeData.note}</div>`}
         </div>
       </div>
@@ -2723,35 +2951,10 @@ function renderStates(q) {
 }
 
 /* ---- SEASONAL ---- */
-function renderSeasonal() {
-  const grid = document.getElementById('seasonal-grid');
-  grid.style.display = viewMode === 'list' ? 'flex' : 'grid';
-  grid.style.flexDirection = viewMode === 'list' ? 'column' : '';
-  grid.style.gap = viewMode === 'list' ? '8px' : '14px';
-  grid.innerHTML = SEASONAL.map(s => viewMode === 'list' ? renderGenericRow(s, { sub: s.event }) : `
-    <div class="benefit-card" onclick="openBenefitModal('${s.id}')">
-      <div class="seasonal-badge" style="right:14px">Seasonal</div>
-      <button class="fav-btn ${isFaved(s.id) ? 'saved' : ''}" onclick="toggleFav('${s.id}', event)" title="${isFaved(s.id) ? 'Remove' : 'Save'}" style="right:46px">${isFaved(s.id) ? '⭐' : '☆'}</button>
-      <div class="benefit-card-top">
-        <div class="benefit-icon ${getCategoryIcon(s.cat)}">${s.icon}</div>
-        <div class="benefit-meta">
-          <div class="benefit-org">${s.org}</div>
-          <div class="benefit-cat">${s.event}</div>
-        </div>
-        <div class="benefit-discount">
-          <div class="benefit-discount-amount" style="font-size:18px">${s.recurrence}</div>
-          <div class="benefit-discount-label">Return Rate</div>
-        </div>
-      </div>
-      <div style="font-size:11px;color:var(--amber-500);font-weight:600;margin-bottom:8px">📅 ${s.period}</div>
-      <div class="benefit-desc">${s.desc.slice(0,120)}…</div>
-      <div class="benefit-footer">
-        <div class="benefit-elig-chips">${renderEligChips(s.elig)}</div>
-        <span class="benefit-source">${s.discount}</span>
-      </div>
-    </div>
-  `).join('');
-}
+/* NOTE: SEASONAL records are no longer rendered as their own tab.
+   They're distributed by their cat field into Travel/Stores/Restaurants/Other —
+   see renderTravelGeneral(), renderStores(), renderRestaurants(), renderOther(). */
+
 
 /* ---- OCONUS VA CARE ---- */
 function renderOconusVA() {
@@ -2760,7 +2963,7 @@ function renderOconusVA() {
   grid.style.flexDirection = viewMode === 'list' ? 'column' : '';
   grid.style.gap = viewMode === 'list' ? '8px' : '14px';
   grid.innerHTML = OCONUS_VA.map(v => viewMode === 'list'
-    ? renderGenericRow(v, { sub: `${v.country} · ${v.sub}`, discountFallback: v.waitData.noData ? 'Wait: no data' : 'Wait: documented' })
+    ? renderGenericRow(v, { sub: `${v.country} · ${v.sub}`, discountFallback: v.waitData.noData ? 'No official wait time' : 'Wait: documented' })
     : `
     <div class="benefit-card" onclick="openBenefitModal('${v.id}')">
       <button class="fav-btn ${isFaved(v.id) ? 'saved' : ''}" onclick="toggleFav('${v.id}', event)" title="${isFaved(v.id) ? 'Remove' : 'Save'}">${isFaved(v.id) ? '⭐' : '☆'}</button>
@@ -2777,13 +2980,13 @@ function renderOconusVA() {
         <div class="va-metric-box">
           <div class="va-metric-label">⏱️ Wait Time</div>
           ${v.waitData.noData
-            ? `<span class="nodata-badge">No published data</span>`
+            ? `<span class="nodata-badge">No official wait time</span>`
             : `<div class="va-metric-value">${v.waitData.note.slice(0,70)}…</div>`}
         </div>
         <div class="va-metric-box">
           <div class="va-metric-label">📋 Scope</div>
           ${v.scopeData.noData
-            ? `<span class="nodata-badge">No published data</span>`
+            ? `<span class="nodata-badge">No official scope published</span>`
             : `<div class="va-metric-value">${v.scopeData.note.slice(0,70)}…</div>`}
         </div>
       </div>
@@ -2805,12 +3008,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('view-btn-card').setAttribute('aria-pressed', viewMode === 'card');
   updateFavUI();
   renderBenefits();
+  renderTravelGeneral();
   renderAFRC();
   renderSpaceA();
   renderInternational('all');
+  renderStores();
+  renderRestaurants();
   renderStates();
-  renderSeasonal();
   renderOconusVA();
+  renderOther();
   renderFavoritesTab();
 });
 
