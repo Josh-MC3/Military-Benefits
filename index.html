@@ -473,6 +473,23 @@ select.filter-select:focus { border-color: var(--navy-600); }
 .va-metric-value { font-size: 13px; color: var(--text-primary); line-height: 1.4; }
 .va-metric-value.nodata { color: var(--text-muted); font-style: italic; }
 
+.country-status-row {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.country-status-row:last-child { border-bottom: none; }
+.country-status-flag { font-weight: 700; font-size: 13px; min-width: 150px; flex-shrink: 0; }
+.country-status-badge {
+  display: inline-flex; align-items: center; font-size: 10px; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 9px;
+  border-radius: 4px; white-space: nowrap; flex-shrink: 0; margin-bottom: 4px;
+}
+.country-status-badge.verified { background: var(--green-100); color: var(--green-500); border: 1px solid var(--green-500); }
+.country-status-badge.partial  { background: var(--amber-100); color: var(--amber-500); border: 1px solid var(--amber-500); }
+.country-status-badge.unverified { background: #EDEBE6; color: var(--text-muted); border: 1px solid var(--chalk-300); }
+.country-status-badge.caution  { background: var(--red-100); color: var(--red-500); border: 1px solid var(--red-500); }
+.country-status-note { font-size: 12.5px; color: var(--text-secondary); line-height: 1.6; }
+
 /* ================================================
    AFRC DETAIL MODAL
    ================================================ */
@@ -1678,7 +1695,6 @@ const OCONUS_VA = [
     cat:"Government", sub:"VA-Operated Facility", country:"Philippines",
     icon:"🏥",
     elig:["Veteran","Disabled Veteran"],
-    discount:"Service-connected care",
     type:"The only VA-operated medical facility outside the U.S.",
     desc:"Located on U.S. Embassy property in Pasay City, part of VISN 21. Provides internal medicine, mental health, and select specialty care (audiology, cardiology, dermatology, ENT, pulmonology, ophthalmology). Care is limited to VA-rated, service-connected conditions; non-service-connected follow-up beyond the clinic's capability becomes the veteran's responsibility. Requires a Philippines address and local phone number to enroll.",
     waitData:{ noData:true, note:"VA does not publish a Manila-specific enrollment-to-appointment wait time. Pharmacy delivery is documented: ~2 days Metro Manila, 5 days Luzon, 8–10 days Visayas, 10–14 days Mindanao." },
@@ -1691,7 +1707,6 @@ const OCONUS_VA = [
     cat:"Government", sub:"VA Reimbursement Program", country:"Worldwide (non-CONUS)",
     icon:"🌍",
     elig:["Veteran","Disabled Veteran"],
-    discount:"Reimbursement only",
     type:"Reimbursement program, not a clinic network",
     desc:"FMP pays back veterans for care obtained from any provider abroad for a VA-rated, service-connected condition (or a condition aggravating one). No pre-authorization is required, it's a lifetime benefit with no re-registration, and there is no physical FMP office anywhere overseas — you find your own local provider and file for reimbursement. Routine, non-service-connected check-ups are explicitly NOT covered.",
     waitData:{ noData:true, note:"There is no appointment system to measure — FMP reimburses care you've already arranged with a local provider. No official 'acceptance to appointment' metric exists because there's no appointment to schedule." },
@@ -1704,7 +1719,6 @@ const OCONUS_VA = [
     cat:"Government", sub:"VA Disability Claim Process", country:"Worldwide (non-CONUS)",
     icon:"📋",
     elig:["Veteran","Disabled Veteran"],
-    discount:"Claim-scoped exam",
     type:"A process, not a facility — applies wherever you're filing a disability claim from abroad",
     desc:"For veterans abroad with an open VA disability claim, the C&P exam (used to rate or re-rate a condition) can be conducted three ways: by a VA-contracted local doctor near your residence, by a military doctor on a U.S. installation in countries with a large troop presence (Germany, Italy, South Korea, Japan), or — least commonly — by a traveling VA doctor sent overseas. VA does not reimburse travel costs for attending the exam outside the U.S., so it's scheduled as close to your address as VA's contractor network allows.",
     waitData:{ noData:true, note:"No published standard turnaround exists for OCONUS C&P scheduling. It depends entirely on contractor coverage in your country/region — VA's published exam wait-time stats are CONUS-only." },
@@ -1717,12 +1731,32 @@ const OCONUS_VA = [
     cat:"Government", sub:"Military Hospital — Veteran Access Is the Exception", country:"Worldwide (non-CONUS)",
     icon:"⛑️",
     elig:["Veteran","Disabled Veteran"],
-    discount:"Referral-based access",
     type:"Built for active duty/dependents, not a standing veteran care option",
     desc:"Facilities like Landstuhl Regional Medical Center (Germany), Yokota AB Clinic and Naval Hospital Okinawa (Japan), and Brian Allgood Army Community Hospital (South Korea) primarily serve active duty, retirees enrolled in TRICARE, and dependents. They are not a walk-in option for veterans seeking VA-covered care — any veteran access for a service-connected condition runs through the FMP or C&P pathways above, typically via a referral, not direct enrollment at the MTF.",
     waitData:{ noData:true, note:"No published metric exists for 'veteran acceptance to appointment' at these facilities because veterans (not on TRICARE/retiree status) aren't a standard patient population there." },
     scopeData:{ noData:true, note:"Scope for veteran access specifically isn't separately published by DoD or VA — access, if granted, is case-by-case through a referral, not a defined benefit package." },
     src:"Health.mil", url:"https://www.health.mil/Military-Health-Topics/Access-Cost-Quality-and-Safety/Health-Care-Availability", verified:true
+  },
+  {
+    id:"ov005",
+    org:"Direct-Billing Providers by Country",
+    cat:"Government", sub:"FMP Direct Billing — Country-by-Country Status", country:"Worldwide (non-CONUS)",
+    icon:"🏦",
+    elig:["Veteran","Disabled Veteran"],
+    discount:"Varies — verified to active fraud",
+    type:"No global FMP network exists — status varies sharply by country",
+    desc:"FMP has no required provider network anywhere; direct billing happens only when an individual hospital chooses to offer it. VA itself publishes a name-specific direct-bill list for only one country (Philippines). Everywhere else, status ranges from well-documented to an active, ongoing fraud investigation — treat 'accommodating' country lists with real caution.",
+    countryStatus:[
+      { country:"🇵🇭 Philippines", status:"verified", label:"VA-Published List", note:"VA's Manila Regional Office maintains a named direct-bill list: Medical Center Manila (Paco, Manila); The Medical City Clark & Sacred Heart Medical Center (Angeles City, Pampanga); Divine Grace Medical Center & Tanza Specialists Medical Center (Cavite); The Medical City Iloilo (Molo, Iloilo City); Manila Hearing Aid (Mandaluyong City, audiology only). A 2026 VA News comment thread alleges overbilling/unsafe-medication patterns echoing Panama's fraud case are emerging here — unverified by VA OIG as of this writing, but worth tracking." },
+      { country:"🇹🇭 Thailand", status:"verified", label:"Well-Documented, Active", note:"Bangkok Hospital Chiang Mai has run TRICARE/FMP direct billing for over a decade (direct-bills above 5,000 THB). Chiang Mai RAM Hospital and Ingjai Mental Health Clinic (Chiang Mai) are named in the local VFW Post 12074's own FMP guide. Bangkok-network hospitals are widely reported by expat veteran groups, though thresholds and inpatient/outpatient rules vary by location." },
+      { country:"🇵🇦 Panama", status:"caution", label:"Active Fraud Case — Not Recommended", note:"VA suspended numerous Panama providers after a DOJ criminal complaint against ~40 defendants (doctors, pharmacies, a hospital) for false, double-billed, and unrendered-service claims — an estimated $67M loss. A Panamanian surgeon has already pleaded guilty. Senate Veterans' Affairs Chairman Jerry Moran formally pressed VA on this in 2025. Older guides naming Hospital Nacional, Hospital Santa Fe, Hospital San Fernando (Panama City), or Hospital Chiriqui (David) predate this and should not be treated as current guidance." },
+      { country:"🇲🇽 Mexico", status:"partial", label:"Strong for C&P Exams, Thin for Direct Billing", note:"VA opened a C&P exam site in Tijuana specifically because deported veterans couldn't reasonably reach the prior closest sites, Mexico City or Guadalajara — a real, congressionally-noted access point. Direct-billing hospital claims (e.g. Lake Chapala/Ajijic area clinics) come from individual private practices marketing to veterans, not a VA-verified list." },
+      { country:"🇩🇴 Dominican Republic", status:"unverified", label:"Heavily Marketed, Not VA-Listed", note:"Several private clinics advertise FMP direct billing — Veterans Care International (Punta Cana), VCCA (Bávaro/Punta Cana/Jarabacoa), Vethci (Boca Chica), VA Foreign Medical Services (Puerto Plata/Santo Domingo). None appear on any VA-published list; treat as 'claims direct billing,' not confirmed, until verified directly with the provider and your FMP caseworker." }
+    ],
+    waitData:{ noData:true, note:"No official FMP-wide reimbursement turnaround is published. Anecdotal reports vary widely: one veteran in Australia cited ~4 months; a VA News commenter in the Philippines cited 8–10 months for a Treasury check. Treat both as unverified personal reports, not a guaranteed timeline." },
+    scopeData:{ noData:false, note:"Direct billing only changes who fronts the money — it does NOT expand what's covered. Even at a direct-billing facility, only the service-connected condition on your FMP benefits letter is paid; a routine check-up unrelated to that condition is still excluded." },
+    reference:{ label:"FMP Navigator — Provider Directory", url:"https://fmpnavigator.org/providers", note:"Independent, volunteer-run directory with maps/contact info for direct-billing facilities — currently scoped to Thailand and the Philippines only. Explicitly not affiliated with VA or the Veterans Crisis Line; verify any listing independently before relying on it." },
+    src:"VA.gov / VA Manila Regional Office", url:"https://www.benefits.va.gov/ROMANILA/active-listing-local-providers-billing-directly-fmp.asp", verified:true
   },
 ];
 
@@ -2199,7 +2233,7 @@ function openBenefitModal(id) {
         <div style="color:rgba(255,255,255,.6);font-size:13px;margin-top:2px">${b.cat} · ${b.sub}</div>
       </div>
       <div style="margin-left:auto;text-align:right">
-        ${b.discount ? `<div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:var(--brass-300)">${b.discount.slice(0,20)}</div>` : ''}
+        ${b.discount ? `<div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:var(--brass-300)">${b.discount.slice(0,20)}</div>` : isOconusVA ? `<div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;color:var(--brass-300);max-width:220px">${b.type}</div>` : ''}
         <button onclick="toggleFav('${b.id}', event)" style="margin-top:6px;background:${faved ? 'var(--brass-500)' : 'rgba(255,255,255,.1)'};border:1px solid ${faved ? 'var(--brass-400)' : 'rgba(255,255,255,.2)'};color:${faved ? 'var(--navy-950)' : 'var(--white)'};border-radius:20px;padding:5px 14px;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:.04em" id="modal-fav-btn">
           ${faved ? '⭐ Saved' : '☆ Save'}
         </button>
@@ -2230,6 +2264,29 @@ function openBenefitModal(id) {
             : `<div class="modal-item-value" style="font-size:13px">${b.scopeData.note}</div>`}
         </div>
       </div>
+    </div>
+    ` : ''}
+
+    ${b.countryStatus ? `
+    <div class="modal-section">
+      <div class="modal-section-title">Direct-Billing Status by Country</div>
+      ${b.countryStatus.map(c => `
+        <div class="country-status-row">
+          <div class="country-status-flag">${c.country}</div>
+          <div style="flex:1">
+            <span class="country-status-badge ${c.status}">${c.label}</span>
+            <div class="country-status-note">${c.note}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    ` : ''}
+
+    ${b.reference ? `
+    <div class="info-box" style="margin-bottom:28px">
+      <div class="info-box-title">🔗 Third-Party Reference (Not VA-Affiliated)</div>
+      <strong>${b.reference.label}</strong> — ${b.reference.note}<br/>
+      <a href="${b.reference.url}" target="_blank" style="color:var(--navy-700);font-weight:600">${b.reference.url}</a>
     </div>
     ` : ''}
 
